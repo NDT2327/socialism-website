@@ -1,0 +1,15 @@
+h1 {
+  color: #2a3f54;
+}
+
+button {
+  padding: 10px 15px;
+  background: #2a3f54;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1b2b3a;
+}

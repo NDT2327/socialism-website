@@ -1,0 +1,1 @@
+console.log("Thực tiễn VN module loaded");

@@ -1,0 +1,1 @@
+console.log("Liên minh giai cấp module loaded");
