@@ -1,2 +1,488 @@
-<h1>Quiz</h1>
-<p>Bài trắc nghiệm tương tác.</p>
+<div class="fade-in">
+    <h1 class="section-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
+    
+    <div class="content-section">
+        <div class="hero" style="text-align: center; padding: 2rem;">
+            <h2><i class="fas fa-trophy"></i> Thử thách trí tuệ về cơ cấu xã hội - giai cấp!</h2>
+            <p>Khám phá kiến thức qua các thử thách thú vị và tích lũy điểm số cao nhất!</p>
+        </div>
+    </div>
+
+    <!-- Game Menu - IMPROVED LAYOUT -->
+    <div id="game-menu" class="game-container">
+        <!-- Game Mode Selection with Better Layout -->
+        <div style="background: white; border-radius: 24px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border: 1px solid rgba(214, 48, 49, 0.1);">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <h3 style="color: var(--primary-red); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">
+                    <i class="fas fa-play-circle"></i> Chọn chế độ chơi
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Mỗi chế độ mang đến trải nghiệm học tập khác nhau</p>
+            </div>
+
+            <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <!-- Classic Mode -->
+                <div class="game-mode-card" data-mode="classic" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(32, 201, 151, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Cổ điển</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">8 câu hỏi liên tiếp, tăng dần độ khó</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(40, 167, 69, 0.1);">
+                            <div style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">60s/câu</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(40, 167, 69, 0.1);">
+                            <div style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-star"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">1000 điểm tối đa</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-play"></i>
+                        Bắt đầu
+                    </button>
+                </div>
+
+                <!-- Speed Mode -->
+                <div class="game-mode-card" data-mode="speed" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 179, 0, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ffc107, #ffb300); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #2d3436; font-size: 2rem; box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Tốc độ</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Trả lời nhanh trong thời gian giới hạn</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.1);">
+                            <div style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">30s/câu</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.1);">
+                            <div style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-fire"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Combo x1.5</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #ffc107, #ffb300); color: #2d3436; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-rocket"></i>
+                        Thử thách
+                    </button>
+                </div>
+
+                <!-- Survival Mode -->
+                <div class="game-mode-card" data-mode="survival" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(231, 76, 60, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dc3545, #e74c3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(220, 53, 69, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Sinh tồn</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">3 mạng sống, sai 3 câu là kết thúc</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(220, 53, 69, 0.1);">
+                            <div style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-heart"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">3 mạng</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(220, 53, 69, 0.1);">
+                            <div style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-infinity"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Điểm x2</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #dc3545, #e74c3c); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-shield-alt"></i>
+                        Sinh tồn
+                    </button>
+                </div>
+
+                <!-- Review Mode -->
+                <div class="game-mode-card" data-mode="review" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(155, 89, 182, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #007bff, #0056b3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Ôn tập</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Học và luyện tập theo từng chủ đề</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(0, 123, 255, 0.1);">
+                            <div style="color: #007bff; margin-bottom: 0.5rem;"><i class="fas fa-list"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Theo chủ đề</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(0, 123, 255, 0.1);">
+                            <div style="color: #007bff; margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Có giải thích</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #007bff, #0056b3); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-book"></i>
+                        Ôn tập
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="content-section">
+            <h2 class="section-subtitle"><i class="fas fa-crown"></i> Bảng xếp hạng</h2>
+            <div class="leaderboard">
+                <div class="leaderboard-item rank-1">
+                    <div class="rank"><i class="fas fa-trophy"></i></div>
+                    <div class="player-info">
+                        <div class="player-name">Người chơi xuất sắc</div>
+                        <div class="player-score">2,850 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-medal"></i>
+                        <span>Thạc sĩ CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-2">
+                    <div class="rank">2</div>
+                    <div class="player-info">
+                        <div class="player-name">Học sinh giỏi</div>
+                        <div class="player-score">2,340 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-star"></i>
+                        <span>Cử nhân CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-3">
+                    <div class="rank">3</div>
+                    <div class="player-info">
+                        <div class="player-name">Sinh viên năng động</div>
+                        <div class="player-score">1,980 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Học viên tích cực</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Playing Interface -->
+    <div id="game-playing" class="game-container" style="display: none;">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="game-stats">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span id="current-score">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart"></i>
+                    <span id="lives-count">3</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="combo-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="time-left">60</span>
+                </div>
+            </div>
+            <div class="game-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="game-progress"></div>
+                </div>
+                <span id="question-counter">Câu 1/8</span>
+            </div>
+        </div>
+
+        <!-- Question Display -->
+        <div class="question-container">
+            <div class="question-header">
+                <div class="question-topic" id="question-topic">Cơ cấu xã hội</div>
+                <div class="question-difficulty" id="question-difficulty">
+                    <i class="fas fa-star"></i>
+                    <span>Cơ bản</span>
+                </div>
+            </div>
+            
+            <div class="question-content">
+                <h3 id="question-text">Câu hỏi sẽ xuất hiện ở đây...</h3>
+                
+                <div class="answers-grid" id="answers-container">
+                    <!-- Answers will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="question-footer">
+                <button id="hint-btn" class="btn btn-warning">
+                    <i class="fas fa-lightbulb"></i>
+                    Gợi ý (-50 điểm)
+                </button>
+                <button id="skip-btn" class="btn">
+                    <i class="fas fa-forward"></i>
+                    Bỏ qua (-100 điểm)
+                </button>
+            </div>
+        </div>
+
+        <!-- Power-ups -->
+        <div class="powerups-container">
+            <h4><i class="fas fa-magic"></i> Trợ giúp</h4>
+            <div class="powerups">
+                <button class="powerup" id="fifty-fifty" data-cost="200">
+                    <i class="fas fa-divide"></i>
+                    <span>50:50</span>
+                    <small>-200 điểm</small>
+                </button>
+                <button class="powerup" id="ask-expert" data-cost="300">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Hỏi chuyên gia</span>
+                    <small>-300 điểm</small>
+                </button>
+                <button class="powerup" id="double-score" data-cost="500">
+                    <i class="fas fa-times"></i>
+                    <span>Điểm x2</span>
+                    <small>-500 điểm</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Results -->
+    <div id="game-results" class="game-container" style="display: none;">
+        <div class="results-header">
+            <div class="final-score">
+                <i class="fas fa-trophy"></i>
+                <span id="final-score-value">0</span>
+                <small>điểm</small>
+            </div>
+            <div class="achievement-badge" id="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span id="achievement-text">Học sinh tích cực</span>
+            </div>
+        </div>
+
+        <div class="results-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="correct-answers">0</div>
+                <div class="stat-label">Câu đúng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="accuracy-rate">0%</div>
+                <div class="stat-label">Độ chính xác</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="max-combo">0</div>
+                <div class="stat-label">Combo tối đa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="time-bonus">0</div>
+                <div class="stat-label">Thưởng thời gian</div>
+            </div>
+        </div>
+
+        <div class="results-review" id="results-review">
+            <!-- Question review will be populated here -->
+        </div>
+
+        <div class="results-actions">
+            <button class="btn btn-success" id="play-again">
+                <i class="fas fa-redo"></i>
+                Chơi lại
+            </button>
+            <button class="btn btn-warning" id="review-mistakes">
+                <i class="fas fa-book"></i>
+                Ôn lại kiến thức
+            </button>
+            <button class="btn" id="back-to-menu">
+                <i class="fas fa-home"></i>
+                Menu chính
+            </button>
+        </div>
+    </div>
+
+    <!-- Study Review Mode -->
+    <div id="study-mode" class="game-container" style="display: none;">
+        <div class="study-header">
+            <h2><i class="fas fa-book-open"></i> Chế độ ôn tập</h2>
+            <p>Học từng chủ đề một cách chi tiết với giải thích đầy đủ</p>
+        </div>
+
+        <div class="study-topics">
+            <div class="topic-card" data-topic="structure">
+                <div class="topic-icon"><i class="fas fa-sitemap"></i></div>
+                <h3>Cơ cấu xã hội</h3>
+                <p>Khái niệm, đặc điểm và vai trò</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <span>3/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Tiếp tục
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="alliance">
+                <div class="topic-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Liên minh giai cấp</h3>
+                <p>Vai trò và ý nghĩa lịch sử</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                    <span>2/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Bắt đầu
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="vietnam">
+                <div class="topic-icon"><i class="fas fa-flag"></i></div>
+                <h3>Thực tiễn Việt Nam</h3>
+                <p>Sự biến đổi qua các giai đoạn</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <span>4/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Hoàn thành
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 2rem;">
+            <button class="btn" id="back-to-menu-study">
+                <i class="fas fa-home"></i>
+                Về menu chính
+            </button>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-keyboard"></i> Phím tắt</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3><i class="fas fa-mouse"></i> Cách chơi</h3>
+                <ul>
+                    <li><strong>Click</strong> vào đáp án để chọn</li>
+                    <li><strong>Phím 1-4:</strong> Chọn đáp án A, B, C, D</li>
+                    <li><strong>Spacebar:</strong> Xem gợi ý (-50 điểm)</li>
+                    <li><strong>Shift + Enter:</strong> Bỏ qua câu hỏi (-100 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-trophy"></i> Hệ thống điểm</h3>
+                <ul>
+                    <li><strong>Câu cơ bản:</strong> 100 điểm</li>
+                    <li><strong>Câu trung bình:</strong> 200 điểm</li>
+                    <li><strong>Câu nâng cao:</strong> 300 điểm</li>
+                    <li><strong>Combo:</strong> +50 điểm/combo</li>
+                    <li><strong>Thời gian:</strong> +2 điểm/giây còn lại</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-magic"></i> Trợ giúp</h3>
+                <ul>
+                    <li><strong>50:50:</strong> Loại bỏ 2 đáp án sai (-200 điểm)</li>
+                    <li><strong>Hỏi chuyên gia:</strong> Xem gợi ý chi tiết (-300 điểm)</li>
+                    <li><strong>Điểm x2:</strong> Nhân đôi điểm câu này (-500 điểm)</li>
+                    <li><strong>Gợi ý thường:</strong> Gợi ý cơ bản (-50 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-medal"></i> Thành tựu</h3>
+                <ul>
+                    <li><strong>Người mới bắt đầu:</strong> 0-499 điểm</li>
+                    <li><strong>Học viên giỏi:</strong> 500-999 điểm</li>
+                    <li><strong>Cử nhân CNXH:</strong> 1000-1499 điểm</li>
+                    <li><strong>Thạc sĩ CNXH:</strong> 1500-1999 điểm</li>
+                    <li><strong>Bậc thầy CNXH:</strong> 2000+ điểm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Additional styles for improved game mode cards */
+.game-mode-card:hover {
+    transform: translateY(-8px) scale(1.02) !important;
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 16px 50px rgba(214, 48, 49, 0.2) !important;
+}
+
+.game-mode-card:hover > div:first-child {
+    transform: scale(1.1);
+}
+
+.mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    .game-mode-card {
+        padding: 1.5rem !important;
+    }
+    
+    .game-mode-card > div:nth-child(4) > div {
+        flex-direction: row !important;
+        justify-content: flex-start !important;
+        padding: 0.8rem !important;
+    }
+    
+    .game-mode-card > div:nth-child(4) > div > div:first-child {
+        margin-bottom: 0 !important;
+        margin-right: 0.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-mode-card {
+        padding: 1.2rem !important;
+    }
+    
+    .game-mode-card > div:first-child {
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.2rem !important;
+    }
+    
+    .game-mode-card h3 {
+        font-size: 1.1rem !important;
+    }
+    
+    .game-mode-card p {
+        font-size: 0.9rem !important;
+    }
+}
+</style> div:first-child {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.5rem !important;
+    }
+    
+    .game-mode-card h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    .game-mode-card > div:nth-child(4) {
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
+    
+    .game-mode-card >
