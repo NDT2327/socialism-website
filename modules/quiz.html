@@ -1,2 +1,355 @@
-<h1>Quiz</h1>
-<p>Bài trắc nghiệm tương tác.</p>
+<div class="fade-in">
+    <h1 class="section-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
+    
+    <div class="content-section">
+        <div class="hero" style="text-align: center; padding: 2rem;">
+            <h2><i class="fas fa-trophy"></i> Thử thách trí tuệ về cơ cấu xã hội - giai cấp!</h2>
+            <p>Khám phá kiến thức qua các thử thách thú vị và tích lũy điểm số cao nhất!</p>
+        </div>
+    </div>
+
+    <!-- Game Menu -->
+    <div id="game-menu" class="game-container">
+        <div class="cards-grid">
+            <div class="game-mode-card" data-mode="classic">
+                <div class="mode-icon"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Chế độ Cổ điển</h3>
+                <p>8 câu hỏi liên tiếp, tăng dần độ khó</p>
+                <div class="mode-stats">
+                    <span><i class="fas fa-clock"></i> 60s/câu</span>
+                    <span><i class="fas fa-star"></i> 1000 điểm tối đa</span>
+                </div>
+                <button class="btn btn-success mode-btn">
+                    <i class="fas fa-play"></i> Bắt đầu
+                </button>
+            </div>
+
+            <div class="game-mode-card" data-mode="speed">
+                <div class="mode-icon"><i class="fas fa-bolt"></i></div>
+                <h3>Chế độ Tốc độ</h3>
+                <p>Trả lời nhanh trong thời gian giới hạn</p>
+                <div class="mode-stats">
+                    <span><i class="fas fa-clock"></i> 30s/câu</span>
+                    <span><i class="fas fa-fire"></i> Combo x1.5</span>
+                </div>
+                <button class="btn btn-warning mode-btn">
+                    <i class="fas fa-rocket"></i> Thử thách
+                </button>
+            </div>
+
+            <div class="game-mode-card" data-mode="survival">
+                <div class="mode-icon"><i class="fas fa-heart"></i></div>
+                <h3>Chế độ Sinh tồn</h3>
+                <p>3 mạng sống, sai 3 câu là kết thúc</p>
+                <div class="mode-stats">
+                    <span><i class="fas fa-heart"></i> 3 mạng</span>
+                    <span><i class="fas fa-infinity"></i> Điểm x2</span>
+                </div>
+                <button class="btn mode-btn">
+                    <i class="fas fa-shield-alt"></i> Sinh tồn
+                </button>
+            </div>
+
+            <div class="game-mode-card" data-mode="review">
+                <div class="mode-icon"><i class="fas fa-book-open"></i></div>
+                <h3>Chế độ Ôn tập</h3>
+                <p>Học và luyện tập theo từng chủ đề</p>
+                <div class="mode-stats">
+                    <span><i class="fas fa-list"></i> Theo chủ đề</span>
+                    <span><i class="fas fa-info-circle"></i> Có giải thích</span>
+                </div>
+                <button class="btn btn-success mode-btn">
+                    <i class="fas fa-book"></i> Ôn tập
+                </button>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="content-section">
+            <h2 class="section-subtitle"><i class="fas fa-crown"></i> Bảng xếp hạng</h2>
+            <div class="leaderboard">
+                <div class="leaderboard-item rank-1">
+                    <div class="rank"><i class="fas fa-trophy"></i></div>
+                    <div class="player-info">
+                        <div class="player-name">Người chơi xuất sắc</div>
+                        <div class="player-score">2,850 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-medal"></i>
+                        <span>Thạc sĩ CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-2">
+                    <div class="rank">2</div>
+                    <div class="player-info">
+                        <div class="player-name">Học sinh giỏi</div>
+                        <div class="player-score">2,340 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-star"></i>
+                        <span>Cử nhân CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-3">
+                    <div class="rank">3</div>
+                    <div class="player-info">
+                        <div class="player-name">Sinh viên năng động</div>
+                        <div class="player-score">1,980 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Học viên tích cực</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Playing Interface -->
+    <div id="game-playing" class="game-container" style="display: none;">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="game-stats">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span id="current-score">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart"></i>
+                    <span id="lives-count">3</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="combo-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="time-left">60</span>
+                </div>
+            </div>
+            <div class="game-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="game-progress"></div>
+                </div>
+                <span id="question-counter">Câu 1/8</span>
+            </div>
+        </div>
+
+        <!-- Question Display -->
+        <div class="question-container">
+            <div class="question-header">
+                <div class="question-topic" id="question-topic">Cơ cấu xã hội</div>
+                <div class="question-difficulty" id="question-difficulty">
+                    <i class="fas fa-star"></i>
+                    <span>Cơ bản</span>
+                </div>
+            </div>
+            
+            <div class="question-content">
+                <h3 id="question-text">Câu hỏi sẽ xuất hiện ở đây...</h3>
+                
+                <div class="answers-grid" id="answers-container">
+                    <!-- Answers will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="question-footer">
+                <button id="hint-btn" class="btn btn-warning">
+                    <i class="fas fa-lightbulb"></i>
+                    Gợi ý (-50 điểm)
+                </button>
+                <button id="skip-btn" class="btn">
+                    <i class="fas fa-forward"></i>
+                    Bỏ qua (-100 điểm)
+                </button>
+            </div>
+        </div>
+
+        <!-- Power-ups -->
+        <div class="powerups-container">
+            <h4><i class="fas fa-magic"></i> Trợ giúp</h4>
+            <div class="powerups">
+                <button class="powerup" id="fifty-fifty" data-cost="200">
+                    <i class="fas fa-divide"></i>
+                    <span>50:50</span>
+                    <small>-200 điểm</small>
+                </button>
+                <button class="powerup" id="ask-expert" data-cost="300">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Hỏi chuyên gia</span>
+                    <small>-300 điểm</small>
+                </button>
+                <button class="powerup" id="double-score" data-cost="500">
+                    <i class="fas fa-times"></i>
+                    <span>Điểm x2</span>
+                    <small>-500 điểm</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Results -->
+    <div id="game-results" class="game-container" style="display: none;">
+        <div class="results-header">
+            <div class="final-score">
+                <i class="fas fa-trophy"></i>
+                <span id="final-score-value">0</span>
+                <small>điểm</small>
+            </div>
+            <div class="achievement-badge" id="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span id="achievement-text">Học sinh tích cực</span>
+            </div>
+        </div>
+
+        <div class="results-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="correct-answers">0</div>
+                <div class="stat-label">Câu đúng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="accuracy-rate">0%</div>
+                <div class="stat-label">Độ chính xác</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="max-combo">0</div>
+                <div class="stat-label">Combo tối đa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="time-bonus">0</div>
+                <div class="stat-label">Thưởng thời gian</div>
+            </div>
+        </div>
+
+        <div class="results-review" id="results-review">
+            <!-- Question review will be populated here -->
+        </div>
+
+        <div class="results-actions">
+            <button class="btn btn-success" id="play-again">
+                <i class="fas fa-redo"></i>
+                Chơi lại
+            </button>
+            <button class="btn btn-warning" id="review-mistakes">
+                <i class="fas fa-book"></i>
+                Ôn lại kiến thức
+            </button>
+            <button class="btn" id="back-to-menu">
+                <i class="fas fa-home"></i>
+                Menu chính
+            </button>
+        </div>
+    </div>
+
+    <!-- Study Review Mode -->
+    <div id="study-mode" class="game-container" style="display: none;">
+        <div class="study-header">
+            <h2><i class="fas fa-book-open"></i> Chế độ ôn tập</h2>
+            <p>Học từng chủ đề một cách chi tiết với giải thích đầy đủ</p>
+        </div>
+
+        <div class="study-topics">
+            <div class="topic-card" data-topic="structure">
+                <div class="topic-icon"><i class="fas fa-sitemap"></i></div>
+                <h3>Cơ cấu xã hội</h3>
+                <p>Khái niệm, đặc điểm và vai trò</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <span>3/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Tiếp tục
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="alliance">
+                <div class="topic-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Liên minh giai cấp</h3>
+                <p>Vai trò và ý nghĩa lịch sử</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                    <span>2/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Bắt đầu
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="vietnam">
+                <div class="topic-icon"><i class="fas fa-flag"></i></div>
+                <h3>Thực tiễn Việt Nam</h3>
+                <p>Sự biến đổi qua các giai đoạn</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <span>4/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Hoàn thành
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 2rem;">
+            <button class="btn" id="back-to-menu-study">
+                <i class="fas fa-home"></i>
+                Về menu chính
+            </button>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-keyboard"></i> Phím tắt</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3><i class="fas fa-mouse"></i> Cách chơi</h3>
+                <ul>
+                    <li><strong>Click</strong> vào đáp án để chọn</li>
+                    <li><strong>Phím 1-4:</strong> Chọn đáp án A, B, C, D</li>
+                    <li><strong>Spacebar:</strong> Xem gợi ý (-50 điểm)</li>
+                    <li><strong>Shift + Enter:</strong> Bỏ qua câu hỏi (-100 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-trophy"></i> Hệ thống điểm</h3>
+                <ul>
+                    <li><strong>Câu cơ bản:</strong> 100 điểm</li>
+                    <li><strong>Câu trung bình:</strong> 200 điểm</li>
+                    <li><strong>Câu nâng cao:</strong> 300 điểm</li>
+                    <li><strong>Combo:</strong> +50 điểm/combo</li>
+                    <li><strong>Thời gian:</strong> +2 điểm/giây còn lại</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-magic"></i> Trợ giúp</h3>
+                <ul>
+                    <li><strong>50:50:</strong> Loại bỏ 2 đáp án sai (-200 điểm)</li>
+                    <li><strong>Hỏi chuyên gia:</strong> Xem gợi ý chi tiết (-300 điểm)</li>
+                    <li><strong>Điểm x2:</strong> Nhân đôi điểm câu này (-500 điểm)</li>
+                    <li><strong>Gợi ý thường:</strong> Gợi ý cơ bản (-50 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-medal"></i> Thành tựu</h3>
+                <ul>
+                    <li><strong>Người mới bắt đầu:</strong> 0-499 điểm</li>
+                    <li><strong>Học viên giỏi:</strong> 500-999 điểm</li>
+                    <li><strong>Cử nhân CNXH:</strong> 1000-1499 điểm</li>
+                    <li><strong>Thạc sĩ CNXH:</strong> 1500-1999 điểm</li>
+                    <li><strong>Bậc thầy CNXH:</strong> 2000+ điểm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
