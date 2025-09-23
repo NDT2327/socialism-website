@@ -1,99 +1,650 @@
-<!-- Module-specific background -->
+<div class="fade-in">
+    <h1 class="section-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
+    
+    <div class="content-section">
+        <div class="hero" style="text-align: center; padding: 2rem;">
+            <h2><i class="fas fa-trophy"></i> Thử thách trí tuệ về cơ cấu xã hội - giai cấp!</h2>
+            <p>Khám phá kiến thức qua các thử thách thú vị và tích lũy điểm số cao nhất!</p>
+        </div>
+    </div>
+
+    <!-- Game Menu - IMPROVED LAYOUT -->
+    <div id="game-menu" class="game-container">
+        <!-- Game Mode Selection with Better Layout -->
+        <div style="background: white; border-radius: 24px; padding: 2.5rem; margin-bottom: 3rem; box-shadow: 0 8px 30px rgba(0,0,0,0.1); border: 1px solid rgba(214, 48, 49, 0.1);">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <h3 style="color: var(--primary-red); font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">
+                    <i class="fas fa-play-circle"></i> Chọn chế độ chơi
+                </h3>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Mỗi chế độ mang đến trải nghiệm học tập khác nhau</p>
+            </div>
+
+            <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                <!-- Classic Mode -->
+                <div class="game-mode-card" data-mode="classic" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(32, 201, 151, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: default; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Cổ điển</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Trả lời nhanh trong thời gian cho phép</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(40, 167, 69, 0.1);">
+                            <div style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">60s/câu</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(40, 167, 69, 0.1);">
+                            <div style="color: #28a745; margin-bottom: 0.5rem;"><i class="fas fa-star"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">1000 điểm tối đa</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-play"></i>
+                        Bắt đầu
+                    </button>
+                </div>
+
+                <!-- Speed Mode -->
+                <div class="game-mode-card" data-mode="speed" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 179, 0, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: default; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ffc107, #ffb300); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #2d3436; font-size: 2rem; box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Tốc độ</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Trả lời nhanh trong thời gian chỉ còn một nửa</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.1);">
+                            <div style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-clock"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">30s/câu</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(255, 193, 7, 0.1);">
+                            <div style="color: #ffc107; margin-bottom: 0.5rem;"><i class="fas fa-fire"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Combo x1.5</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #ffc107, #ffb300); color: #2d3436; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-rocket"></i>
+                        Thử thách
+                    </button>
+                </div>
+
+                <!-- Survival Mode -->
+                <div class="game-mode-card" data-mode="survival" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(231, 76, 60, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: default; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dc3545, #e74c3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(220, 53, 69, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Sinh tồn</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">3 mạng sống, sai 3 câu là kết thúc</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(220, 53, 69, 0.1);">
+                            <div style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-heart"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">3 mạng</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(220, 53, 69, 0.1);">
+                            <div style="color: #dc3545; margin-bottom: 0.5rem;"><i class="fas fa-infinity"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Điểm x2</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #dc3545, #e74c3c); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-shield-alt"></i>
+                        Sinh tồn
+                    </button>
+                </div>
+
+                <!-- Review Mode -->
+                <div class="game-mode-card" data-mode="review" style="background: linear-gradient(135deg, rgba(52, 152, 219, 0.05), rgba(155, 89, 182, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: default; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                    <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #007bff, #0056b3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(0, 123, 255, 0.3); transition: all 0.3s ease;">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.4rem; font-weight: 700; margin-bottom: 0.8rem;">Chế độ Ôn tập</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Học và luyện tập theo từng chủ đề</p>
+                    
+                    <div style="display: flex; justify-content: space-between; margin: 1.5rem 0; gap: 1rem;">
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(0, 123, 255, 0.1);">
+                            <div style="color: #007bff; margin-bottom: 0.5rem;"><i class="fas fa-list"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Theo chủ đề</div>
+                        </div>
+                        <div style="flex: 1; padding: 1rem; background: rgba(255, 255, 255, 0.7); border-radius: 12px; border: 1px solid rgba(0, 123, 255, 0.1);">
+                            <div style="color: #007bff; margin-bottom: 0.5rem;"><i class="fas fa-info-circle"></i></div>
+                            <div style="font-weight: 600; font-size: 0.9rem;">Có giải thích</div>
+                        </div>
+                    </div>
+                    
+                    <button class="mode-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #007bff, #0056b3); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                        <i class="fas fa-book"></i>
+                        Ôn tập
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="content-section">
+            <h2 class="section-subtitle"><i class="fas fa-crown"></i> Bảng xếp hạng</h2>
+            <div class="leaderboard">
+                <div class="leaderboard-item rank-1">
+                    <div class="rank"><i class="fas fa-trophy"></i></div>
+                    <div class="player-info">
+                        <div class="player-name">Người chơi xuất sắc</div>
+                        <div class="player-score">2,850 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-medal"></i>
+                        <span>Thạc sĩ CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-2">
+                    <div class="rank">2</div>
+                    <div class="player-info">
+                        <div class="player-name">Học sinh giỏi</div>
+                        <div class="player-score">2,340 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-star"></i>
+                        <span>Cử nhân CNXH</span>
+                    </div>
+                </div>
+                <div class="leaderboard-item rank-3">
+                    <div class="rank">3</div>
+                    <div class="player-info">
+                        <div class="player-name">Sinh viên năng động</div>
+                        <div class="player-score">1,980 điểm</div>
+                    </div>
+                    <div class="achievement">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Học viên tích cực</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Difficulty Selection Screen -->
+    <div id="difficulty-selection" class="game-container" style="display: none;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color: var(--primary-red); font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem;">
+                <i class="fas fa-layer-group"></i> Chọn độ khó
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 1.2rem;" id="selected-mode-description">
+                Hãy chọn mức độ khó phù hợp với trình độ của bạn
+            </p>
+        </div>
+
+        <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+            <!-- Easy Difficulty -->
+            <div class="difficulty-card" data-difficulty="easy" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(32, 201, 151, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(40, 167, 69, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem;">Cơ bản</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">Dành cho người mới bắt đầu, các câu hỏi dễ hiểu</p>
+                
+                <div style="background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="color: var(--text-secondary);">Điểm cơ sở:</span>
+                        <span style="font-weight: 700; color: #28a745;">100 điểm/câu</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-secondary);">Độ khó:</span>
+                        <div style="display: flex; gap: 0.2rem;">
+                            <i class="fas fa-star" style="color: #28a745;"></i>
+                            <i class="far fa-star" style="color: #ddd;"></i>
+                            <i class="far fa-star" style="color: #ddd;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="difficulty-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #28a745, #20c997); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                    <i class="fas fa-check"></i>
+                    Chọn độ khó này
+                </button>
+            </div>
+
+            <!-- Medium Difficulty -->
+            <div class="difficulty-card" data-difficulty="medium" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 179, 0, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #ffc107, #ffb300); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: #2d3436; font-size: 2rem; box-shadow: 0 4px 20px rgba(255, 193, 7, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-mountain"></i>
+                </div>
+                <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem;">Trung bình</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">Thử thách với kiến thức sâu hơn</p>
+                
+                <div style="background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="color: var(--text-secondary);">Điểm cơ sở:</span>
+                        <span style="font-weight: 700; color: #ffc107;">200 điểm/câu</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-secondary);">Độ khó:</span>
+                        <div style="display: flex; gap: 0.2rem;">
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="far fa-star" style="color: #ddd;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="difficulty-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #ffc107, #ffb300); color: #2d3436; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                    <i class="fas fa-check"></i>
+                    Chọn độ khó này
+                </button>
+            </div>
+
+            <!-- Hard Difficulty -->
+            <div class="difficulty-card" data-difficulty="hard" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(231, 76, 60, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #dc3545, #e74c3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(220, 53, 69, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem;">Nâng cao</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">Dành cho chuyên gia, câu hỏi phức tạp</p>
+                
+                <div style="background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="color: var(--text-secondary);">Điểm cơ sở:</span>
+                        <span style="font-weight: 700; color: #dc3545;">300 điểm/câu</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-secondary);">Độ khó:</span>
+                        <div style="display: flex; gap: 0.2rem;">
+                            <i class="fas fa-star" style="color: #dc3545;"></i>
+                            <i class="fas fa-star" style="color: #dc3545;"></i>
+                            <i class="fas fa-star" style="color: #dc3545;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="difficulty-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #dc3545, #e74c3c); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                    <i class="fas fa-check"></i>
+                    Chọn độ khó này
+                </button>
+            </div>
+
+            <!-- Mixed Difficulty (Original behavior) -->
+            <div class="difficulty-card" data-difficulty="mixed" style="background: linear-gradient(135deg, rgba(106, 90, 205, 0.05), rgba(155, 89, 182, 0.05)); border: 2px solid transparent; border-radius: 20px; padding: 2rem; text-align: center; cursor: pointer; transition: all 0.4s ease; position: relative; overflow: hidden;">
+                <div style="width: 80px; height: 80px; background: linear-gradient(135deg, #6a5acd, #9b59b6); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2rem; box-shadow: 0 4px 20px rgba(106, 90, 205, 0.3); transition: all 0.3s ease;">
+                    <i class="fas fa-layer-group"></i>
+                </div>
+                <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem;">Hỗn hợp</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.6;">Kết hợp tất cả các mức độ khó</p>
+                
+                <div style="background: rgba(255, 255, 255, 0.8); border-radius: 12px; padding: 1.5rem; margin: 1.5rem 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <span style="color: var(--text-secondary);">Tỷ lệ:</span>
+                        <span style="font-weight: 700; color: #6a5acd;">40% - 40% - 20%</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="color: var(--text-secondary);">Độ khó:</span>
+                        <div style="display: flex; gap: 0.2rem;">
+                            <i class="fas fa-star" style="color: #28a745;"></i>
+                            <i class="fas fa-star" style="color: #ffc107;"></i>
+                            <i class="fas fa-star" style="color: #dc3545;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="difficulty-btn" style="width: 100%; padding: 1rem 2rem; background: linear-gradient(135deg, #6a5acd, #9b59b6); color: white; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem;">
+                    <i class="fas fa-check"></i>
+                    Chọn độ khó này
+                </button>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <button id="back-to-mode-selection" class="btn" style="background: linear-gradient(135deg, #6c757d, #5a6268); padding: 1rem 2rem;">
+                <i class="fas fa-arrow-left"></i>
+                Quay lại chọn chế độ
+            </button>
+        </div>
+    </div>
+
+    <!-- Game Playing Interface -->
+    <div id="game-playing" class="game-container" style="display: none;">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="game-stats">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span id="current-score">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-heart"></i>
+                    <span id="lives-count">3</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="combo-count">0</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span id="time-left">60</span>
+                </div>
+            </div>
+            <div class="game-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="game-progress"></div>
+                </div>
+                <span id="question-counter">Câu 1/8</span>
+            </div>
+        </div>
+
+        <!-- Question Display -->
+        <div class="question-container">
+            <div class="question-header">
+                <div class="question-topic" id="question-topic">Cơ cấu xã hội</div>
+                <div class="question-difficulty" id="question-difficulty">
+                    <i class="fas fa-star"></i>
+                    <span>Cơ bản</span>
+                </div>
+            </div>
+            
+            <div class="question-content">
+                <h3 id="question-text">Câu hỏi sẽ xuất hiện ở đây...</h3>
+                
+                <div class="answers-grid" id="answers-container">
+                    <!-- Answers will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="question-footer">
+                <button id="hint-btn" class="btn btn-warning">
+                    <i class="fas fa-lightbulb"></i>
+                    Gợi ý (-50 điểm)
+                </button>
+                <button id="skip-btn" class="btn">
+                    <i class="fas fa-forward"></i>
+                    Bỏ qua (-100 điểm)
+                </button>
+            </div>
+        </div>
+
+        <!-- Power-ups -->
+        <div class="powerups-container">
+            <h4><i class="fas fa-magic"></i> Trợ giúp</h4>
+            <div class="powerups">
+                <button class="powerup" id="fifty-fifty" data-cost="200">
+                    <i class="fas fa-divide"></i>
+                    <span>50:50</span>
+                    <small>-200 điểm</small>
+                </button>
+                <button class="powerup" id="ask-expert" data-cost="300">
+                    <i class="fas fa-user-graduate"></i>
+                    <span>Hỏi chuyên gia</span>
+                    <small>-300 điểm</small>
+                </button>
+                <button class="powerup" id="double-score" data-cost="500">
+                    <i class="fas fa-times"></i>
+                    <span>Điểm x2</span>
+                    <small>-500 điểm</small>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Results -->
+    <div id="game-results" class="game-container" style="display: none;">
+        <div class="results-header">
+            <div class="final-score">
+                <i class="fas fa-trophy"></i>
+                <span id="final-score-value">0</span>
+                <small>điểm</small>
+            </div>
+            <div class="achievement-badge" id="achievement-badge">
+                <i class="fas fa-medal"></i>
+                <span id="achievement-text">Học sinh tích cực</span>
+            </div>
+        </div>
+
+        <div class="results-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="correct-answers">0</div>
+                <div class="stat-label">Câu đúng</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="accuracy-rate">0%</div>
+                <div class="stat-label">Độ chính xác</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="max-combo">0</div>
+                <div class="stat-label">Combo tối đa</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="time-bonus">0</div>
+                <div class="stat-label">Thưởng thời gian</div>
+            </div>
+        </div>
+
+        <div class="results-review" id="results-review">
+            <!-- Question review will be populated here -->
+        </div>
+
+        <div class="results-actions">
+            <button class="btn btn-success" id="play-again">
+                <i class="fas fa-redo"></i>
+                Chơi lại
+            </button>
+            <button class="btn btn-warning" id="review-mistakes">
+                <i class="fas fa-book"></i>
+                Ôn lại kiến thức
+            </button>
+            <button class="btn" id="back-to-menu">
+                <i class="fas fa-home"></i>
+                Menu chính
+            </button>
+        </div>
+    </div>
+
+    <!-- Study Review Mode -->
+    <div id="study-mode" class="game-container" style="display: none;">
+        <div class="study-header">
+            <h2><i class="fas fa-book-open"></i> Chế độ ôn tập</h2>
+            <p>Học từng chủ đề một cách chi tiết với giải thích đầy đủ</p>
+        </div>
+
+        <div class="study-topics">
+            <div class="topic-card" data-topic="structure">
+                <div class="topic-icon"><i class="fas fa-sitemap"></i></div>
+                <h3>Cơ cấu xã hội</h3>
+                <p>Khái niệm, đặc điểm và vai trò</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%;"></div>
+                    </div>
+                    <span>3/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Tiếp tục
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="alliance">
+                <div class="topic-icon"><i class="fas fa-handshake"></i></div>
+                <h3>Liên minh giai cấp</h3>
+                <p>Vai trò và ý nghĩa lịch sử</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%;"></div>
+                    </div>
+                    <span>2/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Bắt đầu
+                </button>
+            </div>
+
+            <div class="topic-card" data-topic="vietnam">
+                <div class="topic-icon"><i class="fas fa-flag"></i></div>
+                <h3>Thực tiễn Việt Nam</h3>
+                <p>Sự biến đổi qua các giai đoạn</p>
+                <div class="topic-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 80%;"></div>
+                    </div>
+                    <span>4/5 bài học</span>
+                </div>
+                <button class="btn btn-success">
+                    <i class="fas fa-play"></i>
+                    Hoàn thành
+                </button>
+            </div>
+        </div>
+
+        <div class="text-center" style="margin-top: 2rem;">
+            <button class="btn" id="back-to-menu-study">
+                <i class="fas fa-home"></i>
+                Về menu chính
+            </button>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-keyboard"></i> Phím tắt</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3><i class="fas fa-mouse"></i> Cách chơi</h3>
+                <ul>
+                    <li><strong>Click</strong> vào đáp án để chọn</li>
+                    <li><strong>Phím 1-4:</strong> Chọn đáp án A, B, C, D</li>
+                    <li><strong>Spacebar:</strong> Xem gợi ý (-50 điểm)</li>
+                    <li><strong>Shift + Enter:</strong> Bỏ qua câu hỏi (-100 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-trophy"></i> Hệ thống điểm</h3>
+                <ul>
+                    <li><strong>Câu cơ bản:</strong> 100 điểm</li>
+                    <li><strong>Câu trung bình:</strong> 200 điểm</li>
+                    <li><strong>Câu nâng cao:</strong> 300 điểm</li>
+                    <li><strong>Combo:</strong> +50 điểm/combo</li>
+                    <li><strong>Thời gian:</strong> +2 điểm/giây còn lại</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-magic"></i> Trợ giúp</h3>
+                <ul>
+                    <li><strong>50:50:</strong> Loại bỏ 2 đáp án sai (-200 điểm)</li>
+                    <li><strong>Hỏi chuyên gia:</strong> Xem gợi ý chi tiết (-300 điểm)</li>
+                    <li><strong>Điểm x2:</strong> Nhân đôi điểm câu này (-500 điểm)</li>
+                    <li><strong>Gợi ý thường:</strong> Gợi ý cơ bản (-50 điểm)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-medal"></i> Thành tựu</h3>
+                <ul>
+                    <li><strong>Người mới bắt đầu:</strong> 0-499 điểm</li>
+                    <li><strong>Học viên giỏi:</strong> 500-999 điểm</li>
+                    <li><strong>Cử nhân CNXH:</strong> 1000-1499 điểm</li>
+                    <li><strong>Thạc sĩ CNXH:</strong> 1500-1999 điểm</li>
+                    <li><strong>Bậc thầy CNXH:</strong> 2000+ điểm</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-.quiz-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: 
-        linear-gradient(135deg, rgba(231, 76, 60, 0.85), rgba(192, 57, 43, 0.8)),
-        url('https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+/* Enhanced Game Mode Cards with Modern Animations */
+.game-mode-card {
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    cursor: default !important; /* Ensure cards are not clickable */
 }
 
-.quiz-background::before {
+.game-mode-card::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: 
-        radial-gradient(circle at 30% 70%, rgba(241, 196, 15, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 70% 30%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
-    animation: quizFloat 20s ease-in-out infinite;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
 }
 
-@keyframes quizFloat {
-    0%, 100% { transform: scale(1) rotate(0deg); }
-    50% { transform: scale(1.01) rotate(0.2deg); }
+.game-mode-card:hover::before {
+    left: 100%;
 }
 
-/* Quiz styling */
-.quiz-container {
-    max-width: 900px;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0.95);
+.game-mode-card:hover {
+    transform: translateY(-12px) scale(1.03) !important;
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 20px 60px rgba(214, 48, 49, 0.25), 
+                0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9)) !important;
+}
+
+.game-mode-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.game-mode-card:hover > div:first-child {
+    transform: scale(1.15) rotate(5deg);
+    animation: iconPulse 2s ease-in-out infinite;
+}
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1.15) rotate(5deg); }
+    50% { transform: scale(1.25) rotate(-5deg); }
+}
+
+.mode-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+}
+
+.mode-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.mode-btn:hover::before {
+    left: 100%;
+}
+
+.mode-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25) !important;
+}
+
+.mode-btn:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* Enhanced Game Header Styles */
+.game-header {
+    background: linear-gradient(135deg, rgba(214, 48, 49, 0.95), rgba(225, 112, 85, 0.95));
     backdrop-filter: blur(15px);
     border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-}
-
-.quiz-header {
-    text-align: center;
     margin-bottom: 2rem;
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
-    color: white;
-    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(214, 48, 49, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.quiz-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: #f8f9fa;
-    border-radius: 12px;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 1rem;
-    background: white;
-    border-radius: 8px;
-    border-left: 4px solid var(--primary-red);
-}
-
-.stat-number {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--primary-red);
-    display: block;
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: #6c757d;
-    margin-top: 0.5rem;
-}
-
-.question-card {
-    background: white;
-    border-radius: 15px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    border-top: 4px solid var(--primary-red);
-}
-
-.question-info {
+.game-stats {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -102,629 +653,522 @@
     gap: 1rem;
 }
 
-.question-topic {
-    background: var(--primary-gold);
-    color: var(--dark-navy);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.question-difficulty {
-    color: var(--primary-red);
-    font-weight: 600;
-}
-
-.question-text {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--dark-navy);
-    line-height: 1.6;
-    margin-bottom: 2rem;
-}
-
-.answers {
-    display: grid;
-    gap: 1rem;
-}
-
-.answer {
-    background: #f8f9fa;
-    border: 2px solid #e9ecef;
-    border-radius: 12px;
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.15);
     padding: 1rem 1.5rem;
-    cursor: pointer;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
-    font-size: 1rem;
-    line-height: 1.5;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.stat-item:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.stat-item i {
+    font-size: 1.3rem;
+    animation: statIconFloat 3s ease-in-out infinite;
+}
+
+@keyframes statIconFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+}
+
+.game-progress {
     display: flex;
     align-items: center;
     gap: 1rem;
-}
-
-.answer:hover {
-    border-color: var(--primary-red);
-    background: #fff5f5;
-    transform: translateX(5px);
-}
-
-.answer.selected {
-    background: var(--primary-red);
     color: white;
-    border-color: var(--primary-red);
 }
 
-.answer.correct {
-    background: #d4edda;
-    color: #155724;
-    border-color: #28a745;
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-.answer.incorrect {
-    background: #f8d7da;
-    color: #721c24;
-    border-color: #dc3545;
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00b894, #00cec9, #74b9ff);
+    background-size: 200% 100%;
+    animation: progressShine 2s linear infinite;
+    border-radius: 50px;
+    transition: width 0.3s ease;
 }
 
-.answer.disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    pointer-events: none;
+@keyframes progressShine {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
 }
 
-.answer-label {
-    background: var(--primary-red);
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    flex-shrink: 0;
+/* Enhanced Question Container */
+.question-container {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(248, 249, 250, 0.95));
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1), 
+                0 0 0 1px rgba(214, 48, 49, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    overflow: hidden;
 }
 
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
+.question-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(214, 48, 49, 0.03) 0%, transparent 70%);
+    animation: questionGlow 8s ease-in-out infinite alternate;
 }
 
-.btn {
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+@keyframes questionGlow {
+    0% { transform: rotate(0deg) scale(1); }
+    100% { transform: rotate(360deg) scale(1.1); }
 }
 
-.btn-primary { background: #007bff; color: white; }
-.btn-warning { background: #ffc107; color: #2d3436; }
-.btn-secondary { background: #6c757d; color: white; }
-.btn-success { background: #28a745; color: white; }
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.navigation {
+.question-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 2rem;
-    padding: 1.5rem;
-    background: #f8f9fa;
-    border-radius: 12px;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
 }
 
-.results {
-    display: none;
+.question-topic {
+    background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(214, 48, 49, 0.3);
+}
+
+.question-difficulty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #ffc107, #ffb300);
+    color: var(--dark-navy);
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+}
+
+.question-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 3rem;
+}
+
+.question-content h3 {
+    color: var(--primary-red);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+    position: relative;
     text-align: center;
 }
 
-.results-card {
-    background: white;
-    border-radius: 20px;
-    padding: 3rem;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+.question-content h3::before {
+    content: "💭";
+    position: absolute;
+    left: 50%;
+    top: -3rem;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    animation: questionThought 3s ease-in-out infinite;
 }
 
-.final-score {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #28a745;
-    margin-bottom: 1rem;
+@keyframes questionThought {
+    0%, 100% { transform: scale(1) rotate(-10deg); opacity: 0.7; }
+    50% { transform: scale(1.2) rotate(10deg); opacity: 1; }
 }
 
-.results-stats {
+.answers-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1.5rem;
     margin: 2rem 0;
 }
 
-.result-stat {
-    padding: 1.5rem;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+.question-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Enhanced Answer Options */
+.answer-option {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(214, 48, 49, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.answer-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(214, 48, 49, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.answer-option:hover::before {
+    left: 100%;
+}
+
+.answer-option:hover {
+    transform: translateX(10px) scale(1.02);
+    border-color: var(--primary-gold);
+    box-shadow: 0 8px 40px rgba(214, 48, 49, 0.15);
+    background: linear-gradient(135deg, rgba(253, 203, 110, 0.1), rgba(255, 255, 255, 0.95));
+}
+
+.answer-option.selected {
+    background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+    color: white;
+    border-color: var(--primary-red);
+    transform: translateX(10px) scale(1.02);
+    box-shadow: 0 8px 40px rgba(214, 48, 49, 0.3);
+}
+
+.answer-option.correct {
+    background: linear-gradient(135deg, #00b894, #00cec9);
+    color: white;
+    border-color: #00b894;
+    animation: correctPulse 0.6s ease-in-out;
+}
+
+@keyframes correctPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.answer-option.incorrect {
+    background: linear-gradient(135deg, #e84393, #fd79a8);
+    color: white;
+    border-color: #e84393;
+    animation: incorrectShake 0.6s ease-in-out;
+}
+
+@keyframes incorrectShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Enhanced Powerups */
+.powerups-container {
+    background: linear-gradient(135deg, rgba(106, 90, 205, 0.05), rgba(72, 61, 139, 0.05));
+    border: 2px solid rgba(106, 90, 205, 0.2);
+    border-radius: 20px;
+    padding: 2rem;
+    margin: 2rem 0;
+    backdrop-filter: blur(10px);
+}
+
+.powerups-container h4 {
+    color: #6a5acd;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.powerups {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.powerup {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(248, 249, 250, 0.8));
+    border: 2px solid rgba(106, 90, 205, 0.2);
+    border-radius: 16px;
+    padding: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-width: 140px;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.powerup::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(106, 90, 205, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.powerup:hover::before {
+    opacity: 1;
+    animation: powerupGlow 2s ease-in-out infinite;
+}
+
+@keyframes powerupGlow {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+}
+
+.powerup:hover {
+    transform: translateY(-5px) scale(1.05);
+    border-color: #6a5acd;
+    box-shadow: 0 10px 30px rgba(106, 90, 205, 0.3);
+}
+
+.powerup i {
+    font-size: 2rem;
+    color: #6a5acd;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.powerup span {
+    display: block;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.powerup small {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 2;
+}
+
+.powerup:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
 }
 
 @media (max-width: 768px) {
-    .quiz-container { padding: 1rem; margin: 1rem; }
-    .question-text { font-size: 1.1rem; }
-    .controls { flex-direction: column; align-items: center; }
-    .btn { width: 100%; max-width: 250px; justify-content: center; }
-    .navigation { flex-direction: column; gap: 1rem; }
-}
-</style>
-
-<div class="quiz-background"></div>
-
-<div class="fade-in">
-    <div class="quiz-container">
-        <!-- Header -->
-        <div class="quiz-header">
-            <h1><i class="fas fa-brain"></i> Quiz Kiến Thức CNXH</h1>
-            <p>Cơ cấu xã hội - giai cấp và liên minh giai cấp trong thời kỳ quá độ</p>
-        </div>
-
-        <!-- Stats -->
-        <div class="quiz-stats">
-            <div class="stat-item">
-                <span class="stat-number" id="scoreDisplay">0</span>
-                <div class="stat-label">Điểm số</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="livesDisplay">3</span>
-                <div class="stat-label">Mạng sống</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" id="timeDisplay">0s</span>
-                <div class="stat-label">Thời gian</div>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number"><span id="currentDisplay">1</span>/<span id="totalDisplay">8</span></span>
-                <div class="stat-label">Tiến độ</div>
-            </div>
-        </div>
-
-        <!-- Question Area -->
-        <div class="question-card" id="questionArea">
-            <div class="question-info">
-                <div class="question-topic" id="topicDisplay">Cơ cấu xã hội</div>
-                <div class="question-difficulty" id="difficultyDisplay">⭐ Cơ bản</div>
-            </div>
-            
-            <div class="question-text" id="questionDisplay">
-                Đang tải câu hỏi...
-            </div>
-            
-            <div class="answers" id="answersArea">
-                <!-- Answers will be populated here -->
-            </div>
-            
-            <div class="controls">
-                <button class="btn btn-warning" onclick="useHint()">
-                    <i class="fas fa-lightbulb"></i> Gợi ý (-50đ)
-                </button>
-                <button class="btn btn-secondary" onclick="skipQuestion()">
-                    <i class="fas fa-forward"></i> Bỏ qua (-100đ)
-                </button>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="navigation" id="navigationArea">
-            <button class="btn btn-secondary" onclick="goToPrevious()" id="prevBtn">
-                <i class="fas fa-chevron-left"></i> Trước
-            </button>
-            
-            <div class="question-counter">
-                Câu <span id="questionNumber">1</span> / <span id="totalQuestions">8</span>
-            </div>
-            
-            <button class="btn btn-success" onclick="goToNext()" id="nextBtn">
-                Sau <i class="fas fa-chevron-right"></i>
-            </button>
-        </div>
-
-        <!-- Results -->
-        <div class="results" id="resultsArea">
-            <div class="results-card">
-                <h2 style="color: var(--primary-red); margin-bottom: 1rem;">
-                    <i class="fas fa-trophy"></i> Kết Quả Quiz
-                </h2>
-                
-                <div class="final-score">
-                    <span id="finalScoreDisplay">0</span> điểm
-                </div>
-                
-                <div class="results-stats">
-                    <div class="result-stat">
-                        <span class="stat-number" style="color: #28a745;" id="correctDisplay">0</span>
-                        <div class="stat-label">Câu đúng</div>
-                    </div>
-                    <div class="result-stat">
-                        <span class="stat-number" style="color: #007bff;" id="answeredDisplay">0</span>
-                        <div class="stat-label">Tổng câu</div>
-                    </div>
-                    <div class="result-stat">
-                        <span class="stat-number" style="color: #ffc107;" id="accuracyDisplay">0%</span>
-                        <div class="stat-label">Độ chính xác</div>
-                    </div>
-                    <div class="result-stat">
-                        <span class="stat-number" style="color: #6c757d;" id="timeUsedDisplay">0s</span>
-                        <div class="stat-label">Thời gian</div>
-                    </div>
-                </div>
-                
-                <div class="controls">
-                    <button class="btn btn-success" onclick="restartGame()">
-                        <i class="fas fa-redo"></i> Chơi Lại
-                    </button>
-                    <button class="btn btn-primary" onclick="location.reload()">
-                        <i class="fas fa-home"></i> Về Trang Chủ
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-// Game variables
-var gameData = {
-    currentQuestion: 0,
-    score: 0,
-    lives: 3,
-    startTime: Date.now(),
-    answers: []
-};
-
-// Updated questions based on new content
-var questionsData = [
-    {
-        question: "Trong cơ cấu xã hội, nhóm cơ cấu nào có vị trí quan trọng hàng đầu, chi phối các loại hình cơ cấu xã hội khác?",
-        options: [
-            "Cơ cấu xã hội - giai cấp",
-            "Cơ cấu dân tộc", 
-            "Cơ cấu nghề nghiệp",
-            "Cơ cấu tôn giáo"
-        ],
-        correct: 0,
-        topic: "Cơ cấu xã hội",
-        difficulty: "⭐ Cơ bản",
-        hint: "Cơ cấu này liên quan đến sở hữu tư liệu sản xuất và quyền lực chính trị."
-    },
-    {
-        question: "Liên minh giai cấp cơ bản trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam gồm những thành phần nào?",
-        options: [
-            "Công nhân - Nông dân - Trí thức",
-            "Tư sản - Nông dân - Công nhân",
-            "Địa chủ - Nông dân - Tiểu tư sản", 
-            "Doanh nhân - Trí thức - Tiểu chủ"
-        ],
-        correct: 0,
-        topic: "Liên minh giai cấp",
-        difficulty: "⭐ Cơ bản",
-        hint: "Ba thành phần chính được liệt kê trong tài liệu về cơ cấu xã hội Việt Nam."
-    },
-    {
-        question: "Theo số liệu năm 2025, lực lượng lao động Việt Nam đạt khoảng bao nhiêu người?",
-        options: [
-            "53.1 triệu người",
-            "50 triệu người",
-            "45 triệu người",
-            "60 triệu người"
-        ],
-        correct: 0,
-        topic: "Thống kê lao động",
-        difficulty: "⭐⭐ Trung bình",
-        hint: "Con số này được cập nhật trong quý II/2025, tăng 553 nghìn so với cùng kỳ."
-    },
-    {
-        question: "GDP Việt Nam đã tăng bao nhiêu lần từ năm 1986 đến 2024 nhờ thành tựu của công cuộc Đổi mới?",
-        options: [
-            "59.5 lần",
-            "35 lần",
-            "20 lần",
-            "100 lần"
-        ],
-        correct: 0,
-        topic: "Thành tựu Đổi mới",
-        difficulty: "⭐⭐ Trung bình",
-        hint: "GDP tăng từ 8 tỷ USD (1986) lên 476.3 tỷ USD (2024)."
-    },
-    {
-        question: "Tỷ lệ lao động nông nghiệp của Việt Nam đã giảm từ mức nào xuống mức nào trong giai đoạn 1986-2025?",
-        options: [
-            "Từ 70% xuống 27-30%",
-            "Từ 80% xuống 50%",
-            "Từ 60% xuống 40%",
-            "Từ 90% xuống 60%"
-        ],
-        correct: 0,
-        topic: "Chuyển dịch cơ cấu",
-        difficulty: "⭐⭐ Trung bình",
-        hint: "Đây là sự chuyển dịch mạnh mẽ từ nông nghiệp sang công nghiệp và dịch vụ."
-    },
-    {
-        question: "Theo lý thuyết, quy luật biến đổi cơ cấu xã hội - giai cấp trong thời kỳ quá độ bao gồm mấy quy luật chính?",
-        options: [
-            "3 quy luật",
-            "2 quy luật",
-            "4 quy luật",
-            "5 quy luật"
-        ],
-        correct: 0,
-        topic: "Quy luật biến đổi",
-        difficulty: "⭐⭐⭐ Nâng cao",
-        hint: "Bao gồm: biến đổi gắn liền với cơ cấu kinh tế, biến đổi phức tạp đa dạng, và biến đổi từ đấu tranh đến liên minh."
-    },
-    {
-        question: "Tầng lớp trí thức Việt Nam đã tăng từ tỷ lệ nào lên tỷ lệ nào trong giai đoạn 1990-2025?",
-        options: [
-            "Từ 5-10% lên 20-25%",
-            "Từ 10% lên 30%",
-            "Từ 15% lên 35%",
-            "Từ 3% lên 15%"
-        ],
-        correct: 0,
-        topic: "Tầng lớp trí thức",
-        difficulty: "⭐⭐⭐ Nâng cao",
-        hint: "Sự bùng nổ này bao gồm khoảng 1 triệu người trong lĩnh vực CNTT."
-    },
-    {
-        question: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, vì sao phải thực hiện liên minh giai cấp?",
-        options: [
-            "Để huy động sức mạnh tổng hợp, đáp ứng nhu cầu chung và tạo động lực phát triển",
-            "Để loại bỏ hoàn toàn mâu thuẫn giai cấp",
-            "Để thay thế vai trò lãnh đạo của Đảng",
-            "Để chuyển sang chế độ tư bản chủ nghĩa"
-        ],
-        correct: 0,
-        topic: "Ý nghĩa liên minh",
-        difficulty: "⭐⭐⭐ Nâng cao",
-        hint: "Đây là yêu cầu khách quan để thực hiện thắng lợi mục tiêu CNXH."
-    }
-];
-
-// Load question function
-function loadQuestion() {
-    if (gameData.currentQuestion >= questionsData.length) {
-        showResults();
-        return;
-    }
-
-    var question = questionsData[gameData.currentQuestion];
-    
-    // Update displays
-    document.getElementById('questionDisplay').textContent = question.question;
-    document.getElementById('topicDisplay').textContent = question.topic;
-    document.getElementById('difficultyDisplay').textContent = question.difficulty;
-    
-    // Update progress
-    var current = gameData.currentQuestion + 1;
-    var total = questionsData.length;
-    document.getElementById('currentDisplay').textContent = current;
-    document.getElementById('totalDisplay').textContent = total;
-    document.getElementById('questionNumber').textContent = current;
-    document.getElementById('totalQuestions').textContent = total;
-    
-    // Generate answers
-    var answersContainer = document.getElementById('answersArea');
-    answersContainer.innerHTML = '';
-    
-    var labels = ['A', 'B', 'C', 'D'];
-    
-    for (var i = 0; i < question.options.length; i++) {
-        var answerDiv = document.createElement('div');
-        answerDiv.className = 'answer';
-        answerDiv.innerHTML = 
-            '<div class="answer-label">' + labels[i] + '</div>' +
-            '<div>' + question.options[i] + '</div>';
-        answerDiv.onclick = createAnswerHandler(i);
-        answersContainer.appendChild(answerDiv);
+    .cards-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
     }
     
-    // Update navigation
-    document.getElementById('prevBtn').disabled = gameData.currentQuestion === 0;
-    
-    if (gameData.currentQuestion === questionsData.length - 1) {
-        document.getElementById('nextBtn').innerHTML = 'Kết thúc <i class="fas fa-flag-checkered"></i>';
-    } else {
-        document.getElementById('nextBtn').innerHTML = 'Sau <i class="fas fa-chevron-right"></i>';
+    .game-mode-card {
+        padding: 1.5rem !important;
     }
     
-    updateStatsDisplay();
-}
-
-// Create answer handler (closure)
-function createAnswerHandler(index) {
-    return function() {
-        selectAnswer(index);
-    };
-}
-
-// Select answer function
-function selectAnswer(selectedIndex) {
-    var question = questionsData[gameData.currentQuestion];
-    var answerElements = document.querySelectorAll('.answer');
-    
-    // Disable all answers
-    for (var i = 0; i < answerElements.length; i++) {
-        answerElements[i].classList.add('disabled');
+    .game-stats {
+        flex-direction: column;
+        gap: 1rem;
     }
     
-    // Mark selected
-    answerElements[selectedIndex].classList.add('selected');
+    .stat-item {
+        width: 100%;
+        justify-content: center;
+    }
     
-    // Show result after delay
-    setTimeout(function() {
-        answerElements[question.correct].classList.add('correct');
-        
-        var isCorrect = selectedIndex === question.correct;
-        if (!isCorrect) {
-            answerElements[selectedIndex].classList.add('incorrect');
-            gameData.lives--;
-        } else {
-            gameData.score += 100;
-        }
-        
-        // Store answer
-        gameData.answers.push({
-            question: gameData.currentQuestion,
-            selected: selectedIndex,
-            correct: question.correct,
-            isCorrect: isCorrect
-        });
-        
-        updateStatsDisplay();
-        
-        // Auto advance
-        setTimeout(function() {
-            goToNext();
-        }, 2000);
-        
-    }, 500);
-}
-
-// Update stats display
-function updateStatsDisplay() {
-    document.getElementById('scoreDisplay').textContent = gameData.score;
-    document.getElementById('livesDisplay').textContent = gameData.lives;
+    .question-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
     
-    var elapsed = Math.floor((Date.now() - gameData.startTime) / 1000);
-    document.getElementById('timeDisplay').textContent = elapsed + 's';
-}
-
-// Use hint
-function useHint() {
-    var question = questionsData[gameData.currentQuestion];
-    gameData.score = Math.max(0, gameData.score - 50);
-    updateStatsDisplay();
-    alert('💡 Gợi ý: ' + question.hint + '\n\n(-50 điểm)');
-}
-
-// Skip question
-function skipQuestion() {
-    gameData.score = Math.max(0, gameData.score - 100);
-    gameData.lives--;
-    
-    gameData.answers.push({
-        question: gameData.currentQuestion,
-        selected: -1,
-        correct: questionsData[gameData.currentQuestion].correct,
-        isCorrect: false,
-        skipped: true
-    });
-    
-    updateStatsDisplay();
-    alert('⏭️ Đã bỏ qua câu hỏi! (-100 điểm, -1 mạng)');
-    
-    setTimeout(function() {
-        goToNext();
-    }, 1000);
-}
-
-// Go to next
-function goToNext() {
-    gameData.currentQuestion++;
-    
-    if (gameData.currentQuestion >= questionsData.length || gameData.lives <= 0) {
-        showResults();
-    } else {
-        loadQuestion();
+    .powerups {
+        flex-direction: column;
+        align-items: center;
     }
 }
 
-// Go to previous
-function goToPrevious() {
-    if (gameData.currentQuestion > 0) {
-        gameData.currentQuestion--;
-        loadQuestion();
+@media (max-width: 480px) {
+    .game-mode-card {
+        padding: 1.2rem !important;
+    }
+    
+    .game-mode-card > div:first-child {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.5rem !important;
+    }
+    
+    .game-mode-card h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    .question-container {
+        padding: 1.5rem;
+    }
+    
+    .question-content h3::before {
+        display: none;
     }
 }
 
-// Show results
-function showResults() {
-    document.getElementById('questionArea').style.display = 'none';
-    document.getElementById('navigationArea').style.display = 'none';
-    document.getElementById('resultsArea').style.display = 'block';
-    
-    // Calculate results
-    var correctAnswers = 0;
-    for (var i = 0; i < gameData.answers.length; i++) {
-        if (gameData.answers[i].isCorrect) {
-            correctAnswers++;
-        }
+/* Enhanced Difficulty Selection Styles */
+.difficulty-card {
+    position: relative !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(10px) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
+
+.difficulty-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.difficulty-card:hover::before {
+    left: 100%;
+}
+
+.difficulty-card:hover {
+    transform: translateY(-12px) scale(1.03) !important;
+    border-color: var(--primary-gold) !important;
+    box-shadow: 0 20px 60px rgba(214, 48, 49, 0.25), 
+                0 0 0 1px rgba(255, 255, 255, 0.3) !important;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 249, 250, 0.9)) !important;
+}
+
+.difficulty-card > * {
+    position: relative;
+    z-index: 2;
+}
+
+.difficulty-card:hover > div:first-child {
+    transform: scale(1.15) rotate(10deg);
+    animation: difficultyIconPulse 2s ease-in-out infinite;
+}
+
+@keyframes difficultyIconPulse {
+    0%, 100% { transform: scale(1.15) rotate(10deg); }
+    50% { transform: scale(1.25) rotate(-10deg); }
+}
+
+.difficulty-card.selected {
+    border-color: var(--primary-red) !important;
+    transform: translateY(-8px) scale(1.02) !important;
+    box-shadow: 0 15px 50px rgba(214, 48, 49, 0.3) !important;
+    background: linear-gradient(135deg, rgba(214, 48, 49, 0.1), rgba(253, 203, 110, 0.1)) !important;
+}
+
+.difficulty-btn {
+    position: relative !important;
+    overflow: hidden !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15) !important;
+}
+
+.difficulty-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.difficulty-btn:hover::before {
+    left: 100%;
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25) !important;
+}
+
+.difficulty-btn:active {
+    transform: translateY(-1px) scale(0.98);
+    transition: all 0.1s ease;
+}
+
+/* Difficulty Selection Animations */
+@keyframes difficultySlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#difficulty-selection .difficulty-card {
+    animation: difficultySlideIn 0.6s ease-out;
+}
+
+#difficulty-selection .difficulty-card:nth-child(1) { animation-delay: 0.1s; }
+#difficulty-selection .difficulty-card:nth-child(2) { animation-delay: 0.2s; }
+#difficulty-selection .difficulty-card:nth-child(3) { animation-delay: 0.3s; }
+#difficulty-selection .difficulty-card:nth-child(4) { animation-delay: 0.4s; }
+</style> div:first-child {
+        width: 60px !important;
+        height: 60px !important;
+        font-size: 1.5rem !important;
     }
     
-    var totalAnswered = gameData.answers.length;
-    var accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
-    var timeUsed = Math.floor((Date.now() - gameData.startTime) / 1000);
+    .game-mode-card h3 {
+        font-size: 1.2rem !important;
+    }
     
-    // Update results display
-    document.getElementById('finalScoreDisplay').textContent = gameData.score;
-    document.getElementById('correctDisplay').textContent = correctAnswers;
-    document.getElementById('answeredDisplay').textContent = totalAnswered;
-    document.getElementById('accuracyDisplay').textContent = accuracy + '%';
-    document.getElementById('timeUsedDisplay').textContent = timeUsed + 's';
-}
-
-// Restart game
-function restartGame() {
-    gameData.currentQuestion = 0;
-    gameData.score = 0;
-    gameData.lives = 3;
-    gameData.startTime = Date.now();
-    gameData.answers = [];
+    .game-mode-card > div:nth-child(4) {
+        flex-direction: column !important;
+        gap: 0.8rem !important;
+    }
     
-    document.getElementById('questionArea').style.display = 'block';
-    document.getElementById('navigationArea').style.display = 'flex';
-    document.getElementById('resultsArea').style.display = 'none';
-    
-    loadQuestion();
-}
-
-// Initialize game
-window.onload = function() {
-    loadQuestion();
-    
-    // Keyboard shortcuts
-    document.onkeydown = function(e) {
-        if (e.key >= '1' && e.key <= '4') {
-            var answerIndex = parseInt(e.key) - 1;
-            var answerElements = document.querySelectorAll('.answer');
-            if (answerElements[answerIndex] && !answerElements[answerIndex].classList.contains('disabled')) {
-                selectAnswer(answerIndex);
-            }
-        }
-        
-        if (e.code === 'Space') {
-            e.preventDefault();
-            useHint();
-        }
-        
-        if (e.code === 'ArrowRight') {
-            e.preventDefault();
-            goToNext();
-        }
-        
-        if (e.code === 'ArrowLeft') {
-            e.preventDefault();
-            goToPrevious();
-        }
-    };
-};
-</script>
+    .game-mode-card >
