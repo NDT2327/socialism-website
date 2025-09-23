@@ -15,6 +15,94 @@
     @media (max-width: 600px) {
         .quiz-title { font-size: 1.9rem; line-height: 1.2; }
     }
+    
+    /* Global animations for the study mode */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    @keyframes widthExpand {
+        from { width: 0; }
+        to { width: 60px; }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2); }
+        50% { transform: scale(1.05); box-shadow: 0 10px 25px rgba(40, 167, 69, 0.4); }
+        100% { transform: scale(1); box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2); }
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -100% 0; }
+        100% { background-position: 100% 0; }
+    }
+    
+    .animated-card {
+        animation: fadeInUp 0.8s ease-out forwards;
+        opacity: 0;
+    }
+    
+    .shimmer-effect {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .shimmer-effect::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0%, 
+            rgba(255,255,255,0.4) 50%, 
+            rgba(255,255,255,0) 100%);
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite;
+        z-index: 1;
+    }
+    
+    .pulse-animation {
+        animation: pulse 0.8s ease-in-out;
+    }
+    
+    /* Button hover effects */
+    .btn-topic:hover, .nav-btn:hover, .btn-success:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+    }
+    
+    /* Study card hover effects */
+    .topic-card:hover .topic-icon {
+        transform: scale(1.1) !important;
+    }
+    
+    /* Question card styling */
+    .study-question-card {
+        transition: all 0.3s ease;
+    }
+    
+    .study-question-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important;
+    }
 </style>
 <div class="fade-in">
         <h1 class="section-title quiz-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
@@ -458,64 +546,108 @@
     <div id="study-mode" class="game-container" style="display: none;">
         <div class="study-header">
             <h2><i class="fas fa-book-open"></i> Chế độ ôn tập</h2>
-            <p>Học từng chủ đề một cách chi tiết với giải thích đầy đủ</p>
         </div>
 
-        <div class="study-topics">
-            <div class="topic-card" data-topic="structure">
-                <div class="topic-icon"><i class="fas fa-sitemap"></i></div>
-                <h3>Cơ cấu xã hội</h3>
-                <p>Khái niệm, đặc điểm và vai trò</p>
-                <div class="topic-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 60%;"></div>
-                    </div>
-                    <span>3/5 bài học</span>
+        <!-- Topics Selection View -->
+        <div id="study-topics-view">
+            <div style="text-align: center; margin-bottom: 2.5rem;">
+                <div style="display: inline-block; background: rgba(214, 48, 49, 0.1); border-radius: 50px; padding: 0.5rem 1.5rem; margin-bottom: 1rem;">
+                    <i class="fas fa-book-reader" style="color: var(--primary-red); margin-right: 0.5rem;"></i>
+                    <span style="color: var(--primary-red); font-weight: 600;">Chọn chủ đề để ôn tập</span>
                 </div>
-                <button class="btn btn-success">
-                    <i class="fas fa-play"></i>
-                    Tiếp tục
-                </button>
+                <p style="color: var(--text-secondary); font-size: 1.1rem;">Mỗi chủ đề bao gồm các câu hỏi quan trọng với giải thích chi tiết</p>
+            </div>
+            
+            <div class="study-topics" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                <div class="topic-card" data-topic="structure" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.05), rgba(255, 255, 255, 0.95)); border: 2px solid transparent; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div class="topic-icon" style="width: 90px; height: 90px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2.5rem; box-shadow: 0 10px 25px rgba(40, 167, 69, 0.3); transition: all 0.5s ease;">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.8rem;">Cơ cấu xã hội</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Khái niệm, đặc điểm và vai trò của các cơ cấu trong xã hội</p>
+                    <button class="btn btn-success topic-btn" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #28a745, #20c997); border: none; border-radius: 50px; color: white; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);">
+                        <i class="fas fa-play"></i>
+                        Học
+                    </button>
+                </div>
+
+                <div class="topic-card" data-topic="alliance" style="background: linear-gradient(135deg, rgba(255, 193, 7, 0.05), rgba(255, 255, 255, 0.95)); border: 2px solid transparent; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div class="topic-icon" style="width: 90px; height: 90px; background: linear-gradient(135deg, #ffc107, #ffb300); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2.5rem; box-shadow: 0 10px 25px rgba(255, 193, 7, 0.3); transition: all 0.5s ease;">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.8rem;">Liên minh giai cấp</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Vai trò, ý nghĩa lịch sử và đặc điểm liên minh giai cấp ở Việt Nam</p>
+                    <button class="btn btn-warning topic-btn" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #ffc107, #ffb300); border: none; border-radius: 50px; color: #2d3436; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 5px 15px rgba(255, 193, 7, 0.2);">
+                        <i class="fas fa-play"></i>
+                        Học
+                    </button>
+                </div>
+
+                <div class="topic-card" data-topic="vietnam" style="background: linear-gradient(135deg, rgba(220, 53, 69, 0.05), rgba(255, 255, 255, 0.95)); border: 2px solid transparent; border-radius: 20px; padding: 2.5rem; text-align: center; transition: all 0.4s ease; position: relative; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08);">
+                    <div class="topic-icon" style="width: 90px; height: 90px; background: linear-gradient(135deg, #dc3545, #e74c3c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; color: white; font-size: 2.5rem; box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3); transition: all 0.5s ease;">
+                        <i class="fas fa-flag"></i>
+                    </div>
+                    <h3 style="color: var(--primary-red); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.8rem;">Thực tiễn Việt Nam</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.5;">Sự biến đổi cơ cấu xã hội qua các giai đoạn lịch sử Việt Nam</p>
+                    <button class="btn btn-danger topic-btn" style="width: 100%; padding: 1rem; background: linear-gradient(135deg, #dc3545, #e74c3c); border: none; border-radius: 50px; color: white; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);">
+                        <i class="fas fa-play"></i>
+                        Học
+                    </button>
+                </div>
             </div>
 
-            <div class="topic-card" data-topic="alliance">
-                <div class="topic-icon"><i class="fas fa-handshake"></i></div>
-                <h3>Liên minh giai cấp</h3>
-                <p>Vai trò và ý nghĩa lịch sử</p>
-                <div class="topic-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 40%;"></div>
-                    </div>
-                    <span>2/5 bài học</span>
-                </div>
-                <button class="btn btn-success">
-                    <i class="fas fa-play"></i>
-                    Bắt đầu
-                </button>
-            </div>
-
-            <div class="topic-card" data-topic="vietnam">
-                <div class="topic-icon"><i class="fas fa-flag"></i></div>
-                <h3>Thực tiễn Việt Nam</h3>
-                <p>Sự biến đổi qua các giai đoạn</p>
-                <div class="topic-progress">
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 80%;"></div>
-                    </div>
-                    <span>4/5 bài học</span>
-                </div>
-                <button class="btn btn-success">
-                    <i class="fas fa-play"></i>
-                    Hoàn thành
+            <div class="text-center" style="margin-top: 2rem;">
+                <button class="btn" id="back-to-menu-study" style="background: linear-gradient(135deg, #6c757d, #5a6268); padding: 1rem 2rem; border: none; border-radius: 50px; color: white; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(108, 117, 125, 0.2); display: inline-flex; align-items: center; gap: 0.8rem;">
+                    <i class="fas fa-home"></i>
+                    Về menu chính
                 </button>
             </div>
         </div>
 
-        <div class="text-center" style="margin-top: 2rem;">
-            <button class="btn" id="back-to-menu-study">
-                <i class="fas fa-home"></i>
-                Về menu chính
-            </button>
+        <!-- Topic Content View -->
+        <div id="study-content-view" style="display: none;">
+            <div class="study-content-header">
+                <button class="btn btn-sm" id="back-to-topics" style="background: rgba(108, 117, 125, 0.1); color: #6c757d; border: none; border-radius: 50px; padding: 0.75rem 1.5rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;">
+                    <i class="fas fa-arrow-left"></i> Quay lại chủ đề
+                </button>
+                <h3 id="topic-title" style="margin: 0; color: var(--primary-red); font-weight: 700; font-size: 1.8rem; position: relative; padding-bottom: 0.5rem;">Chủ đề</h3>
+                <div style="flex: 1;"></div>
+                <button class="btn btn-primary" style="background: linear-gradient(135deg, #007bff, #0056b3); border: none; border-radius: 50px; padding: 0.75rem 1.5rem; color: white; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); display: flex; align-items: center; gap: 0.5rem;" onclick="tryQuizNow()">
+                    <i class="fas fa-gamepad"></i> Kiểm tra kiến thức
+                </button>
+            </div>
+            
+            <div class="topic-info" style="background: linear-gradient(135deg, rgba(214, 48, 49, 0.05), rgba(253, 203, 110, 0.05)); border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; border: 1px solid rgba(214, 48, 49, 0.1); display: flex; align-items: center; gap: 1.5rem;">
+                <div class="topic-icon-large" style="width: 80px; height: 80px; min-width: 80px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-red), var(--secondary-red)); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; box-shadow: 0 10px 20px rgba(214, 48, 49, 0.2);">
+                    <i id="topic-icon-large" class="fas fa-book"></i>
+                </div>
+                <div style="flex: 1;">
+                    <h4 id="topic-subtitle" style="margin: 0 0 0.5rem 0; font-size: 1.4rem; color: var(--primary-red); font-weight: 700;">Giới thiệu chủ đề</h4>
+                    <p id="topic-description" style="margin: 0; color: var(--text-secondary); font-size: 1.1rem; line-height: 1.5;">Bạn sẽ tìm hiểu về các khái niệm chính và đặc điểm quan trọng của chủ đề này.</p>
+                </div>
+            </div>
+            
+            <div id="study-content-container" class="content-section">
+                <!-- Questions and answers will be loaded here -->
+                <div class="study-loading" style="text-align: center; padding: 3rem 0;">
+                    <div class="spinner" style="width: 50px; height: 50px; border: 5px solid rgba(214, 48, 49, 0.1); border-top-color: var(--primary-red); border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; margin-bottom: 1rem;"></div>
+                    <p style="color: var(--text-secondary); font-size: 1.1rem;">Đang tải nội dung...</p>
+                </div>
+            </div>
+            
+            <div class="topic-navigation" style="margin-top: 3rem; display: flex; justify-content: space-between; align-items: center;">
+                <button id="prev-topic" class="nav-btn" style="background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;" onclick="navigateToPreviousTopic()">
+                    <i class="fas fa-chevron-left"></i> Chủ đề trước
+                </button>
+                
+                <button class="btn btn-primary" style="background: linear-gradient(135deg, var(--primary-red), var(--secondary-red)); border: none; border-radius: 50px; padding: 0.75rem 1.5rem; color: white; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(214, 48, 49, 0.2);" onclick="tryQuizNow()">
+                    <i class="fas fa-gamepad"></i> Làm bài kiểm tra
+                </button>
+                
+                <button id="next-topic" class="nav-btn" style="background: white; border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; padding: 0.75rem 1.5rem; font-weight: 600; transition: all 0.3s ease; display: flex; align-items: center; gap: 0.5rem;" onclick="navigateToNextTopic()">
+                    Chủ đề tiếp theo <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1174,6 +1306,202 @@
 #difficulty-selection .difficulty-card:nth-child(2) { animation-delay: 0.2s; }
 #difficulty-selection .difficulty-card:nth-child(3) { animation-delay: 0.3s; }
 #difficulty-selection .difficulty-card:nth-child(4) { animation-delay: 0.4s; }
+
+/* Study Mode Styles */
+#study-content-view {
+    animation: fadeInUp 0.5s ease;
+}
+
+#study-topics-view {
+    animation: fadeIn 0.8s ease;
+}
+
+.study-topics {
+    transition: all 0.5s ease;
+}
+
+.topic-card {
+    transform: translateY(0);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    animation: fadeInUp 0.8s ease;
+}
+
+.topic-card:nth-child(1) { animation-delay: 0.1s; }
+.topic-card:nth-child(2) { animation-delay: 0.25s; }
+.topic-card:nth-child(3) { animation-delay: 0.4s; }
+
+.topic-card:hover {
+    transform: translateY(-12px) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15) !important;
+    border-color: var(--primary-gold) !important;
+}
+
+.topic-card:hover .topic-icon {
+    transform: scale(1.1) rotate(5deg);
+    animation: topicIconPulse 3s infinite ease-in-out;
+}
+
+@keyframes topicIconPulse {
+    0%, 100% { transform: scale(1.1) rotate(5deg); }
+    50% { transform: scale(1.2) rotate(-5deg); }
+}
+
+.topic-card .btn {
+    transform: translateY(0);
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.topic-card:hover .btn {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
+}
+
+.topic-card:hover .progress-fill {
+    animation: progressPulse 2s infinite alternate;
+}
+
+@keyframes progressPulse {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; }
+}
+
+.topic-badge {
+    transform: translateY(0);
+    transition: all 0.3s ease;
+}
+
+.topic-card:hover .topic-badge {
+    transform: translateY(-3px) scale(1.05);
+}
+
+.study-content-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    animation: fadeIn 0.5s ease;
+}
+
+.study-content-header h3 {
+    margin: 0;
+    flex: 1;
+    text-align: center;
+    font-weight: 700;
+    color: var(--primary-red);
+}
+
+.study-question-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.05);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease;
+}
+
+.study-question-card h4 {
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.study-answer {
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 0.5rem 0;
+    position: relative;
+    padding-left: 2.5rem;
+}
+
+.study-answer::before {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.study-answer.correct {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.study-answer.correct::before {
+    background: #2ecc71;
+    content: '✓';
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.study-answer.incorrect {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.study-explanation {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid #3498db;
+    border-radius: 0 8px 8px 0;
+    color: var(--text-primary);
+}
+
+.study-explanation h5 {
+    color: #3498db;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.topic-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+.nav-btn {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-btn:hover {
+    background: var(--primary-red);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(214, 48, 49, 0.2);
+}
+
+.nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
 </style> div:first-child {
         width: 60px !important;
         height: 60px !important;

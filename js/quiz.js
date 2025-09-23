@@ -434,6 +434,9 @@ function setupGameControls() {
             showGameMenu();
         });
     }
+    
+    // Setup study mode listeners
+    setupStudyModeListeners();
 
     // Difficulty selection buttons
     var difficultyButtons = document.querySelectorAll('.difficulty-btn');
@@ -491,6 +494,13 @@ function showStudyMode() {
     document.getElementById('game-playing').style.display = 'none';
     document.getElementById('game-results').style.display = 'none';
     document.getElementById('study-mode').style.display = 'block';
+    
+    // Make sure the topics view is visible and content view is hidden
+    document.getElementById('study-topics-view').style.display = 'block';
+    document.getElementById('study-content-view').style.display = 'none';
+    
+    // Setup study mode event listeners if not already set up
+    setupStudyModeListeners();
 }
 
 function startGameWithDifficulty(mode, difficulty) {
@@ -735,7 +745,18 @@ function selectAnswer(selectedIndex) {
             
             if (gameState.mode === 'survival') {
                 gameState.lives--;
+                // Store the answer before ending the game when out of lives
                 if (gameState.lives <= 0) {
+                    // Store answer for the last failed question
+                    gameState.answers.push({
+                        questionIndex: gameState.currentQuestion,
+                        selectedAnswer: selectedOption ? selectedOption.originalIndex : -1,
+                        correctAnswer: question.correct,
+                        isCorrect: isCorrect,
+                        timeUsed: gameModes[gameState.mode].timePerQuestion - gameState.timeLeft,
+                        skipped: selectedIndex === -1
+                    });
+                    
                     endGame();
                     return;
                 }
@@ -1296,6 +1317,505 @@ document.addEventListener('keydown', function(e) {
         }
     }
 });
+
+// Study Mode Functions
+var studyContent = {
+    'structure': {
+        title: "Cơ cấu xã hội",
+        questions: [
+            {
+                question: "Trong cơ cấu xã hội, nhóm cơ cấu nào có vị trí quan trọng hàng đầu?",
+                options: [
+                    "Cơ cấu xã hội - giai cấp",
+                    "Cơ cấu dân tộc", 
+                    "Cơ cấu nghề nghiệp",
+                    "Cơ cấu vùng miền"
+                ],
+                correct: 0,
+                explanation: "Cơ cấu xã hội - giai cấp có vị trí quan trọng hàng đầu vì liên quan đến sở hữu tư liệu sản xuất và quyền lực trong xã hội."
+            },
+            {
+                question: "Cơ cấu xã hội bao gồm những cơ cấu nào?",
+                options: [
+                    "Cơ cấu giai cấp, dân tộc, nghề nghiệp, vùng miền",
+                    "Chỉ có cơ cấu giai cấp",
+                    "Cơ cấu kinh tế và chính trị",
+                    "Cơ cấu văn hóa và xã hội"
+                ],
+                correct: 0,
+                explanation: "Cơ cấu xã hội bao gồm cơ cấu giai cấp, cơ cấu dân tộc, cơ cấu nghề nghiệp và cơ cấu vùng miền."
+            },
+            {
+                question: "Cơ cấu xã hội là gì?",
+                options: [
+                    "Tổng thể các mối quan hệ bền vững giữa các nhóm xã hội",
+                    "Chỉ là các mối quan hệ kinh tế",
+                    "Các đảng phái chính trị",
+                    "Là tập hợp các cá nhân"
+                ],
+                correct: 0,
+                explanation: "Cơ cấu xã hội là tổng thể các mối quan hệ bền vững giữa các nhóm xã hội, được hình thành do vị trí của các nhóm trong hệ thống quan hệ xã hội nhất định."
+            }
+        ]
+    },
+    'alliance': {
+        title: "Liên minh giai cấp",
+        questions: [
+            {
+                question: "Liên minh giai cấp cơ bản ở Việt Nam gồm những ai?",
+                options: [
+                    "Công nhân - Nông dân - Trí thức",
+                    "Tư sản - Nông dân - Công nhân",
+                    "Địa chủ - Nông dân - Tiểu tư sản", 
+                    "Doanh nhân - Trí thức - Công nhân"
+                ],
+                correct: 0,
+                explanation: "Liên minh Công nhân - Nông dân - Trí thức là liên minh cơ bản trong xã hội Việt Nam hiện đại."
+            },
+            {
+                question: "Trong liên minh giai cấp cơ bản, ai là lực lượng lãnh đạo?",
+                options: [
+                    "Giai cấp công nhân",
+                    "Giai cấp nông dân",
+                    "Tầng lớp trí thức",
+                    "Tất cả đều bình đẳng"
+                ],
+                correct: 0,
+                explanation: "Giai cấp công nhân là lực lượng lãnh đạo trong liên minh giai cấp cơ bản vì đại diện cho phương thức sản xuất tiên tiến."
+            }
+        ]
+    },
+    'vietnam': {
+        title: "Thực tiễn Việt Nam",
+        questions: [
+            {
+                question: "Đặc điểm nào sau đây thuộc về giai cấp công nhân Việt Nam hiện đại?",
+                options: [
+                    "Lãnh đạo cách mạng, đại diện cho phương thức sản xuất tiên tiến",
+                    "Sở hữu tư liệu sản xuất lớn",
+                    "Chỉ làm việc trong nông nghiệp",
+                    "Không tham gia hoạt động chính trị"
+                ],
+                correct: 0,
+                explanation: "Giai cấp công nhân Việt Nam là lực lượng lãnh đạo cách mạng và đại diện cho phương thức sản xuất tiên tiến nhất trong xã hội hiện đại."
+            },
+            {
+                question: "Vai trò của giai cấp nông dân trong xã hội Việt Nam là gì?",
+                options: [
+                    "Bệ đỡ kinh tế, đảm bảo an ninh lương thực",
+                    "Lãnh đạo toàn bộ xã hội",
+                    "Chỉ sản xuất để tự cung tự cấp",
+                    "Không có vai trò quan trọng"
+                ],
+                correct: 0,
+                explanation: "Giai cấp nông dân đóng vai trò là bệ đỡ kinh tế, đảm bảo an ninh lương thực và xuất khẩu nông sản quan trọng."
+            },
+            {
+                question: "Sự biến đổi cơ cấu xã hội của Việt Nam sau Đổi mới thể hiện như thế nào?",
+                options: [
+                    "Đa dạng hóa các thành phần kinh tế và giai cấp xã hội",
+                    "Xóa bỏ hoàn toàn giai cấp công nhân",
+                    "Giảm vai trò của nông dân",
+                    "Hạn chế phát triển tư nhân"
+                ],
+                correct: 0,
+                explanation: "Sau Đổi mới, cơ cấu xã hội Việt Nam có sự biến đổi sâu sắc theo hướng đa dạng hóa các thành phần kinh tế và giai cấp xã hội."
+            },
+            {
+                question: "Xu hướng chủ yếu trong biến đổi cơ cấu xã hội ở Việt Nam hiện nay là gì?",
+                options: [
+                    "Tăng tỷ trọng lao động trong công nghiệp và dịch vụ, giảm tỷ trọng lao động nông nghiệp",
+                    "Tăng tỷ trọng lao động nông nghiệp, giảm công nghiệp",
+                    "Không có sự thay đổi đáng kể",
+                    "Giảm tất cả các thành phần xã hội"
+                ],
+                correct: 0,
+                explanation: "Xu hướng chủ yếu là tăng tỷ trọng lao động trong công nghiệp và dịch vụ, đồng thời giảm tỷ trọng lao động nông nghiệp, phản ánh quá trình công nghiệp hóa, hiện đại hóa đất nước."
+            }
+        ]
+    }
+};
+
+let currentStudyTopic = null;
+let currentStudyQuestionIndex = 0;
+
+function setupStudyModeListeners() {
+    // Setup topic buttons
+    var topicButtons = document.querySelectorAll('.topic-btn');
+    for (var i = 0; i < topicButtons.length; i++) {
+        topicButtons[i].addEventListener('click', function() {
+            var topicCard = this.closest('.topic-card');
+            var topic = topicCard.getAttribute('data-topic');
+            showTopicContent(topic);
+        });
+    }
+    
+    // Setup back to topics button
+    var backToTopicsBtn = document.getElementById('back-to-topics');
+    if (backToTopicsBtn) {
+        backToTopicsBtn.addEventListener('click', function() {
+            showStudyTopicsList();
+        });
+    }
+}
+
+function showStudyTopicsList() {
+    // Fade out content view and fade in topics view
+    var topicsView = document.getElementById('study-topics-view');
+    var contentView = document.getElementById('study-content-view');
+    
+    // Fade out content view
+    contentView.style.opacity = '0';
+    contentView.style.transition = 'opacity 0.3s ease';
+    
+    setTimeout(function() {
+        contentView.style.display = 'none';
+        topicsView.style.display = 'block';
+        topicsView.style.opacity = '0';
+        
+        // Reset the current topic
+        currentStudyTopic = null;
+        currentStudyQuestionIndex = 0;
+        
+        // Animate topic cards when they appear
+        setTimeout(function() {
+            topicsView.style.opacity = '1';
+            topicsView.style.transition = 'opacity 0.5s ease';
+            
+            // Add animation to topic cards
+            var topicCards = document.querySelectorAll('.topic-card');
+            for (var i = 0; i < topicCards.length; i++) {
+                topicCards[i].classList.add('animated-card');
+                topicCards[i].style.animationDelay = (i * 0.15) + 's';
+            }
+        }, 50);
+    }, 300);
+}
+
+// Helper function to convert hex to RGB
+function hexToRgb(hex) {
+    // Remove the '#' if present
+    hex = hex.replace('#', '');
+    
+    // Parse the hex values
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    
+    return r + ',' + g + ',' + b;
+}
+
+function showTopicContent(topic) {
+    console.log("Showing content for topic:", topic);
+    
+    // Hide topics list and show content view with a smooth transition
+    var topicsView = document.getElementById('study-topics-view');
+    var contentView = document.getElementById('study-content-view');
+    
+    // Fade out topics view
+    topicsView.style.opacity = '0';
+    topicsView.style.transition = 'opacity 0.3s ease';
+    
+    setTimeout(function() {
+        topicsView.style.display = 'none';
+        contentView.style.display = 'block';
+        contentView.style.opacity = '0';
+        
+        // Set the current topic
+        currentStudyTopic = topic;
+        currentStudyQuestionIndex = 0;
+        
+        // Set the title and update UI elements
+        var topicTitle = document.getElementById('topic-title');
+        var topicSubtitle = document.getElementById('topic-subtitle');
+        var topicDescription = document.getElementById('topic-description');
+        var topicIconLarge = document.getElementById('topic-icon-large');
+        var topicInfoSection = document.querySelector('.topic-info');
+        
+        if (studyContent[topic]) {
+            // Title with animation
+            topicTitle.innerHTML = '<span class="topic-title-text" style="position: relative; display: inline-block;">' + 
+                studyContent[topic].title + 
+                '<span class="title-underline" style="position: absolute; bottom: -8px; left: 0; width: 0; height: 3px; background: var(--primary-red); animation: widthExpand 1.2s ease-out forwards;"></span>' +
+                '</span>';
+            
+            // Update theme colors based on topic
+            var themeColor, iconBg, badgeColor;
+            
+            if (topic === 'structure') {
+                topicSubtitle.textContent = 'Nền tảng cơ cấu xã hội';
+                topicDescription.textContent = 'Tìm hiểu về khái niệm, đặc điểm và vai trò của các loại cơ cấu trong xã hội.';
+                topicIconLarge.className = 'fas fa-sitemap';
+                themeColor = 'linear-gradient(135deg, #3867d6, #4b7bec)';
+                iconBg = 'linear-gradient(135deg, #3867d6, #4b7bec)';
+                badgeColor = '#3867d6';
+            } else if (topic === 'alliance') {
+                topicSubtitle.textContent = 'Liên minh giai cấp';
+                topicDescription.textContent = 'Khám phá vai trò và ý nghĩa lịch sử của liên minh giai cấp trong phát triển xã hội.';
+                topicIconLarge.className = 'fas fa-handshake';
+                themeColor = 'linear-gradient(135deg, #20bf6b, #26de81)';
+                iconBg = 'linear-gradient(135deg, #20bf6b, #26de81)';
+                badgeColor = '#20bf6b';
+            } else if (topic === 'vietnam') {
+                topicSubtitle.textContent = 'Thực tiễn Việt Nam';
+                topicDescription.textContent = 'Phân tích sự biến đổi cơ cấu xã hội qua các giai đoạn lịch sử Việt Nam.';
+                topicIconLarge.className = 'fas fa-flag';
+                themeColor = 'linear-gradient(135deg, #eb3b5a, #fc5c65)';
+                iconBg = 'linear-gradient(135deg, #eb3b5a, #fc5c65)';
+                badgeColor = '#eb3b5a';
+            }
+            
+            // Apply theme color to UI elements
+            if (topicInfoSection) {
+                topicInfoSection.style.background = 'linear-gradient(135deg, rgba(' + hexToRgb(badgeColor) + ', 0.05), rgba(255, 255, 255, 0.8))';
+                topicInfoSection.style.borderLeft = '4px solid ' + badgeColor;
+            }
+            
+            var topicIconLargeDiv = document.querySelector('.topic-icon-large');
+            if (topicIconLargeDiv) {
+                topicIconLargeDiv.style.background = iconBg;
+            }
+            
+            topicSubtitle.style.color = badgeColor;
+        }
+        
+        // Generate content
+        generateStudyContent(topic);
+        
+        // Update navigation buttons
+        updateTopicNavigation();
+        
+        // Fade in content view
+        setTimeout(function() {
+            contentView.style.opacity = '1';
+            contentView.style.transition = 'opacity 0.5s ease';
+        }, 50);
+    }, 300);
+}
+
+function generateStudyContent(topic) {
+    var contentContainer = document.getElementById('study-content-container');
+    var html = '';
+    
+    // Get the topic data
+    var topicData = studyContent[topic];
+    if (!topicData) {
+        html = '<div class="alert alert-warning" style="background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107; padding: 1rem; border-radius: 4px;">' +
+               '<i class="fas fa-exclamation-triangle" style="color: #ffc107; margin-right: 0.5rem;"></i>' +
+               'Không tìm thấy nội dung cho chủ đề này</div>';
+        contentContainer.innerHTML = html;
+        return;
+    }
+    
+    // Add introduction based on topic
+    html += '<div class="study-intro" style="margin-bottom: 2.5rem;">' +
+            '<h4 style="color: var(--text-primary); font-size: 1.3rem; margin-bottom: 1rem; font-weight: 600;">' +
+            '<i class="fas fa-info-circle" style="color: var(--primary-red); margin-right: 0.5rem;"></i>Giới thiệu</h4>' +
+            '<p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 0; font-size: 1.1rem;">';
+    
+    if (topic === 'structure') {
+        html += 'Cơ cấu xã hội là nền tảng để hiểu biết về các mối quan hệ xã hội. Phần này giúp bạn nắm vững các khái niệm cơ bản và ' +
+                'vai trò của cơ cấu xã hội trong phân tích xã hội học hiện đại.';
+    } else if (topic === 'alliance') {
+        html += 'Liên minh giai cấp là một khái niệm quan trọng trong phân tích xã hội. Mục này giúp bạn hiểu rõ về các mối quan hệ ' +
+                'giữa các giai cấp và vai trò của liên minh giai cấp trong phát triển xã hội.';
+    } else if (topic === 'vietnam') {
+        html += 'Việt Nam đã trải qua nhiều biến đổi về cơ cấu xã hội qua các giai đoạn lịch sử. Phần này phân tích những biến đổi ' +
+                'này và tác động của chúng đến sự phát triển của đất nước.';
+    }
+    
+    html += '</p></div>';
+    
+    // Generate HTML for each question in the topic
+    for (var i = 0; i < topicData.questions.length; i++) {
+        var question = topicData.questions[i];
+        html += generateQuestionHTML(question, i);
+    }
+    
+    // Add completion message
+    html += '<div class="study-completion" style="background: linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.1)); border-radius: 16px; padding: 2rem; margin: 3rem 0 1rem; text-align: center; border: 1px dashed rgba(40, 167, 69, 0.3);">' +
+            '<div style="font-size: 3rem; margin-bottom: 1rem; color: #28a745;"><i class="fas fa-check-circle"></i></div>' +
+            '<h4 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #28a745;">Hoàn thành chủ đề!</h4>' +
+            '<p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Bạn đã hoàn thành tất cả các câu hỏi trong chủ đề này. Hãy thử làm bài kiểm tra hoặc chuyển sang chủ đề khác.</p>' +
+            '<button class="btn btn-success" style="background: linear-gradient(135deg, #28a745, #20c997); border: none; border-radius: 50px; padding: 1rem 2rem; color: white; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);" onclick="tryQuizNow()">' +
+            '<i class="fas fa-gamepad"></i> Làm bài kiểm tra ngay</button>' +
+            '</div>';
+    
+    // Show the content with a slight delay for animation
+    contentContainer.innerHTML = '<div class="study-loading" style="text-align: center; padding: 3rem 0;">' +
+        '<div class="spinner" style="width: 50px; height: 50px; border: 5px solid rgba(214, 48, 49, 0.1); border-top-color: var(--primary-red); border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; margin-bottom: 1rem;"></div>' +
+        '<p style="color: var(--text-secondary); font-size: 1.1rem;">Đang tải nội dung...</p>' +
+        '</div>';
+    
+    setTimeout(function() {
+        contentContainer.innerHTML = html;
+        
+        // Add fade-in animation to each question card
+        var questionCards = document.querySelectorAll('.study-question-card');
+        for (var j = 0; j < questionCards.length; j++) {
+            questionCards[j].style.animationDelay = (j * 0.15) + 's';
+            questionCards[j].classList.add('animated-card');
+        }
+    }, 800);
+}
+
+function generateQuestionHTML(question, index) {
+    var topicBadgeColor = '#6c757d';
+    var topicBadgeBg = 'rgba(108, 117, 125, 0.1)';
+    
+    // Set topic badge colors based on topic
+    if (question.topic.toLowerCase().includes('cơ cấu')) {
+        topicBadgeColor = '#3867d6';
+        topicBadgeBg = 'rgba(56, 103, 214, 0.1)';
+    } else if (question.topic.toLowerCase().includes('công nghiệp') || question.topic.toLowerCase().includes('kinh tế')) {
+        topicBadgeColor = '#20bf6b';
+        topicBadgeBg = 'rgba(32, 191, 107, 0.1)';
+    } else if (question.topic.toLowerCase().includes('giai cấp') || question.topic.toLowerCase().includes('liên minh')) {
+        topicBadgeColor = '#f7b731';
+        topicBadgeBg = 'rgba(247, 183, 49, 0.1)';
+    } else if (question.topic.toLowerCase().includes('việt nam') || question.topic.toLowerCase().includes('đổi mới')) {
+        topicBadgeColor = '#eb3b5a';
+        topicBadgeBg = 'rgba(235, 59, 90, 0.1)';
+    }
+
+    var html = '<div class="study-question-card animated-card" style="background: white; border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.05); position: relative; overflow: hidden;">' +
+        '<div class="question-topic-badge" style="position: absolute; top: 1rem; right: 1rem; background: ' + topicBadgeBg + '; color: ' + topicBadgeColor + '; padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.8rem; font-weight: 600;">' +
+        '<i class="fas fa-tag" style="margin-right: 0.3rem;"></i>' + question.topic + '</div>' +
+        '<h4 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-primary); line-height: 1.6; padding-right: 7rem;">' + 
+        '<span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-red), var(--secondary-red)); color: white; font-size: 0.9rem; margin-right: 0.8rem;">' + 
+        (index + 1) + '</span>' + question.question + '</h4>' +
+        '<div class="study-answers" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">';
+    
+    // Icons for answers
+    var icons = ['A', 'B', 'C', 'D'];
+    
+    for (var i = 0; i < question.options.length; i++) {
+        var isCorrect = (i === question.correct);
+        var bgColor = isCorrect ? 'linear-gradient(135deg, rgba(40, 167, 69, 0.1), rgba(32, 201, 151, 0.05))' : 'white';
+        var borderColor = isCorrect ? 'rgba(40, 167, 69, 0.3)' : 'rgba(0, 0, 0, 0.05)';
+        var textColor = isCorrect ? '#28a745' : 'var(--text-secondary)';
+        var iconBg = isCorrect ? 'linear-gradient(135deg, #28a745, #20c997)' : 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+        var iconColor = isCorrect ? 'white' : '#6c757d';
+        
+        html += '<div class="study-answer ' + (isCorrect ? 'correct' : 'incorrect') + '" ' +
+            'style="background: ' + bgColor + '; border-radius: 12px; padding: 1rem; position: relative; border: 1px solid ' + borderColor + '; display: flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease;">' +
+            '<div style="width: 32px; height: 32px; min-width: 32px; border-radius: 50%; background: ' + iconBg + '; color: ' + iconColor + '; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 0.85rem;">' +
+            icons[i] + '</div>' +
+            '<div style="color: ' + textColor + '; font-weight: ' + (isCorrect ? '600' : 'normal') + ';">' + question.options[i] + '</div>' +
+            (isCorrect ? '<div style="position: absolute; top: -8px; right: -8px; width: 24px; height: 24px; border-radius: 50%; background: #28a745; color: white; display: flex; align-items: center; justify-content: center;"><i class="fas fa-check"></i></div>' : '') +
+            '</div>';
+    }
+    
+    html += '</div>' +
+        '<div class="study-explanation" style="background: linear-gradient(135deg, rgba(214, 48, 49, 0.05), rgba(255, 255, 255, 0.8)); border-radius: 12px; padding: 1.5rem; border-left: 4px solid var(--primary-red);">' +
+        '<h5 style="display: flex; align-items: center; color: var(--primary-red); font-weight: 700; margin-bottom: 0.8rem; font-size: 1.1rem;">' +
+        '<i class="fas fa-lightbulb" style="margin-right: 0.5rem; color: #ffc107;"></i> Giải thích</h5>' +
+        '<p style="color: var(--text-secondary); margin-bottom: 0; font-size: 1.05rem; line-height: 1.6;">' + question.explanation + '</p>' +
+        '</div>' +
+        '</div>';
+    
+    return html;
+}
+
+function updateTopicNavigation() {
+    var topics = Object.keys(studyContent);
+    var currentIndex = topics.indexOf(currentStudyTopic);
+    
+    var prevButton = document.getElementById('prev-topic');
+    var nextButton = document.getElementById('next-topic');
+    
+    if (currentIndex <= 0) {
+        prevButton.disabled = true;
+    } else {
+        prevButton.disabled = false;
+    }
+    
+    if (currentIndex >= topics.length - 1) {
+        nextButton.disabled = true;
+    } else {
+        nextButton.disabled = false;
+    }
+}
+
+function navigateToPreviousTopic() {
+    var topics = Object.keys(studyContent);
+    var currentIndex = topics.indexOf(currentStudyTopic);
+    
+    if (currentIndex > 0) {
+        showTopicContent(topics[currentIndex - 1]);
+    }
+}
+
+function navigateToNextTopic() {
+    var topics = Object.keys(studyContent);
+    var currentIndex = topics.indexOf(currentStudyTopic);
+    
+    if (currentIndex < topics.length - 1) {
+        showTopicContent(topics[currentIndex + 1]);
+    }
+}
+
+function tryQuizNow() {
+    // Add a visual feedback before navigating
+    var tryQuizBtn = document.querySelector('.btn-success[onclick="tryQuizNow()"]');
+    if (tryQuizBtn) {
+        // Add pulse effect
+        tryQuizBtn.classList.add('pulse-animation');
+        tryQuizBtn.style.transform = 'scale(1.05)';
+        tryQuizBtn.style.boxShadow = '0 10px 25px rgba(40, 167, 69, 0.4)';
+        
+        // Add dynamic style for the pulse animation if it doesn't exist
+        if (!document.getElementById('pulse-animation-style')) {
+            var styleTag = document.createElement('style');
+            styleTag.id = 'pulse-animation-style';
+            styleTag.innerHTML = '@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } } ' +
+                                '.pulse-animation { animation: pulse 0.5s ease-in-out; }';
+            document.head.appendChild(styleTag);
+        }
+    }
+    
+    // Fade out the current view
+    var studyMode = document.getElementById('study-mode');
+    if (studyMode) {
+        studyMode.style.opacity = '0';
+        studyMode.style.transition = 'opacity 0.4s ease';
+    }
+    
+    // Navigate back to the game menu and start a quiz in classic mode after the animation
+    setTimeout(function() {
+        showGameMenu();
+        
+        // Find the classic mode button and click it after the game menu is shown
+        setTimeout(function() {
+            var gameMenu = document.getElementById('game-menu');
+            if (gameMenu) {
+                gameMenu.style.opacity = '0';
+                gameMenu.style.display = 'block';
+                
+                setTimeout(function() {
+                    gameMenu.style.opacity = '1';
+                    gameMenu.style.transition = 'opacity 0.5s ease';
+                    
+                    // Highlight classic mode card
+                    var classicModeCard = document.querySelector('.game-mode-card[data-mode="classic"]');
+                    if (classicModeCard) {
+                        classicModeCard.style.transform = 'translateY(-12px) scale(1.03)';
+                        classicModeCard.style.boxShadow = '0 20px 60px rgba(214, 48, 49, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3)';
+                        classicModeCard.style.borderColor = 'var(--primary-gold)';
+                    }
+                    
+                    // Click the classic mode button after a brief delay
+                    setTimeout(function() {
+                        var classicModeBtn = document.querySelector('.game-mode-card[data-mode="classic"] .mode-btn');
+                        if (classicModeBtn) {
+                            classicModeBtn.click();
+                        }
+                    }, 800);
+                }, 50);
+            }
+        }, 300);
+    }, 400);
+}
 
 // Initialize game when loaded
 console.log("Quiz game script loaded, initializing...");
