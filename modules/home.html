@@ -1,115 +1,190 @@
-<div class="fade-in">
-    <div class="hero">
+<!-- Module-specific background with network image -->
+<style>
+.home-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        linear-gradient(135deg, rgba(214, 48, 49, 0.85), rgba(253, 203, 110, 0.7)),
+        url('https://tttctt.1cdn.vn/2025/02/01/img_22516889.jpeg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.home-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 25% 75%, rgba(214, 48, 49, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(253, 203, 110, 0.1) 0%, transparent 50%);
+    animation: backgroundFloat 20s ease-in-out infinite;
+}
+
+@keyframes backgroundFloat {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-15px) scale(1.01); }
+}
+
+/* Enhanced content sections for better contrast */
+.home-module .content-section {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-module .hero {
+    background: 
+        linear-gradient(135deg, rgba(214, 48, 49, 0.95), rgba(225, 112, 85, 0.9)),
+        url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-module .stats-grid .stat-card {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+</style>
+
+<div class="home-background"></div>
+
+<div class="fade-in home-module">
+    <div class="hero" style="background: linear-gradient(135deg, rgba(214, 48, 49, 0.9), rgba(225, 112, 85, 0.9)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center;">
         <div class="vietnam-flag" style="transform: scale(2); margin-bottom: 2rem;"></div>
-        <h2><i class="fas fa-star"></i> Khám phá cơ cấu xã hội - giai cấp trong thời kỳ quá độ</h2>
-        <p>Tìm hiểu về sự biến đổi của các giai cấp và tầng lớp xã hội trong quá trình xây dựng chủ nghĩa xã hội ở Việt Nam - từ lý thuyết Marx-Lenin đến thực tiễn đổi mới</p>
+        <h2><i class="fas fa-star"></i> Cơ cấu xã hội - giai cấp trong thời kỳ quá độ lên CNXH</h2>
+        <p>Khám phá sự biến đổi của các giai cấp và tầng lớp xã hội trong quá trình xây dựng chủ nghĩa xã hội ở Việt Nam - từ lý thuyết Marx-Lenin đến thực tiễn đổi mới và liên minh giai cấp</p>
         <a href="#" class="cta-button" onclick="showSection('theory')">
             <i class="fas fa-rocket"></i>
             Bắt đầu khám phá
         </a>
     </div>
 
-    <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-quote-left"></i> Lời dẫn từ Bác Hồ</h2>
+    <div class="content-section" style="background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px);">
+        <h2 class="section-subtitle"><i class="fas fa-quote-left"></i> Tư tưởng chỉ đạo</h2>
         <div class="quote">
-            "Dân ta có một truyền thống vẻ vang: đó là đoàn kết. Từ xưa đến nay, cứ lúc nào Tổ quốc bị xâm lăng, thì nhân dân ta đều đoàn kết chống giặc."
-            <br><em style="color: var(--primary-red); font-weight: bold;">- Chủ tịch Hồ Chí Minh</em>
+            "Đảng ta là Đảng của giai cấp công nhân, đồng thời là Đảng của dân tộc Việt Nam, trung thành với lợi ích của giai cấp công nhân, của nhân dân lao động và của dân tộc."
+            <br><em style="color: var(--primary-red); font-weight: bold;">- Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên CNXH</em>
         </div>
     </div>
 
-    <div class="cards-grid">
+    <!-- Grid 4 cột cân xứng -->
+    <div class="cards-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
         <div class="card">
-            <h3>
-                <i class="fas fa-users"></i>
-                Cơ cấu xã hội - giai cấp
-            </h3>
-            <p>Hệ thống các giai cấp, tầng lớp xã hội và những mối quan hệ về sở hữu, tổ chức sản xuất, phân phối sản phẩm và địa vị chính trị-xã hội. Đây là nền tảng để hiểu về xã hội Việt Nam.</p>
+            <h3><i class="fas fa-sitemap" style="color: #28a745;"></i> Cơ cấu xã hội</h3>
+            <p>Hệ thống các giai cấp, tầng lớp xã hội và mối quan hệ về sở hữu tư liệu sản xuất, tổ chức quản lý sản xuất.</p>
             <div class="highlight">
-                <strong>Vai trò:</strong> Chi phối các cơ cấu xã hội khác
+                <strong>Vị trí:</strong> Chi phối các cơ cấu xã hội khác
             </div>
         </div>
         
         <div class="card">
-            <h3>
-                <i class="fas fa-handshake"></i>
-                Liên minh giai cấp
-            </h3>
-            <p>Sự đoàn kết chặt chẽ giữa <strong>công nhân - nông dân - trí thức</strong> dưới sự lãnh đạo của Đảng, tạo nền tảng vững chắc cho việc xây dựng xã hội chủ nghĩa ở Việt Nam.</p>
+            <h3><i class="fas fa-handshake" style="color: #007bff;"></i> Liên minh giai cấp</h3>
+            <p>Sự đoàn kết chặt chẽ giữa <strong>công nhân - nông dân - trí thức</strong> dưới sự lãnh đạo của Đảng Cộng sản.</p>
             <div class="highlight">
-                <strong>Mục tiêu:</strong> Xây dựng khối đại đoàn kết toàn dân
+                <strong>Mục tiêu:</strong> Xây dựng khối đại đoàn kết
             </div>
         </div>
         
         <div class="card">
-            <h3>
-                <i class="fas fa-flag"></i>
-                Thực tiễn Việt Nam
-            </h3>
-            <p>Phân tích sự biến đổi cơ cấu xã hội qua các giai đoạn lịch sử, từ thời kỳ thuộc địa phong kiến (trước 1954) đến kinh tế thị trường định hướng XHCN (1986-nay).</p>
+            <h3><i class="fas fa-chart-line" style="color: #ffc107;"></i> Thực tiễn VN</h3>
+            <p>Biến đổi cơ cấu từ nông nghiệp lạc hậu sang công nghiệp-dịch vụ hiện đại qua 38 năm đổi mới.</p>
             <div class="highlight">
-                <strong>Kết quả:</strong> GDP tăng 59.5 lần trong 38 năm đổi mới
+                <strong>Kết quả:</strong> GDP tăng 59.5 lần
             </div>
         </div>
         
         <div class="card">
-            <h3>
-                <i class="fas fa-brain"></i>
-                Kiểm tra kiến thức
-            </h3>
-            <p>Trắc nghiệm tương tác với 5 câu hỏi quan trọng giúp củng cố và đánh giá hiểu biết về chủ đề cơ cấu xã hội - giai cấp trong bối cảnh Việt Nam.</p>
+            <h3><i class="fas fa-brain" style="color: #dc3545;"></i> Kiểm tra kiến thức</h3>
+            <p>Quiz tương tác với câu hỏi về cơ cấu xã hội, vai trò các giai cấp và liên minh trong thời kỳ quá độ.</p>
             <div class="highlight">
-                <strong>Mục tiêu:</strong> Đạt 80% để hoàn thành xuất sắc
+                <strong>Mục tiêu:</strong> Đạt 80% hoàn thành xuất sắc
             </div>
         </div>
     </div>
 
+    <!-- Thống kê quan trọng -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-chart-bar"></i> Những con số ấn tượng</h2>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">70% → 27%</div>
+                <div class="stat-label">Lao động nông nghiệp (1986-2025)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">53.1 triệu</div>
+                <div class="stat-label">Lực lượng lao động (Q2/2025)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">27.2%</div>
+                <div class="stat-label">Lao động qua đào tạo (2023)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">6-7%</div>
+                <div class="stat-label">Tăng trưởng GDP bình quân/năm</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mục tiêu học tập -->
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-target"></i> Mục tiêu học tập</h2>
-        <div class="cards-grid">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
             <div class="card">
-                <h3><i class="fas fa-lightbulb"></i> Hiểu rõ khái niệm</h3>
+                <h3><i class="fas fa-lightbulb"></i> Hiểu rõ lý thuyết</h3>
                 <ul>
-                    <li>Cơ cấu xã hội và các thành phần cấu thành</li>
-                    <li>Giai cấp và tầng lớp xã hội</li>
-                    <li>Liên minh giai cấp trong thời kỳ quá độ</li>
-                    <li>Vai trò của Đảng Cộng sản trong liên minh</li>
+                    <li>Khái niệm cơ cấu xã hội - giai cấp</li>
+                    <li>Quy luật biến đổi trong thời kỳ quá độ</li>
+                    <li>Vai trò của từng giai cấp, tầng lớp</li>
+                    <li>Ý nghĩa của liên minh giai cấp</li>
                 </ul>
             </div>
             
             <div class="card">
-                <h3><i class="fas fa-chart-line"></i> Phân tích thực tiễn</h3>
+                <h3><i class="fas fa-search"></i> Phân tích thực tiễn</h3>
                 <ul>
-                    <li>Sự biến đổi cơ cấu xã hội Việt Nam qua các giai đoạn</li>
-                    <li>Đặc điểm giai cấp công nhân, nông dân, trí thức hiện nay</li>
-                    <li>Xuất hiện và vai trò của tầng lớp doanh nhân</li>
-                    <li>Thống kê và số liệu cụ thể về chuyển dịch cơ cấu</li>
+                    <li>Biến đổi cơ cấu giai cấp ở Việt Nam</li>
+                    <li>Đặc điểm giai cấp công nhân hiện đại</li>
+                    <li>Vai trò mới của giai cấp nông dân</li>
+                    <li>Sự phát triển của tầng lớp trí thức</li>
                 </ul>
             </div>
             
             <div class="card">
-                <h3><i class="fas fa-cogs"></i> Nắm vững vai trò</h3>
+                <h3><i class="fas fa-users"></i> Nắm vững liên minh</h3>
                 <ul>
-                    <li>Tầm quan trọng của liên minh giai cấp</li>
-                    <li>Vai trò đoàn kết lực lượng cách mạng</li>
-                    <li>Ý nghĩa trong xây dựng kinh tế-xã hội</li>
-                    <li>Củng cố dân chủ xã hội chủ nghĩa</li>
+                    <li>Tầm quan trọng của liên minh công-nông-trí thức</li>
+                    <li>Vai trò lãnh đạo của giai cấp công nhân</li>
+                    <li>Sự đóng góp của từng thành phần</li>
+                    <li>Mô hình liên minh ở các nước khác</li>
                 </ul>
             </div>
             
             <div class="card">
-                <h3><i class="fas fa-tools"></i> Vận dụng kiến thức</h3>
+                <h3><i class="fas fa-cogs"></i> Vận dụng kiến thức</h3>
                 <ul>
-                    <li>Giải thích các hiện tượng xã hội hiện tại</li>
-                    <li>Phân tích chính sách phát triển kinh tế-xã hội</li>
-                    <li>Đánh giá vai trò các giai cấp, tầng lớp</li>
-                    <li>Đưa ra quan điểm về tương lai xã hội Việt Nam</li>
+                    <li>Giải thích hiện tượng xã hội hiện tại</li>
+                    <li>Phân tích chính sách phát triển</li>
+                    <li>Đánh giá vai trò các tầng lớp</li>
+                    <li>Dự báo xu hướng tương lai</li>
                 </ul>
             </div>
         </div>
     </div>
 
+    <!-- Dòng thời gian -->
     <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-history"></i> Dòng thời gian lịch sử</h2>
+        <h2 class="section-subtitle"><i class="fas fa-history"></i> Mốc lịch sử quan trọng</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-number">1930</div>
@@ -120,39 +195,32 @@
                 <div class="stat-label">Cách mạng Tháng Tám thành công</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">1975</div>
-                <div class="stat-label">Thống nhất đất nước</div>
-            </div>
-            <div class="stat-card">
                 <div class="stat-number">1986</div>
                 <div class="stat-label">Khởi động công cuộc Đổi mới</div>
             </div>
-        </div>
-        
-        <div class="quote">
-            "Đảng ta là Đảng của giai cấp công nhân, đồng thời là Đảng của dân tộc Việt Nam, trung thành với lợi ích của giai cấp công nhân, của nhân dân lao động và của dân tộc."
-            <br><em style="color: var(--primary-red); font-weight: bold;">- Cương lĩnh xây dựng đất nước trong thời kỳ quá độ lên CNXH</em>
+            <div class="stat-card">
+                <div class="stat-number">2025</div>
+                <div class="stat-label">Phát triển toàn diện, hiện đại</div>
+            </div>
         </div>
     </div>
 
+    <!-- Hành trình khám phá -->
     <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-map-marked-alt"></i> Hành trình khám phá</h2>
-        <p style="font-size: 1.2rem; text-align: center; margin-bottom: 2rem;">
+        <h2 class="section-subtitle"><i class="fas fa-route"></i> Hành trình khám phá</h2>
+        <p style="font-size: 1.2rem; text-align: center; margin-bottom: 2rem; color: #2c3e50;">
             Hãy bắt đầu hành trình tìm hiểu về cơ cấu xã hội - giai cấp và liên minh giai cấp trong bối cảnh xây dựng chủ nghĩa xã hội ở Việt Nam!
         </p>
         
-        <div style="text-align: center; margin-top: 2rem;">
-            <a href="#" class="btn btn-success" onclick="showSection('theory')" style="margin: 0.5rem;">
-                <i class="fas fa-book-open"></i>
-                Bắt đầu với Lý thuyết
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;">
+            <a href="#" class="btn btn-success" onclick="showSection('theory')" style="padding: 1rem 1.5rem;">
+                <i class="fas fa-book-open"></i> Bắt đầu với Lý thuyết
             </a>
-            <a href="#" class="btn btn-warning" onclick="showSection('practice')" style="margin: 0.5rem;">
-                <i class="fas fa-chart-bar"></i>
-                Xem Thực tiễn VN
+            <a href="#" class="btn btn-warning" onclick="showSection('practice')" style="padding: 1rem 1.5rem;">
+                <i class="fas fa-flag"></i> Xem Thực tiễn VN
             </a>
-            <a href="#" class="btn" onclick="showSection('quiz')" style="margin: 0.5rem;">
-                <i class="fas fa-question-circle"></i>
-                Làm Quiz ngay
+            <a href="#" class="btn" onclick="showSection('quiz')" style="padding: 1rem 1.5rem;">
+                <i class="fas fa-question-circle"></i> Làm Quiz ngay
             </a>
         </div>
     </div>

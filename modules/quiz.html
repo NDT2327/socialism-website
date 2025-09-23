@@ -1,5 +1,23 @@
+<style>
+    /* Local override for quiz main title */
+    .quiz-title {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-align: center;
+        color: #ffffff !important;
+        font-weight: 800;
+        letter-spacing: .5px;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.4), 0 0 10px rgba(255,255,255,0.25);
+        margin: 0 0 2rem 0;
+    }
+    @media (max-width: 600px) {
+        .quiz-title { font-size: 1.9rem; line-height: 1.2; }
+    }
+</style>
 <div class="fade-in">
-    <h1 class="section-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
+        <h1 class="section-title quiz-title"><i class="fas fa-gamepad"></i> Game Ôn Luyện Kiến Thức</h1>
     
     <div class="content-section">
         <div class="hero" style="text-align: center; padding: 2rem;">
