@@ -8,8 +8,8 @@
     height: 100%;
     z-index: -1;
     background: 
-        linear-gradient(135deg, rgba(46, 125, 50, 0.85), rgba(67, 160, 71, 0.8)),
-        url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        linear-gradient(135deg, rgba(52, 73, 94, 0.85), rgba(44, 62, 80, 0.8)),
+        url('https://vcdn1-giaitri.vnecdn.net/2023/07/13/nguoi-viet-1-1689244591.jpg?w=460&h=0&q=100&dpr=1&fit=crop&s=KTFVJtKCWq0TUgbNFD-3rQ');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -23,8 +23,8 @@
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(255, 235, 59, 0.1) 0%, transparent 50%);
+        radial-gradient(circle at 20% 80%, rgba(41, 128, 185, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(243, 156, 18, 0.1) 0%, transparent 50%);
     animation: practiceFloat 30s ease-in-out infinite;
 }
 
@@ -33,22 +33,126 @@
     50% { transform: translateX(-10px) translateY(-10px); }
 }
 
-.single-row-cards {
-    display: flex;
+/* RESPONSIVE GRID - NO SCROLL */
+.responsive-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    overflow-x: auto;
     padding: 1rem 0;
+    width: 100%;
 }
 
-.single-row-cards .card {
-    flex: 1;
-    min-width: 280px;
+.responsive-cards-grid .card {
+    width: 100%;
+    /* Remove flex and min-width */
+}
+
+/* Responsive breakpoints for better control */
+@media (min-width: 1200px) {
+    .responsive-cards-grid {
+        grid-template-columns: repeat(4, 1fr); /* Force 4 columns on desktop */
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+    .responsive-cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .responsive-cards-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+        gap: 1rem;
+    }
+}
+
+/* Override card colors in practice module for better contrast */
+.practice-module .card {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.practice-module .hero {
+    background: 
+        linear-gradient(135deg, rgba(46, 125, 50, 0.95), rgba(67, 160, 71, 0.9)),
+        url('https://images.unsplash.com/photo-1587828983138-6e9b31dfb769?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Special styling for green stat cards */
+.practice-module .stats-grid .stat-card {
+    background: linear-gradient(135deg, #27ae60, #2ecc71) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2) !important;
+}
+
+.practice-module .stats-grid .stat-card:nth-child(2) {
+    background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+}
+
+.practice-module .stats-grid .stat-card:nth-child(3) {
+    background: linear-gradient(135deg, #3498db, #2980b9) !important;
+}
+
+.practice-module .stats-grid .stat-card:nth-child(4) {
+    background: linear-gradient(135deg, #f39c12, #e67e22) !important;
+}
+
+/* Timeline styling improvements */
+.practice-module .timeline::before {
+    background: linear-gradient(to bottom, #3498db, #27ae60);
+}
+
+.practice-module .timeline-content {
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Content section improvements */
+.practice-module .content-section {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+.practice-module .content-section::before {
+    background: linear-gradient(90deg, #27ae60, #f39c12, #27ae60);
+}
+
+/* Card hover effects */
+.responsive-cards-grid .card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease;
+}
+
+/* Ensure equal height cards */
+.responsive-cards-grid {
+    align-items: stretch;
+}
+
+.responsive-cards-grid .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.responsive-cards-grid .card p:last-child {
+    margin-top: auto;
 }
 </style>
 
 <div class="practice-background"></div>
 
-<div class="fade-in">
+<div class="fade-in practice-module">
     <h1 class="section-title">🇻🇳 Thực tiễn cơ cấu xã hội - giai cấp ở Việt Nam</h1>
     
     <!-- Bối cảnh chung -->
@@ -126,21 +230,21 @@
         </div>
     </div>
 
-    <!-- Thống kê biến đổi -->
+    <!-- Thống kê biến đổi - RESPONSIVE GRID -->
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-chart-bar"></i> Thống kê biến đổi cơ cấu lao động</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-arrow-down" style="color: #e74c3c;"></i> Lao động nông nghiệp giảm</h3>
                 <div class="stats-grid" style="margin: 1rem 0;">
-                    <div class="stat-card" style="background: #e74c3c;">
-                        <div class="stat-number">70%</div>
-                        <div class="stat-label">Năm 1986</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b) !important;">
+                        <div class="stat-number" style="color: white;">70%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Năm 1986</div>
                     </div>
-                    <div class="stat-card" style="background: #f39c12;">
-                        <div class="stat-number">27.5%</div>
-                        <div class="stat-label">Năm 2022</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #e67e22) !important;">
+                        <div class="stat-number" style="color: white;">27.5%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Năm 2022</div>
                     </div>
                 </div>
                 <p>Xu hướng chuyển dịch mạnh mẽ từ nông nghiệp sang công nghiệp và dịch vụ.</p>
@@ -149,13 +253,13 @@
             <div class="card">
                 <h3><i class="fas fa-arrow-up" style="color: #27ae60;"></i> Công nghiệp - Dịch vụ tăng</h3>
                 <div class="stats-grid" style="margin: 1rem 0;">
-                    <div class="stat-card" style="background: #27ae60;">
-                        <div class="stat-number">72.5%</div>
-                        <div class="stat-label">Năm 2022</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #27ae60, #2ecc71) !important;">
+                        <div class="stat-number" style="color: white;">72.5%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Năm 2022</div>
                     </div>
-                    <div class="stat-card" style="background: #2ecc71;">
-                        <div class="stat-number">70%</div>
-                        <div class="stat-label">GDP 2025</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #16a085, #1abc9c) !important;">
+                        <div class="stat-number" style="color: white;">70%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">GDP 2025</div>
                     </div>
                 </div>
                 <p>Công nghiệp và dịch vụ trở thành động lực chính của nền kinh tế.</p>
@@ -164,13 +268,13 @@
             <div class="card">
                 <h3><i class="fas fa-graduation-cap" style="color: #3498db;"></i> Chất lượng lao động</h3>
                 <div class="stats-grid" style="margin: 1rem 0;">
-                    <div class="stat-card" style="background: #3498db;">
-                        <div class="stat-number">27.2%</div>
-                        <div class="stat-label">Lao động qua đào tạo</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2980b9) !important;">
+                        <div class="stat-number" style="color: white;">27.2%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Lao động qua đào tạo</div>
                     </div>
-                    <div class="stat-card" style="background: #9b59b6;">
-                        <div class="stat-number">17%</div>
-                        <div class="stat-label">Trình độ cao đẳng, ĐH+</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #9b59b6, #8e44ad) !important;">
+                        <div class="stat-number" style="color: white;">17%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Trình độ cao đẳng, ĐH+</div>
                     </div>
                 </div>
                 <p>Nâng cao trình độ lao động đáp ứng yêu cầu công nghiệp hóa.</p>
@@ -179,13 +283,13 @@
             <div class="card">
                 <h3><i class="fas fa-chart-line" style="color: #f39c12;"></i> Tăng trưởng kinh tế</h3>
                 <div class="stats-grid" style="margin: 1rem 0;">
-                    <div class="stat-card" style="background: #f39c12;">
-                        <div class="stat-number">59.5x</div>
-                        <div class="stat-label">GDP tăng (1986-2024)</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #e67e22) !important;">
+                        <div class="stat-number" style="color: white;">59.5x</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">GDP tăng (1986-2024)</div>
                     </div>
-                    <div class="stat-card" style="background: #e67e22;">
-                        <div class="stat-number">7.1%</div>
-                        <div class="stat-label">Tăng trưởng 2024</div>
+                    <div class="stat-card" style="background: linear-gradient(135deg, #e67e22, #d35400) !important;">
+                        <div class="stat-number" style="color: white;">7.1%</div>
+                        <div class="stat-label" style="color: rgba(255,255,255,0.9);">Tăng trưởng 2024</div>
                     </div>
                 </div>
                 <p>Thành tựu vượt bậc của 38 năm Đổi mới.</p>
@@ -193,11 +297,11 @@
         </div>
     </div>
 
-    <!-- Đặc điểm các giai cấp hiện nay -->
+    <!-- Đặc điểm các giai cấp hiện nay - RESPONSIVE GRID -->
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-users"></i> Đặc điểm các giai cấp, tầng lớp hiện nay</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-hammer" style="color: #e74c3c;"></i> Giai cấp công nhân</h3>
                 <div class="highlight">Chiếm 27% lực lượng lao động xã hội (2023)</div>
@@ -280,11 +384,11 @@
         </div>
     </div>
 
-    <!-- Tầng lớp mới nổi -->
+    <!-- Tầng lớp mới nổi - RESPONSIVE GRID -->
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-star"></i> Các tầng lớp mới nổi</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-laptop-code"></i> Lao động tự do (Gig economy)</h3>
                 <p>Tăng mạnh do nền tảng số như Grab, Gojek, freelancer online.</p>
@@ -321,19 +425,19 @@
                 38 năm Đổi mới - Thành tựu vĩ đại
             </h3>
             <div class="stats-grid" style="margin: 2rem 0;">
-                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                <div class="stat-card" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
                     <div class="stat-number" style="color: white;">52.4 triệu</div>
                     <div class="stat-label" style="color: rgba(255,255,255,0.9);">Lực lượng lao động (2023)</div>
                 </div>
-                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                <div class="stat-card" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
                     <div class="stat-number" style="color: white;">58%</div>
                     <div class="stat-label" style="color: rgba(255,255,255,0.9);">Lao động dưới 35 tuổi</div>
                 </div>
-                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                <div class="stat-card" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
                     <div class="stat-number" style="color: white;">70%</div>
                     <div class="stat-label" style="color: rgba(255,255,255,0.9);">Công nghiệp - Dịch vụ</div>
                 </div>
-                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                <div class="stat-card" style="background: rgba(255,255,255,0.25); backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.3);">
                     <div class="stat-number" style="color: white;">2-3%</div>
                     <div class="stat-label" style="color: rgba(255,255,255,0.9);">Tỷ lệ thất nghiệp</div>
                 </div>

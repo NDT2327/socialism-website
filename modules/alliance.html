@@ -8,8 +8,8 @@
     height: 100%;
     z-index: -1;
     background: 
-        linear-gradient(135deg, rgba(155, 89, 182, 0.85), rgba(142, 68, 173, 0.8)),
-        url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        linear-gradient(135deg, rgba(52, 73, 94, 0.85), rgba(44, 62, 80, 0.8)),
+        url('https://special.nhandan.vn/tu-tuong-ho-chi-minh-ve-xay-dung-giai-cap-nong-dan/assets/t5Oyces8NX/bacho2-1-1024x846.png');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -23,8 +23,8 @@
     right: 0;
     bottom: 0;
     background: 
-        radial-gradient(circle at 25% 75%, rgba(52, 152, 219, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 75% 25%, rgba(241, 196, 15, 0.08) 0%, transparent 50%);
+        radial-gradient(circle at 25% 75%, rgba(155, 89, 182, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 75% 25%, rgba(52, 152, 219, 0.08) 0%, transparent 50%);
     animation: allianceFloat 35s ease-in-out infinite;
 }
 
@@ -33,22 +33,102 @@
     50% { transform: translateY(-12px) rotate(0.3deg); }
 }
 
-.single-row-cards {
-    display: flex;
+/* RESPONSIVE GRID - NO SCROLL */
+.responsive-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    overflow-x: auto;
     padding: 1rem 0;
+    width: 100%;
 }
 
-.single-row-cards .card {
-    flex: 1;
-    min-width: 280px;
+.responsive-cards-grid .card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Responsive breakpoints for better control */
+@media (min-width: 1200px) {
+    .responsive-cards-grid {
+        grid-template-columns: repeat(4, 1fr); /* Force 4 columns on desktop */
+    }
+}
+
+@media (max-width: 1199px) and (min-width: 768px) {
+    .responsive-cards-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .responsive-cards-grid {
+        grid-template-columns: 1fr; /* 1 column on mobile */
+        gap: 1rem;
+    }
+}
+
+/* Override card colors in alliance module for better contrast */
+.alliance-module .card {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.alliance-module .hero {
+    background: 
+        linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(142, 68, 173, 0.9)),
+        url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Content section improvements */
+.alliance-module .content-section {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
+}
+
+.alliance-module .content-section::before {
+    background: linear-gradient(90deg, #9b59b6, #3498db, #9b59b6);
+}
+
+/* Card hover effects */
+.responsive-cards-grid .card:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease;
+}
+
+/* Ensure equal height cards */
+.responsive-cards-grid {
+    align-items: stretch;
+}
+
+.responsive-cards-grid .card p:last-child {
+    margin-top: auto;
+}
+
+/* Special styling for different card types */
+.alliance-module .responsive-cards-grid .card ul {
+    flex-grow: 1;
+}
+
+.alliance-module .responsive-cards-grid .card .highlight {
+    margin-top: auto;
+    margin-bottom: 0.5rem;
 }
 </style>
 
 <div class="alliance-background"></div>
 
-<div class="fade-in">
+<div class="fade-in alliance-module">
     <h1 class="section-title">🤝 Liên minh giai cấp trong xây dựng chủ nghĩa xã hội</h1>
     
     <!-- Khái niệm và bản chất -->
@@ -61,7 +141,7 @@
             </div>
         </div>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-users" style="color: #e74c3c;"></i> Thành phần cơ bản</h3>
                 <ul>
@@ -108,7 +188,7 @@
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-handshake"></i> Vai trò của liên minh giai cấp</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-shield-alt" style="color: #e74c3c;"></i> Xây dựng cơ sở kinh tế CNXH</h3>
                 <p>Liên minh giữa các giai cấp lao động tạo nền tảng vật chất - kỹ thuật cần thiết cho CNXH.</p>
@@ -181,7 +261,7 @@
             </p>
         </div>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-book-open"></i> Yêu cầu từ lý thuyết Marx-Lenin</h3>
                 <p><strong>Cơ sở lý thuyết:</strong></p>
@@ -244,7 +324,7 @@
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-history"></i> Dẫn chứng thực tiễn liên minh giai cấp</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h4><i class="fas fa-star"></i> Cách mạng Tháng Tám 1945</h4>
                 <p><strong>Liên minh:</strong> Công nhân và nông dân hợp sức dưới sự lãnh đạo của Đảng</p>
@@ -278,7 +358,7 @@
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-globe"></i> Mô hình liên minh giai cấp trong thế giới</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card" style="border-left-color: #e74c3c;">
                 <h3><i class="fas fa-flag" style="color: #e74c3c;"></i> Việt Nam (XHCN)</h3>
                 <p><strong>Mô hình:</strong> Liên minh công - nông - trí thức</p>
@@ -325,7 +405,7 @@
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-road"></i> Phương hướng tăng cường liên minh giai cấp</h2>
         
-        <div class="single-row-cards">
+        <div class="responsive-cards-grid">
             <div class="card">
                 <h3><i class="fas fa-seedling"></i> Tạo môi trường phát triển</h3>
                 <p>Đẩy mạnh công nghiệp hóa, hiện đại hóa, chuyển dịch cơ cấu kinh tế theo hướng tích cực và tiến bộ.</p>
@@ -400,3 +480,4 @@
     </div>
 </div>
 
+</div>

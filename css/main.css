@@ -174,6 +174,7 @@ header::before {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: titleGlow 3s ease-in-out infinite alternate;
+    color: white !important; /* Fallback for browsers that don't support background-clip */
 }
 
 @keyframes titleGlow {
@@ -186,6 +187,7 @@ header::before {
     opacity: 0.9;
     max-width: 800px;
     margin: 0 auto;
+    color: rgba(255, 255, 255, 0.95) !important;
 }
 
 .header-icon {
@@ -226,7 +228,7 @@ header::before {
 
 .nav-btn {
     background: linear-gradient(135deg, var(--white), #f8f9fa);
-    color: var(--text-primary);
+    color: var(--text-primary) !important;
     padding: 1rem 2rem;
     border-radius: 50px;
     text-decoration: none;
@@ -266,12 +268,12 @@ header::before {
     box-shadow: var(--shadow-medium);
     border-color: var(--primary-gold);
     background: linear-gradient(135deg, var(--primary-gold), #fdcb6e);
-    color: var(--dark-navy);
+    color: var(--dark-navy) !important;
 }
 
 .nav-btn.active {
     background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
-    color: white;
+    color: white !important;
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
 }
@@ -325,8 +327,9 @@ header::before {
     box-shadow: var(--shadow-heavy);
 }
 
+/* Typography - FIXED COLORS */
 .section-title {
-    color: var(--primary-red);
+    color: var(--primary-red) !important;
     font-size: 2.5rem;
     font-weight: 800;
     margin-bottom: 2rem;
@@ -349,7 +352,7 @@ header::before {
 }
 
 .section-subtitle {
-    color: var(--secondary-red);
+    color: var(--secondary-red) !important;
     font-size: 1.8rem;
     font-weight: 700;
     margin: 2rem 0 1rem 0;
@@ -369,6 +372,25 @@ header::before {
 @keyframes sparkle {
     0%, 100% { transform: scale(1) rotate(0deg); }
     50% { transform: scale(1.2) rotate(180deg); }
+}
+
+/* Text colors - FIXED */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary) !important;
+}
+
+p {
+    color: var(--text-secondary) !important;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+}
+
+li {
+    color: var(--text-secondary) !important;
+}
+
+strong {
+    color: var(--text-primary) !important;
 }
 
 /* Hero Section */
@@ -404,7 +426,7 @@ header::before {
 }
 
 .hero h2 {
-    color: white;
+    color: white !important;
     font-size: 2.5rem;
     font-weight: 800;
     margin-bottom: 1rem;
@@ -414,7 +436,7 @@ header::before {
 }
 
 .hero p {
-    color: rgba(255,255,255,0.95);
+    color: rgba(255,255,255,0.95) !important;
     font-size: 1.2rem;
     margin-bottom: 2rem;
     max-width: 800px;
@@ -466,7 +488,7 @@ header::before {
 }
 
 .card h3 {
-    color: var(--primary-red);
+    color: var(--primary-red) !important;
     margin-bottom: 1rem;
     font-size: 1.3rem;
     font-weight: 700;
@@ -480,14 +502,23 @@ header::before {
 }
 
 .card p {
-    color: var(--text-secondary);
+    color: var(--text-secondary) !important;
     line-height: 1.6;
+}
+
+.card ul {
+    margin: 1rem 0;
+}
+
+.card li {
+    color: var(--text-secondary) !important;
+    margin-bottom: 0.5rem;
 }
 
 /* Buttons */
 .btn {
-    background: linear-gradient(135d, var(--primary-red), var(--secondary-red));
-    color: white;
+    background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+    color: white !important;
     padding: 0.8rem 1.5rem;
     border: none;
     border-radius: 10px;
@@ -523,6 +554,7 @@ header::before {
 .btn:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-medium);
+    color: white !important;
 }
 
 .btn-success {
@@ -531,12 +563,16 @@ header::before {
 
 .btn-warning {
     background: linear-gradient(135deg, var(--primary-gold), #ffeaa7);
-    color: var(--dark-navy);
+    color: var(--dark-navy) !important;
+}
+
+.btn-warning:hover {
+    color: var(--dark-navy) !important;
 }
 
 .cta-button {
     background: linear-gradient(45deg, var(--primary-gold), #ffeaa7);
-    color: var(--dark-navy);
+    color: var(--dark-navy) !important;
     padding: 1.5rem 3rem;
     border: none;
     border-radius: 50px;
@@ -572,6 +608,7 @@ header::before {
 .cta-button:hover {
     transform: translateY(-5px) scale(1.05);
     box-shadow: 0 15px 40px rgba(253, 203, 110, 0.6);
+    color: var(--dark-navy) !important;
 }
 
 .cta-button i {
@@ -595,7 +632,7 @@ header::before {
 
 .stat-card {
     background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
-    color: white;
+    color: white !important;
     padding: 2rem 1.5rem;
     border-radius: 15px;
     text-align: center;
@@ -623,7 +660,7 @@ header::before {
 
 .stat-card:nth-child(2) {
     background: linear-gradient(135deg, var(--primary-gold), #ffeaa7);
-    color: var(--dark-navy);
+    color: var(--dark-navy) !important;
 }
 
 .stat-card:nth-child(3) {
@@ -646,6 +683,7 @@ header::before {
     display: block;
     position: relative;
     z-index: 2;
+    color: inherit !important;
 }
 
 .stat-label {
@@ -654,16 +692,17 @@ header::before {
     line-height: 1.4;
     position: relative;
     z-index: 2;
+    color: inherit !important;
 }
 
-/* Footer */
+/* Footer - COMPLETELY FIXED */
 footer {
     background: 
         linear-gradient(135deg, var(--dark-navy), #636e72),
         url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
     background-size: cover;
     background-position: center;
-    color: white;
+    color: white !important;
     text-align: center;
     padding: 3rem 2rem;
     margin-top: 3rem;
@@ -691,7 +730,7 @@ footer::before {
 }
 
 .footer-content h3 {
-    color: white;
+    color: white !important;
     margin-bottom: 1.5rem;
     font-size: 2rem;
     font-weight: 700;
@@ -700,15 +739,30 @@ footer::before {
 .team-info {
     margin: 1.5rem 0;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.15);
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
 
 .team-info p {
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95) !important;
     margin: 0.8rem 0;
     font-size: 1.1rem;
+}
+
+.team-info strong {
+    color: var(--primary-gold) !important;
+}
+
+.team-info i {
+    color: var(--primary-gold) !important;
+}
+
+/* Footer paragraphs */
+footer > .footer-content > p {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1rem;
+    margin: 1rem 0;
 }
 
 .vietnam-flag {
@@ -740,7 +794,7 @@ footer::before {
     bottom: 2rem;
     right: 2rem;
     background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 50%;
     width: 60px;
@@ -761,6 +815,7 @@ footer::before {
 
 .scroll-top:hover {
     transform: translateY(-3px) scale(1.1);
+    color: white !important;
 }
 
 /* Utility Classes */
@@ -769,6 +824,7 @@ footer::before {
     padding: 0.2rem 0.5rem;
     border-radius: 6px;
     border-left: 3px solid var(--primary-gold);
+    color: var(--text-primary) !important;
 }
 
 .quote {
@@ -779,6 +835,7 @@ footer::before {
     border-radius: 0 12px 12px 0;
     font-style: italic;
     position: relative;
+    color: var(--text-secondary) !important;
 }
 
 .quote::before {
@@ -799,6 +856,10 @@ footer::before {
     min-height: 200px;
     flex-direction: column;
     gap: 1rem;
+}
+
+.loading h2 {
+    color: var(--primary-red) !important;
 }
 
 .spinner {
@@ -927,4 +988,40 @@ footer::before {
     .content-section {
         padding: 1rem;
     }
+}
+
+/* Force text colors in all contexts */
+.content-section h1,
+.content-section h2,
+.content-section h3,
+.content-section h4,
+.content-section h5,
+.content-section h6 {
+    color: var(--text-primary) !important;
+}
+
+.content-section p {
+    color: var(--text-secondary) !important;
+}
+
+.content-section li {
+    color: var(--text-secondary) !important;
+}
+
+.content-section strong {
+    color: var(--text-primary) !important;
+}
+
+/* Ensure footer text is always visible */
+footer,
+footer *:not(.vietnam-flag):not(.vietnam-flag::before) {
+    color: white !important;
+}
+
+footer .team-info strong {
+    color: var(--primary-gold) !important;
+}
+
+footer .team-info i {
+    color: var(--primary-gold) !important;
 }
