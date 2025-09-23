@@ -1,90 +1,369 @@
+<!-- Module-specific background -->
+<style>
+.practice-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        linear-gradient(135deg, rgba(46, 125, 50, 0.85), rgba(67, 160, 71, 0.8)),
+        url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.practice-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(76, 175, 80, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 235, 59, 0.1) 0%, transparent 50%);
+    animation: practiceFloat 30s ease-in-out infinite;
+}
+
+@keyframes practiceFloat {
+    0%, 100% { transform: translateX(0px) translateY(0px); }
+    50% { transform: translateX(-10px) translateY(-10px); }
+}
+
+.single-row-cards {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding: 1rem 0;
+}
+
+.single-row-cards .card {
+    flex: 1;
+    min-width: 280px;
+}
+</style>
+
+<div class="practice-background"></div>
+
 <div class="fade-in">
-    <h1 class="section-title">🇻🇳 Thực tiễn Việt Nam</h1>
+    <h1 class="section-title">🇻🇳 Thực tiễn cơ cấu xã hội - giai cấp ở Việt Nam</h1>
     
-    <h2 class="section-subtitle">📅 Sự biến đổi qua các giai đoạn lịch sử</h2>
-    
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <h4>⏰ Trước 1954: Thời kỳ thuộc địa phong kiến</h4>
-                <p><strong>🏗️ Cơ cấu:</strong> Giai cấp địa chủ phong kiến, tư sản Pháp, tư sản Việt Nam, nông dân, công nhân, tiểu tư sản</p>
-                <p><strong>📊 Đặc điểm:</strong> Kinh tế thuộc địa, nông nghiệp lạc hậu, công nghiệp đồn điền và khai thác</p>
+    <!-- Bối cảnh chung -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-info-circle"></i> Bối cảnh chung Việt Nam</h2>
+        
+        <div class="card">
+            <div class="quote">
+                "Việt Nam là quốc gia đang phát triển với dân số 100 triệu người, lực lượng lao động 53.1 triệu người (Q2/2025). Thời kỳ quá độ mang tính đặc thù: không xuất phát từ chủ nghĩa tư bản phát triển cao mà từ nền kinh tế nông nghiệp lạc hậu."
             </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <h4>🚩 1954-1975: Miền Bắc quá độ lên CNXH</h4>
-                <p><strong>🏗️ Cơ cấu:</strong> Giai cấp công nhân, nông dân, đội ngũ trí thức</p>
-                <p><strong>📊 Đặc điểm:</strong> Tan rã giai cấp tư sản và địa chủ, xây dựng kinh tế xã hội chủ nghĩa</p>
-            </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <h4>🎌 1975-1986: Cả nước quá độ lên CNXH</h4>
-                <p><strong>🏗️ Cơ cấu:</strong> Giai cấp công nhân, nông dân, đội ngũ trí thức</p>
-                <p><strong>📊 Đặc điểm:</strong> Kinh tế kế hoạch hóa tập trung, nông nghiệp và công nghiệp xã hội chủ nghĩa</p>
-            </div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-content">
-                <h4>🌟 1986-nay: Kinh tế thị trường định hướng XHCN</h4>
-                <p><strong>🏗️ Cơ cấu:</strong> Công nhân, nông dân, trí thức, doanh nhân</p>
-                <p><strong>📊 Đặc điểm:</strong> Đa dạng hóa kinh tế, xuất hiện tầng lớp doanh nhân mới, phát triển toàn diện</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">100 triệu</div>
+                    <div class="stat-label">Dân số Việt Nam (2025)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">53.1 triệu</div>
+                    <div class="stat-label">Lực lượng lao động (Q2/2025)</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6-7%</div>
+                    <div class="stat-label">Tăng trưởng GDP bình quân/năm</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">58% → 3%</div>
+                    <div class="stat-label">Giảm tỷ lệ nghèo (1993-2023)</div>
+                </div>
             </div>
         </div>
     </div>
 
-    <h2 class="section-subtitle">📈 Thống kê biến đổi cơ cấu lao động</h2>
-    <div class="stats-grid">
-        <div class="stat-card">
-            <div class="stat-number">70%</div>
-            <div class="stat-label">Lao động nông nghiệp năm 1986</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">27.5%</div>
-            <div class="stat-label">Lao động nông nghiệp năm 2022</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">72.5%</div>
-            <div class="stat-label">Lao động công nghiệp & dịch vụ 2022</div>
-        </div>
-        <div class="stat-card">
-            <div class="stat-number">59.5x</div>
-            <div class="stat-label">Tăng trưởng GDP (1986-2024)</div>
+    <!-- Timeline lịch sử -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-timeline"></i> Sự biến đổi qua các giai đoạn lịch sử</h2>
+        
+        <div class="card">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-history"></i> Trước 1954: Thời kỳ thuộc địa phong kiến</h4>
+                        <p><strong>🏗️ Cơ cấu:</strong> Địa chủ phong kiến, tư sản Pháp, tư sản Việt Nam, nông dân, công nhân, tiểu tư sản</p>
+                        <p><strong>📊 Đặc điểm:</strong> Kinh tế thuộc địa, nông nghiệp lạc hậu, công nghiệp đồn điền</p>
+                        <div class="highlight">Nền tảng cho cuộc cách mạng giải phóng dân tộc</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-flag"></i> 1954-1975: Miền Bắc quá độ lên CNXH</h4>
+                        <p><strong>🏗️ Cơ cấu:</strong> Giai cấp công nhân, nông dân, đội ngũ trí thức</p>
+                        <p><strong>📊 Đặc điểm:</strong> Tan rã giai cấp tư sản và địa chủ, xây dựng kinh tế CNXH</p>
+                        <div class="highlight">Giai đoạn đặt nền móng cho chế độ xã hội mới</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-unite"></i> 1975-1986: Cả nước quá độ lên CNXH</h4>
+                        <p><strong>🏗️ Cơ cấu:</strong> Giai cấp công nhân, nông dân, đội ngũ trí thức</p>
+                        <p><strong>📊 Đặc điểm:</strong> Kinh tế kế hoạch hóa tập trung, nông nghiệp và công nghiệp CNXH</p>
+                        <div class="highlight">Thống nhất đất nước, xây dựng CNXH trên toàn quốc</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4><i class="fas fa-rocket"></i> 1986-nay: Kinh tế thị trường định hướng CNXH</h4>
+                        <p><strong>🏗️ Cơ cấu:</strong> Công nhân, nông dân, trí thức, doanh nhân, lao động tự do</p>
+                        <p><strong>📊 Đặc điểm:</strong> Đa dạng hóa kinh tế, xuất hiện tầng lớp doanh nhân mới</p>
+                        <div class="highlight">GDP tăng 59.5 lần, chuyển dịch cơ cấu mạnh mẽ</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <h2 class="section-subtitle">🔍 Đặc điểm các giai cấp, tầng lớp hiện nay</h2>
-    <div class="cards-grid">
-        <div class="card">
-            <h3>👷 Giai cấp công nhân</h3>
-            <p><strong>✅ Ưu điểm:</strong> Phát triển nhanh về số lượng và chất lượng, trình độ tri thức cao, đáp ứng yêu cầu công nghiệp hóa</p>
-            <p><strong>⚠️ Thách thức:</strong> Phân hóa giàu nghèo, giác ngộ chính trị chưa cao ở một bộ phận</p>
-            <p><strong>📊 Hiện tại:</strong> 51.9% lao động làm công ăn lương (2021)</p>
-        </div>
+    <!-- Thống kê biến đổi -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-chart-bar"></i> Thống kê biến đổi cơ cấu lao động</h2>
         
-        <div class="card">
-            <h3>🌾 Giai cấp nông dân</h3>
-            <p><strong>✅ Đóng góp:</strong> Đảm bảo an ninh lương thực, xuất khẩu nông sản, giữ gìn văn hóa dân tộc</p>
-            <p><strong>🔄 Biến đổi:</strong> Xuất hiện chủ trang trại lớn, nhưng có tình trạng nông dân mất ruộng đất</p>
-            <p><strong>📊 Xu hướng:</strong> Tỷ lệ giảm do chuyển dịch cơ cấu ngành nghề</p>
+        <div class="single-row-cards">
+            <div class="card">
+                <h3><i class="fas fa-arrow-down" style="color: #e74c3c;"></i> Lao động nông nghiệp giảm</h3>
+                <div class="stats-grid" style="margin: 1rem 0;">
+                    <div class="stat-card" style="background: #e74c3c;">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">Năm 1986</div>
+                    </div>
+                    <div class="stat-card" style="background: #f39c12;">
+                        <div class="stat-number">27.5%</div>
+                        <div class="stat-label">Năm 2022</div>
+                    </div>
+                </div>
+                <p>Xu hướng chuyển dịch mạnh mẽ từ nông nghiệp sang công nghiệp và dịch vụ.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-arrow-up" style="color: #27ae60;"></i> Công nghiệp - Dịch vụ tăng</h3>
+                <div class="stats-grid" style="margin: 1rem 0;">
+                    <div class="stat-card" style="background: #27ae60;">
+                        <div class="stat-number">72.5%</div>
+                        <div class="stat-label">Năm 2022</div>
+                    </div>
+                    <div class="stat-card" style="background: #2ecc71;">
+                        <div class="stat-number">70%</div>
+                        <div class="stat-label">GDP 2025</div>
+                    </div>
+                </div>
+                <p>Công nghiệp và dịch vụ trở thành động lực chính của nền kinh tế.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-graduation-cap" style="color: #3498db;"></i> Chất lượng lao động</h3>
+                <div class="stats-grid" style="margin: 1rem 0;">
+                    <div class="stat-card" style="background: #3498db;">
+                        <div class="stat-number">27.2%</div>
+                        <div class="stat-label">Lao động qua đào tạo</div>
+                    </div>
+                    <div class="stat-card" style="background: #9b59b6;">
+                        <div class="stat-number">17%</div>
+                        <div class="stat-label">Trình độ cao đẳng, ĐH+</div>
+                    </div>
+                </div>
+                <p>Nâng cao trình độ lao động đáp ứng yêu cầu công nghiệp hóa.</p>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-chart-line" style="color: #f39c12;"></i> Tăng trưởng kinh tế</h3>
+                <div class="stats-grid" style="margin: 1rem 0;">
+                    <div class="stat-card" style="background: #f39c12;">
+                        <div class="stat-number">59.5x</div>
+                        <div class="stat-label">GDP tăng (1986-2024)</div>
+                    </div>
+                    <div class="stat-card" style="background: #e67e22;">
+                        <div class="stat-number">7.1%</div>
+                        <div class="stat-label">Tăng trưởng 2024</div>
+                    </div>
+                </div>
+                <p>Thành tựu vượt bậc của 38 năm Đổi mới.</p>
+            </div>
         </div>
+    </div>
+
+    <!-- Đặc điểm các giai cấp hiện nay -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-users"></i> Đặc điểm các giai cấp, tầng lớp hiện nay</h2>
         
-        <div class="card">
-            <h3>🎓 Đội ngũ trí thức</h3>
-            <p><strong>🚀 Vai trò:</strong> Lực lượng sáng tạo đặc biệt trong công nghiệp hóa, hiện đại hóa</p>
-            <p><strong>💡 Đóng góp:</strong> Xây dựng nền kinh tế tri thức, phát triển văn hóa Việt Nam</p>
-            <p><strong>🌐 Hội nhập:</strong> Quan trọng trong hội nhập kinh tế quốc tế</p>
+        <div class="single-row-cards">
+            <div class="card">
+                <h3><i class="fas fa-hammer" style="color: #e74c3c;"></i> Giai cấp công nhân</h3>
+                <div class="highlight">Chiếm 27% lực lượng lao động xã hội (2023)</div>
+                
+                <p><strong>✅ Ưu điểm nổi bật:</strong></p>
+                <ul>
+                    <li>Phát triển nhanh về số lượng và chất lượng</li>
+                    <li>Trình độ tri thức và kỹ năng cao</li>
+                    <li>Đóng góp trực tiếp 60% GDP</li>
+                    <li>Lãnh đạo trong công nghiệp hóa 4.0</li>
+                </ul>
+                
+                <p><strong>⚠️ Thách thức:</strong></p>
+                <ul>
+                    <li>Vẫn còn tình trạng lao động giá rẻ</li>
+                    <li>Đình công tăng do lương thấp</li>
+                    <li>Cần "trí thức hóa" nhiều hơn</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-seedling" style="color: #27ae60;"></i> Giai cấp nông dân</h3>
+                <div class="highlight">Giảm từ 70-80% (1975) xuống 30-40% (2025)</div>
+                
+                <p><strong>✅ Đóng góp quan trọng:</strong></p>
+                <ul>
+                    <li>Đảm bảo an ninh lương thực quốc gia</li>
+                    <li>Xuất khẩu nông sản mang về ngoại tệ</li>
+                    <li>Chương trình "Nông thôn mới" nâng cao đời sống</li>
+                    <li>Giữ gìn bản sắc văn hóa dân tộc</li>
+                </ul>
+                
+                <p><strong>🔄 Xu hướng biến đổi:</strong></p>
+                <ul>
+                    <li>Chuyển dịch lao động sang đô thị (hàng triệu người/năm)</li>
+                    <li>Xuất hiện chủ trang trại lớn</li>
+                    <li>Nông dân mất ruộng đất, đi làm thuê</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-graduation-cap" style="color: #3498db;"></i> Tầng lớp trí thức</h3>
+                <div class="highlight">Tăng từ 5-10% (1990) lên 20-25% (2025)</div>
+                
+                <p><strong>🚀 Vai trò then chốt:</strong></p>
+                <ul>
+                    <li>Lực lượng sáng tạo đặc biệt</li>
+                    <li>Động lực công nghiệp hóa, hiện đại hóa</li>
+                    <li>Phát triển kinh tế số và startup</li>
+                    <li>1 triệu người trong lĩnh vực CNTT</li>
+                </ul>
+                
+                <p><strong>🌐 Đóng góp:</strong></p>
+                <ul>
+                    <li>Xây dựng nền kinh tế tri thức</li>
+                    <li>Phát triển văn hóa Việt Nam</li>
+                    <li>Hỗ trợ chuyển đổi số quốc gia</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-briefcase" style="color: #f39c12;"></i> Tầng lớp doanh nhân</h3>
+                <div class="highlight">Chiếm 5-10% lực lượng lao động</div>
+                
+                <p><strong>📈 Phát triển mạnh mẽ:</strong></p>
+                <ul>
+                    <li>Xuất hiện từ Đổi mới (1986)</li>
+                    <li>Số lượng và quy mô không ngừng tăng</li>
+                    <li>Thuộc nhiều thành phần kinh tế khác nhau</li>
+                    <li>Đóng góp lớn vào xuất khẩu</li>
+                </ul>
+                
+                <p><strong>🎯 Vai trò:</strong></p>
+                <ul>
+                    <li>Phát triển kinh tế, tạo việc làm</li>
+                    <li>Đóng góp an sinh xã hội</li>
+                    <li>Dưới sự kiểm soát để tránh bóc lột</li>
+                </ul>
+            </div>
         </div>
+    </div>
+
+    <!-- Tầng lớp mới nổi -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-star"></i> Các tầng lớp mới nổi</h2>
         
-        <div class="card">
-            <h3>💼 Đội ngũ doanh nhân</h3>
-            <p><strong>📈 Phát triển:</strong> Số lượng và quy mô không ngừng gia tăng</p>
-            <p><strong>🎯 Đóng góp:</strong> Phát triển kinh tế xã hội, tạo việc làm, xóa đói giảm nghèo</p>
-            <p><strong>🏗️ Chính sách:</strong> Đảng và Nhà nước chủ trương xây dựng đội ngũ doanh nhân lớn mạnh</p>
+        <div class="single-row-cards">
+            <div class="card">
+                <h3><i class="fas fa-laptop-code"></i> Lao động tự do (Gig economy)</h3>
+                <p>Tăng mạnh do nền tảng số như Grab, Gojek, freelancer online.</p>
+                <div class="highlight">Xu hướng mới của thời đại công nghệ</div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-coins"></i> Tầng lớp giàu có và trung lưu</h3>
+                <p>Xuất hiện và phát triển cùng với kinh tế thị trường.</p>
+                <div class="highlight">Đóng góp vào tiêu dùng và đầu tư</div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-rocket"></i> Startup và doanh nhân công nghệ</h3>
+                <p>Tập trung tại TP.HCM, Hà Nội, thúc đẩy kinh tế số.</p>
+                <div class="highlight">Tiên phong trong chuyển đổi số</div>
+            </div>
+            
+            <div class="card">
+                <h3><i class="fas fa-globe"></i> Lao động có tay nghề cao</h3>
+                <p>Đáp ứng yêu cầu hội nhập kinh tế quốc tế.</p>
+                <div class="highlight">Nâng cao năng suất lao động</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Thành tựu tổng thể -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-trophy"></i> Thành tựu tổng thể</h2>
+        
+        <div class="card hero" style="margin: 2rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(46, 125, 50, 0.9), rgba(67, 160, 71, 0.9)), url('https://images.unsplash.com/photo-1587828983138-6e9b31dfb769?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover;">
+            <h3 style="color: white; margin-bottom: 1.5rem;">
+                <i class="fas fa-flag"></i>
+                38 năm Đổi mới - Thành tựu vĩ đại
+            </h3>
+            <div class="stats-grid" style="margin: 2rem 0;">
+                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                    <div class="stat-number" style="color: white;">52.4 triệu</div>
+                    <div class="stat-label" style="color: rgba(255,255,255,0.9);">Lực lượng lao động (2023)</div>
+                </div>
+                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                    <div class="stat-number" style="color: white;">58%</div>
+                    <div class="stat-label" style="color: rgba(255,255,255,0.9);">Lao động dưới 35 tuổi</div>
+                </div>
+                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                    <div class="stat-number" style="color: white;">70%</div>
+                    <div class="stat-label" style="color: rgba(255,255,255,0.9);">Công nghiệp - Dịch vụ</div>
+                </div>
+                <div class="stat-card" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                    <div class="stat-number" style="color: white;">2-3%</div>
+                    <div class="stat-label" style="color: rgba(255,255,255,0.9);">Tỷ lệ thất nghiệp</div>
+                </div>
+            </div>
+            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.95);">
+                Sự chuyển dịch cơ cấu mạnh mẽ từ nông nghiệp sang công nghiệp-dịch vụ, tạo ra cơ hội việc làm cho hàng triệu người và nâng cao đời sống nhân dân.
+            </p>
+        </div>
+    </div>
+
+    <!-- Hành trình tiếp theo -->
+    <div class="content-section">
+        <h2 class="section-subtitle"><i class="fas fa-route"></i> Tiếp tục khám phá</h2>
+        
+        <div class="card" style="text-align: center;">
+            <p style="font-size: 1.1rem; margin-bottom: 2rem;">
+                Bạn đã tìm hiểu về thực tiễn biến đổi cơ cấu xã hội ở Việt Nam. Hãy khám phá vai trò của liên minh giai cấp trong xây dựng CNXH!
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+                <a href="#" class="btn btn-warning" onclick="showSection('alliance')" style="padding: 1rem 1.5rem;">
+                    <i class="fas fa-handshake"></i> Liên minh giai cấp
+                </a>
+                <a href="#" class="btn btn-success" onclick="showSection('theory')" style="padding: 1rem 1.5rem;">
+                    <i class="fas fa-book"></i> Ôn lại Lý thuyết
+                </a>
+                <a href="#" class="btn" onclick="showSection('quiz')" style="padding: 1rem 1.5rem;">
+                    <i class="fas fa-brain"></i> Kiểm tra kiến thức
+                </a>
+            </div>
         </div>
     </div>
 </div>

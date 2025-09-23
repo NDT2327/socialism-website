@@ -1,275 +1,300 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz CNXH - Hoàn chỉnh</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-        }
+<!-- Module-specific background -->
+<style>
+.quiz-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: 
+        linear-gradient(135deg, rgba(231, 76, 60, 0.85), rgba(192, 57, 43, 0.8)),
+        url('https://images.unsplash.com/photo-1606092195730-5d7b9af1efc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
+.quiz-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 70%, rgba(241, 196, 15, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 70% 30%, rgba(46, 204, 113, 0.08) 0%, transparent 50%);
+    animation: quizFloat 20s ease-in-out infinite;
+}
 
-        .header {
-            text-align: center;
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
+@keyframes quizFloat {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(1.01) rotate(0.2deg); }
+}
 
-        .header h1 {
-            color: #d32f2f;
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+/* Quiz styling */
+.quiz-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
 
-        .header p {
-            color: #6c757d;
-            font-size: 1.1rem;
-        }
+.quiz-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, var(--primary-red), var(--secondary-red));
+    color: white;
+    border-radius: 15px;
+}
 
-        .stats {
-            background: linear-gradient(135deg, #d32f2f, #e55353);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+.quiz-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
 
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 600;
-        }
+.stat-item {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-red);
+}
 
-        .question-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
+.stat-number {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary-red);
+    display: block;
+}
 
-        .question-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
+.stat-label {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 0.5rem;
+}
 
-        .question-topic {
-            background: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+.question-card {
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    border-top: 4px solid var(--primary-red);
+}
 
-        .question-difficulty {
-            color: #ffc107;
-            font-weight: 600;
-        }
+.question-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
 
-        .question-text {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: #d32f2f;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
+.question-topic {
+    background: var(--primary-gold);
+    color: var(--dark-navy);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
 
-        .answers {
-            display: grid;
-            gap: 15px;
-        }
+.question-difficulty {
+    color: var(--primary-red);
+    font-weight: 600;
+}
 
-        .answer {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 18px 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #2d3436;
-        }
+.question-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--dark-navy);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
 
-        .answer:hover {
-            border-color: #d32f2f;
-            background: #fff5f5;
-            transform: translateX(5px);
-        }
+.answers {
+    display: grid;
+    gap: 1rem;
+}
 
-        .answer.selected {
-            background: #d32f2f;
-            color: white;
-            border-color: #d32f2f;
-        }
+.answer {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    line-height: 1.5;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
 
-        .answer.correct {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
+.answer:hover {
+    border-color: var(--primary-red);
+    background: #fff5f5;
+    transform: translateX(5px);
+}
 
-        .answer.incorrect {
-            background: #dc3545;
-            color: white;
-            border-color: #dc3545;
-        }
+.answer.selected {
+    background: var(--primary-red);
+    color: white;
+    border-color: var(--primary-red);
+}
 
-        .answer.disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
+.answer.correct {
+    background: #d4edda;
+    color: #155724;
+    border-color: #28a745;
+}
 
-        .controls {
-            margin-top: 25px;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+.answer.incorrect {
+    background: #f8d7da;
+    color: #721c24;
+    border-color: #dc3545;
+}
 
-        .btn {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-        }
+.answer.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
-        .btn-primary { background: #007bff; color: white; }
-        .btn-warning { background: #ffc107; color: #2d3436; }
-        .btn-secondary { background: #6c757d; color: white; }
-        .btn-success { background: #28a745; color: white; }
+.answer-label {
+    background: var(--primary-red);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+}
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
 
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 12px;
-        }
+.btn {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
 
-        .question-counter {
-            font-weight: 600;
-            color: #6c757d;
-        }
+.btn-primary { background: #007bff; color: white; }
+.btn-warning { background: #ffc107; color: #2d3436; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-success { background: #28a745; color: white; }
 
-        .results {
-            display: none;
-            text-align: center;
-        }
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
 
-        .results-card {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
 
-        .final-score {
-            font-size: 3rem;
-            font-weight: 800;
-            color: #28a745;
-            margin-bottom: 20px;
-        }
+.results {
+    display: none;
+    text-align: center;
+}
 
-        .results-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
+.results-card {
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
 
-        .result-stat {
-            padding: 20px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-        }
+.final-score {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #28a745;
+    margin-bottom: 1rem;
+}
 
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #d32f2f;
-            display: block;
-        }
+.results-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
 
-        .stat-label {
-            color: #6c757d;
-            font-size: 0.9rem;
-            margin-top: 8px;
-        }
+.result-stat {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
 
-        @media (max-width: 768px) {
-            .container { padding: 10px; }
-            .header, .question-card, .results-card { padding: 25px; }
-            .header h1 { font-size: 2rem; }
-            .question-text { font-size: 1.2rem; }
-            .stats { flex-direction: column; text-align: center; }
-            .navigation { flex-direction: column; gap: 15px; }
-            .controls { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 250px; }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
+@media (max-width: 768px) {
+    .quiz-container { padding: 1rem; margin: 1rem; }
+    .question-text { font-size: 1.1rem; }
+    .controls { flex-direction: column; align-items: center; }
+    .btn { width: 100%; max-width: 250px; justify-content: center; }
+    .navigation { flex-direction: column; gap: 1rem; }
+}
+</style>
+
+<div class="quiz-background"></div>
+
+<div class="fade-in">
+    <div class="quiz-container">
         <!-- Header -->
-        <div class="header">
-            <h1>Quiz Kiến Thức CNXH</h1>
-            <p>Cơ cấu xã hội - giai cấp và liên minh giai cấp</p>
+        <div class="quiz-header">
+            <h1><i class="fas fa-brain"></i> Quiz Kiến Thức CNXH</h1>
+            <p>Cơ cấu xã hội - giai cấp và liên minh giai cấp trong thời kỳ quá độ</p>
         </div>
 
         <!-- Stats -->
-        <div class="stats">
+        <div class="quiz-stats">
             <div class="stat-item">
-                <span>⭐</span>
-                <span>Điểm: <span id="scoreDisplay">0</span></span>
+                <span class="stat-number" id="scoreDisplay">0</span>
+                <div class="stat-label">Điểm số</div>
             </div>
             <div class="stat-item">
-                <span>❤️</span>
-                <span>Mạng: <span id="livesDisplay">3</span></span>
+                <span class="stat-number" id="livesDisplay">3</span>
+                <div class="stat-label">Mạng sống</div>
             </div>
             <div class="stat-item">
-                <span>🕒</span>
-                <span>Thời gian: <span id="timeDisplay">0s</span></span>
+                <span class="stat-number" id="timeDisplay">0s</span>
+                <div class="stat-label">Thời gian</div>
             </div>
             <div class="stat-item">
-                <span>📊</span>
-                <span>Câu <span id="currentDisplay">1</span>/<span id="totalDisplay">5</span></span>
+                <span class="stat-number"><span id="currentDisplay">1</span>/<span id="totalDisplay">8</span></span>
+                <div class="stat-label">Tiến độ</div>
             </div>
         </div>
 
@@ -290,10 +315,10 @@
             
             <div class="controls">
                 <button class="btn btn-warning" onclick="useHint()">
-                    💡 Gợi ý (-50đ)
+                    <i class="fas fa-lightbulb"></i> Gợi ý (-50đ)
                 </button>
                 <button class="btn btn-secondary" onclick="skipQuestion()">
-                    ⏭️ Bỏ qua (-100đ)
+                    <i class="fas fa-forward"></i> Bỏ qua (-100đ)
                 </button>
             </div>
         </div>
@@ -301,23 +326,23 @@
         <!-- Navigation -->
         <div class="navigation" id="navigationArea">
             <button class="btn btn-secondary" onclick="goToPrevious()" id="prevBtn">
-                ⬅️ Trước
+                <i class="fas fa-chevron-left"></i> Trước
             </button>
             
             <div class="question-counter">
-                Câu <span id="questionNumber">1</span> / <span id="totalQuestions">5</span>
+                Câu <span id="questionNumber">1</span> / <span id="totalQuestions">8</span>
             </div>
             
             <button class="btn btn-success" onclick="goToNext()" id="nextBtn">
-                Sau ➡️
+                Sau <i class="fas fa-chevron-right"></i>
             </button>
         </div>
 
         <!-- Results -->
         <div class="results" id="resultsArea">
             <div class="results-card">
-                <h2 style="color: #d32f2f; margin-bottom: 20px;">
-                    🏆 Kết Quả Quiz
+                <h2 style="color: var(--primary-red); margin-bottom: 1rem;">
+                    <i class="fas fa-trophy"></i> Kết Quả Quiz
                 </h2>
                 
                 <div class="final-score">
@@ -326,338 +351,380 @@
                 
                 <div class="results-stats">
                     <div class="result-stat">
-                        <span class="stat-number" id="correctDisplay">0</span>
+                        <span class="stat-number" style="color: #28a745;" id="correctDisplay">0</span>
                         <div class="stat-label">Câu đúng</div>
                     </div>
                     <div class="result-stat">
-                        <span class="stat-number" id="answeredDisplay">0</span>
+                        <span class="stat-number" style="color: #007bff;" id="answeredDisplay">0</span>
                         <div class="stat-label">Tổng câu</div>
                     </div>
                     <div class="result-stat">
-                        <span class="stat-number" id="accuracyDisplay">0%</span>
+                        <span class="stat-number" style="color: #ffc107;" id="accuracyDisplay">0%</span>
                         <div class="stat-label">Độ chính xác</div>
                     </div>
                     <div class="result-stat">
-                        <span class="stat-number" id="timeUsedDisplay">0s</span>
+                        <span class="stat-number" style="color: #6c757d;" id="timeUsedDisplay">0s</span>
                         <div class="stat-label">Thời gian</div>
                     </div>
                 </div>
                 
                 <div class="controls">
                     <button class="btn btn-success" onclick="restartGame()">
-                        🔄 Chơi Lại
+                        <i class="fas fa-redo"></i> Chơi Lại
                     </button>
                     <button class="btn btn-primary" onclick="location.reload()">
-                        🏠 Làm Mới
+                        <i class="fas fa-home"></i> Về Trang Chủ
                     </button>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        // Game variables
-        var gameData = {
-            currentQuestion: 0,
-            score: 0,
-            lives: 3,
-            startTime: Date.now(),
-            answers: []
-        };
+<script>
+// Game variables
+var gameData = {
+    currentQuestion: 0,
+    score: 0,
+    lives: 3,
+    startTime: Date.now(),
+    answers: []
+};
 
-        // Questions array
-        var questionsData = [
-            {
-                question: "Trong cơ cấu xã hội, nhóm cơ cấu nào có vị trí quan trọng hàng đầu?",
-                options: [
-                    "Cơ cấu xã hội - giai cấp",
-                    "Cơ cấu dân tộc", 
-                    "Cơ cấu nghề nghiệp",
-                    "Cơ cấu vùng miền"
-                ],
-                correct: 0,
-                topic: "Cơ cấu xã hội",
-                difficulty: "⭐ Cơ bản",
-                hint: "Loại cơ cấu này liên quan đến quyền lực và sở hữu trong xã hội."
-            },
-            {
-                question: "Liên minh giai cấp cơ bản ở Việt Nam gồm những ai?",
-                options: [
-                    "Công nhân - Nông dân - Trí thức",
-                    "Tư sản - Nông dân - Công nhân",
-                    "Địa chủ - Nông dân - Tiểu tư sản", 
-                    "Doanh nhân - Trí thức - Công nhân"
-                ],
-                correct: 0,
-                topic: "Liên minh giai cấp",
-                difficulty: "⭐ Cơ bản",
-                hint: "Ba thành phần chính trong xã hội Việt Nam hiện nay."
-            },
-            {
-                question: "Đặc điểm nào sau đây thuộc về giai cấp công nhân?",
-                options: [
-                    "Lãnh đạo cách mạng, đại diện cho phương thức sản xuất tiên tiến",
-                    "Sở hữu tư liệu sản xuất lớn",
-                    "Chỉ làm việc trong nông nghiệp",
-                    "Không tham gia hoạt động chính trị"
-                ],
-                correct: 0,
-                topic: "Giai cấp công nhân",
-                difficulty: "⭐ Cơ bản",
-                hint: "Giai cấp này được coi là 'tiên phong' trong xã hội."
-            },
-            {
-                question: "Vai trò của giai cấp nông dân trong xã hội Việt Nam là gì?",
-                options: [
-                    "Bệ đỡ kinh tế, đảm bảo an ninh lương thực",
-                    "Lãnh đạo toàn bộ xã hội",
-                    "Chỉ sản xuất để tự cung tự cấp",
-                    "Không có vai trò quan trọng"
-                ],
-                correct: 0,
-                topic: "Giai cấp nông dân",
-                difficulty: "⭐ Cơ bản",
-                hint: "Giai cấp này liên quan đến việc 'nuôi sống' đất nước."
-            },
-            {
-                question: "Khi khẳng định về quyền của các dân tộc, Hồ Chí Minh đã viện dẫn những văn kiện lịch sử nào?",
-                options: [
-                    "Tuyên ngôn Độc lập của Mỹ (1776) và Tuyên ngôn Nhân quyền và Dân quyền của Pháp (1791)",
-                    "Tuyên ngôn của Đảng Cộng sản (1848) và Luận cương của Lênin (1920)",
-                    "Hiến pháp Hợp chúng quốc Hoa Kỳ và Hiến pháp Cộng hòa Pháp",
-                    "Chiếu đổi đô của Lý Công Uẩn và Hịch tướng sĩ của Trần Hưng Đạo"
-                ],
-                correct: 0,
-                topic: "Tuyên ngôn Độc lập",
-                difficulty: "⭐⭐ Trung bình",
-                hint: "Những văn kiện phương Tây về quyền con người và dân tộc."
-            }
-        ];
+// Updated questions based on new content
+var questionsData = [
+    {
+        question: "Trong cơ cấu xã hội, nhóm cơ cấu nào có vị trí quan trọng hàng đầu, chi phối các loại hình cơ cấu xã hội khác?",
+        options: [
+            "Cơ cấu xã hội - giai cấp",
+            "Cơ cấu dân tộc", 
+            "Cơ cấu nghề nghiệp",
+            "Cơ cấu tôn giáo"
+        ],
+        correct: 0,
+        topic: "Cơ cấu xã hội",
+        difficulty: "⭐ Cơ bản",
+        hint: "Cơ cấu này liên quan đến sở hữu tư liệu sản xuất và quyền lực chính trị."
+    },
+    {
+        question: "Liên minh giai cấp cơ bản trong thời kỳ quá độ lên chủ nghĩa xã hội ở Việt Nam gồm những thành phần nào?",
+        options: [
+            "Công nhân - Nông dân - Trí thức",
+            "Tư sản - Nông dân - Công nhân",
+            "Địa chủ - Nông dân - Tiểu tư sản", 
+            "Doanh nhân - Trí thức - Tiểu chủ"
+        ],
+        correct: 0,
+        topic: "Liên minh giai cấp",
+        difficulty: "⭐ Cơ bản",
+        hint: "Ba thành phần chính được liệt kê trong tài liệu về cơ cấu xã hội Việt Nam."
+    },
+    {
+        question: "Theo số liệu năm 2025, lực lượng lao động Việt Nam đạt khoảng bao nhiêu người?",
+        options: [
+            "53.1 triệu người",
+            "50 triệu người",
+            "45 triệu người",
+            "60 triệu người"
+        ],
+        correct: 0,
+        topic: "Thống kê lao động",
+        difficulty: "⭐⭐ Trung bình",
+        hint: "Con số này được cập nhật trong quý II/2025, tăng 553 nghìn so với cùng kỳ."
+    },
+    {
+        question: "GDP Việt Nam đã tăng bao nhiêu lần từ năm 1986 đến 2024 nhờ thành tựu của công cuộc Đổi mới?",
+        options: [
+            "59.5 lần",
+            "35 lần",
+            "20 lần",
+            "100 lần"
+        ],
+        correct: 0,
+        topic: "Thành tựu Đổi mới",
+        difficulty: "⭐⭐ Trung bình",
+        hint: "GDP tăng từ 8 tỷ USD (1986) lên 476.3 tỷ USD (2024)."
+    },
+    {
+        question: "Tỷ lệ lao động nông nghiệp của Việt Nam đã giảm từ mức nào xuống mức nào trong giai đoạn 1986-2025?",
+        options: [
+            "Từ 70% xuống 27-30%",
+            "Từ 80% xuống 50%",
+            "Từ 60% xuống 40%",
+            "Từ 90% xuống 60%"
+        ],
+        correct: 0,
+        topic: "Chuyển dịch cơ cấu",
+        difficulty: "⭐⭐ Trung bình",
+        hint: "Đây là sự chuyển dịch mạnh mẽ từ nông nghiệp sang công nghiệp và dịch vụ."
+    },
+    {
+        question: "Theo lý thuyết, quy luật biến đổi cơ cấu xã hội - giai cấp trong thời kỳ quá độ bao gồm mấy quy luật chính?",
+        options: [
+            "3 quy luật",
+            "2 quy luật",
+            "4 quy luật",
+            "5 quy luật"
+        ],
+        correct: 0,
+        topic: "Quy luật biến đổi",
+        difficulty: "⭐⭐⭐ Nâng cao",
+        hint: "Bao gồm: biến đổi gắn liền với cơ cấu kinh tế, biến đổi phức tạp đa dạng, và biến đổi từ đấu tranh đến liên minh."
+    },
+    {
+        question: "Tầng lớp trí thức Việt Nam đã tăng từ tỷ lệ nào lên tỷ lệ nào trong giai đoạn 1990-2025?",
+        options: [
+            "Từ 5-10% lên 20-25%",
+            "Từ 10% lên 30%",
+            "Từ 15% lên 35%",
+            "Từ 3% lên 15%"
+        ],
+        correct: 0,
+        topic: "Tầng lớp trí thức",
+        difficulty: "⭐⭐⭐ Nâng cao",
+        hint: "Sự bùng nổ này bao gồm khoảng 1 triệu người trong lĩnh vực CNTT."
+    },
+    {
+        question: "Trong thời kỳ quá độ lên chủ nghĩa xã hội, vì sao phải thực hiện liên minh giai cấp?",
+        options: [
+            "Để huy động sức mạnh tổng hợp, đáp ứng nhu cầu chung và tạo động lực phát triển",
+            "Để loại bỏ hoàn toàn mâu thuẫn giai cấp",
+            "Để thay thế vai trò lãnh đạo của Đảng",
+            "Để chuyển sang chế độ tư bản chủ nghĩa"
+        ],
+        correct: 0,
+        topic: "Ý nghĩa liên minh",
+        difficulty: "⭐⭐⭐ Nâng cao",
+        hint: "Đây là yêu cầu khách quan để thực hiện thắng lợi mục tiêu CNXH."
+    }
+];
 
-        // Load question function
-        function loadQuestion() {
-            if (gameData.currentQuestion >= questionsData.length) {
-                showResults();
-                return;
-            }
+// Load question function
+function loadQuestion() {
+    if (gameData.currentQuestion >= questionsData.length) {
+        showResults();
+        return;
+    }
 
-            var question = questionsData[gameData.currentQuestion];
-            
-            // Update displays
-            document.getElementById('questionDisplay').textContent = question.question;
-            document.getElementById('topicDisplay').textContent = question.topic;
-            document.getElementById('difficultyDisplay').textContent = question.difficulty;
-            
-            // Update progress
-            var current = gameData.currentQuestion + 1;
-            var total = questionsData.length;
-            document.getElementById('currentDisplay').textContent = current;
-            document.getElementById('totalDisplay').textContent = total;
-            document.getElementById('questionNumber').textContent = current;
-            document.getElementById('totalQuestions').textContent = total;
-            
-            // Generate answers
-            var answersContainer = document.getElementById('answersArea');
-            answersContainer.innerHTML = '';
-            
-            for (var i = 0; i < question.options.length; i++) {
-                var answerDiv = document.createElement('div');
-                answerDiv.className = 'answer';
-                answerDiv.textContent = question.options[i];
-                answerDiv.onclick = createAnswerHandler(i);
-                answersContainer.appendChild(answerDiv);
-            }
-            
-            // Update navigation
-            document.getElementById('prevBtn').disabled = gameData.currentQuestion === 0;
-            
-            if (gameData.currentQuestion === questionsData.length - 1) {
-                document.getElementById('nextBtn').textContent = 'Kết thúc 🏁';
-            } else {
-                document.getElementById('nextBtn').textContent = 'Sau ➡️';
-            }
-            
-            updateStatsDisplay();
-        }
+    var question = questionsData[gameData.currentQuestion];
+    
+    // Update displays
+    document.getElementById('questionDisplay').textContent = question.question;
+    document.getElementById('topicDisplay').textContent = question.topic;
+    document.getElementById('difficultyDisplay').textContent = question.difficulty;
+    
+    // Update progress
+    var current = gameData.currentQuestion + 1;
+    var total = questionsData.length;
+    document.getElementById('currentDisplay').textContent = current;
+    document.getElementById('totalDisplay').textContent = total;
+    document.getElementById('questionNumber').textContent = current;
+    document.getElementById('totalQuestions').textContent = total;
+    
+    // Generate answers
+    var answersContainer = document.getElementById('answersArea');
+    answersContainer.innerHTML = '';
+    
+    var labels = ['A', 'B', 'C', 'D'];
+    
+    for (var i = 0; i < question.options.length; i++) {
+        var answerDiv = document.createElement('div');
+        answerDiv.className = 'answer';
+        answerDiv.innerHTML = 
+            '<div class="answer-label">' + labels[i] + '</div>' +
+            '<div>' + question.options[i] + '</div>';
+        answerDiv.onclick = createAnswerHandler(i);
+        answersContainer.appendChild(answerDiv);
+    }
+    
+    // Update navigation
+    document.getElementById('prevBtn').disabled = gameData.currentQuestion === 0;
+    
+    if (gameData.currentQuestion === questionsData.length - 1) {
+        document.getElementById('nextBtn').innerHTML = 'Kết thúc <i class="fas fa-flag-checkered"></i>';
+    } else {
+        document.getElementById('nextBtn').innerHTML = 'Sau <i class="fas fa-chevron-right"></i>';
+    }
+    
+    updateStatsDisplay();
+}
 
-        // Create answer handler (closure)
-        function createAnswerHandler(index) {
-            return function() {
-                selectAnswer(index);
-            };
-        }
+// Create answer handler (closure)
+function createAnswerHandler(index) {
+    return function() {
+        selectAnswer(index);
+    };
+}
 
-        // Select answer function
-        function selectAnswer(selectedIndex) {
-            var question = questionsData[gameData.currentQuestion];
-            var answerElements = document.querySelectorAll('.answer');
-            
-            // Disable all answers
-            for (var i = 0; i < answerElements.length; i++) {
-                answerElements[i].classList.add('disabled');
-            }
-            
-            // Mark selected
-            answerElements[selectedIndex].classList.add('selected');
-            
-            // Show result after delay
-            setTimeout(function() {
-                answerElements[question.correct].classList.add('correct');
-                
-                var isCorrect = selectedIndex === question.correct;
-                if (!isCorrect) {
-                    answerElements[selectedIndex].classList.add('incorrect');
-                    gameData.lives--;
-                } else {
-                    gameData.score += 100;
-                }
-                
-                // Store answer
-                gameData.answers.push({
-                    question: gameData.currentQuestion,
-                    selected: selectedIndex,
-                    correct: question.correct,
-                    isCorrect: isCorrect
-                });
-                
-                updateStatsDisplay();
-                
-                // Auto advance
-                setTimeout(function() {
-                    goToNext();
-                }, 2000);
-                
-            }, 500);
-        }
-
-        // Update stats display
-        function updateStatsDisplay() {
-            document.getElementById('scoreDisplay').textContent = gameData.score;
-            document.getElementById('livesDisplay').textContent = gameData.lives;
-            
-            var elapsed = Math.floor((Date.now() - gameData.startTime) / 1000);
-            document.getElementById('timeDisplay').textContent = elapsed + 's';
-        }
-
-        // Use hint
-        function useHint() {
-            var question = questionsData[gameData.currentQuestion];
-            gameData.score = Math.max(0, gameData.score - 50);
-            updateStatsDisplay();
-            alert('💡 Gợi ý: ' + question.hint + '\n\n(-50 điểm)');
-        }
-
-        // Skip question
-        function skipQuestion() {
-            gameData.score = Math.max(0, gameData.score - 100);
+// Select answer function
+function selectAnswer(selectedIndex) {
+    var question = questionsData[gameData.currentQuestion];
+    var answerElements = document.querySelectorAll('.answer');
+    
+    // Disable all answers
+    for (var i = 0; i < answerElements.length; i++) {
+        answerElements[i].classList.add('disabled');
+    }
+    
+    // Mark selected
+    answerElements[selectedIndex].classList.add('selected');
+    
+    // Show result after delay
+    setTimeout(function() {
+        answerElements[question.correct].classList.add('correct');
+        
+        var isCorrect = selectedIndex === question.correct;
+        if (!isCorrect) {
+            answerElements[selectedIndex].classList.add('incorrect');
             gameData.lives--;
-            
-            gameData.answers.push({
-                question: gameData.currentQuestion,
-                selected: -1,
-                correct: questionsData[gameData.currentQuestion].correct,
-                isCorrect: false,
-                skipped: true
-            });
-            
-            updateStatsDisplay();
-            alert('⏭️ Đã bỏ qua câu hỏi! (-100 điểm, -1 mạng)');
-            
-            setTimeout(function() {
-                goToNext();
-            }, 1000);
+        } else {
+            gameData.score += 100;
         }
+        
+        // Store answer
+        gameData.answers.push({
+            question: gameData.currentQuestion,
+            selected: selectedIndex,
+            correct: question.correct,
+            isCorrect: isCorrect
+        });
+        
+        updateStatsDisplay();
+        
+        // Auto advance
+        setTimeout(function() {
+            goToNext();
+        }, 2000);
+        
+    }, 500);
+}
 
-        // Go to next
-        function goToNext() {
-            gameData.currentQuestion++;
-            
-            if (gameData.currentQuestion >= questionsData.length || gameData.lives <= 0) {
-                showResults();
-            } else {
-                loadQuestion();
+// Update stats display
+function updateStatsDisplay() {
+    document.getElementById('scoreDisplay').textContent = gameData.score;
+    document.getElementById('livesDisplay').textContent = gameData.lives;
+    
+    var elapsed = Math.floor((Date.now() - gameData.startTime) / 1000);
+    document.getElementById('timeDisplay').textContent = elapsed + 's';
+}
+
+// Use hint
+function useHint() {
+    var question = questionsData[gameData.currentQuestion];
+    gameData.score = Math.max(0, gameData.score - 50);
+    updateStatsDisplay();
+    alert('💡 Gợi ý: ' + question.hint + '\n\n(-50 điểm)');
+}
+
+// Skip question
+function skipQuestion() {
+    gameData.score = Math.max(0, gameData.score - 100);
+    gameData.lives--;
+    
+    gameData.answers.push({
+        question: gameData.currentQuestion,
+        selected: -1,
+        correct: questionsData[gameData.currentQuestion].correct,
+        isCorrect: false,
+        skipped: true
+    });
+    
+    updateStatsDisplay();
+    alert('⏭️ Đã bỏ qua câu hỏi! (-100 điểm, -1 mạng)');
+    
+    setTimeout(function() {
+        goToNext();
+    }, 1000);
+}
+
+// Go to next
+function goToNext() {
+    gameData.currentQuestion++;
+    
+    if (gameData.currentQuestion >= questionsData.length || gameData.lives <= 0) {
+        showResults();
+    } else {
+        loadQuestion();
+    }
+}
+
+// Go to previous
+function goToPrevious() {
+    if (gameData.currentQuestion > 0) {
+        gameData.currentQuestion--;
+        loadQuestion();
+    }
+}
+
+// Show results
+function showResults() {
+    document.getElementById('questionArea').style.display = 'none';
+    document.getElementById('navigationArea').style.display = 'none';
+    document.getElementById('resultsArea').style.display = 'block';
+    
+    // Calculate results
+    var correctAnswers = 0;
+    for (var i = 0; i < gameData.answers.length; i++) {
+        if (gameData.answers[i].isCorrect) {
+            correctAnswers++;
+        }
+    }
+    
+    var totalAnswered = gameData.answers.length;
+    var accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
+    var timeUsed = Math.floor((Date.now() - gameData.startTime) / 1000);
+    
+    // Update results display
+    document.getElementById('finalScoreDisplay').textContent = gameData.score;
+    document.getElementById('correctDisplay').textContent = correctAnswers;
+    document.getElementById('answeredDisplay').textContent = totalAnswered;
+    document.getElementById('accuracyDisplay').textContent = accuracy + '%';
+    document.getElementById('timeUsedDisplay').textContent = timeUsed + 's';
+}
+
+// Restart game
+function restartGame() {
+    gameData.currentQuestion = 0;
+    gameData.score = 0;
+    gameData.lives = 3;
+    gameData.startTime = Date.now();
+    gameData.answers = [];
+    
+    document.getElementById('questionArea').style.display = 'block';
+    document.getElementById('navigationArea').style.display = 'flex';
+    document.getElementById('resultsArea').style.display = 'none';
+    
+    loadQuestion();
+}
+
+// Initialize game
+window.onload = function() {
+    loadQuestion();
+    
+    // Keyboard shortcuts
+    document.onkeydown = function(e) {
+        if (e.key >= '1' && e.key <= '4') {
+            var answerIndex = parseInt(e.key) - 1;
+            var answerElements = document.querySelectorAll('.answer');
+            if (answerElements[answerIndex] && !answerElements[answerIndex].classList.contains('disabled')) {
+                selectAnswer(answerIndex);
             }
         }
-
-        // Go to previous
-        function goToPrevious() {
-            if (gameData.currentQuestion > 0) {
-                gameData.currentQuestion--;
-                loadQuestion();
-            }
+        
+        if (e.code === 'Space') {
+            e.preventDefault();
+            useHint();
         }
-
-        // Show results
-        function showResults() {
-            document.getElementById('questionArea').style.display = 'none';
-            document.getElementById('navigationArea').style.display = 'none';
-            document.getElementById('resultsArea').style.display = 'block';
-            
-            // Calculate results
-            var correctAnswers = 0;
-            for (var i = 0; i < gameData.answers.length; i++) {
-                if (gameData.answers[i].isCorrect) {
-                    correctAnswers++;
-                }
-            }
-            
-            var totalAnswered = gameData.answers.length;
-            var accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
-            var timeUsed = Math.floor((Date.now() - gameData.startTime) / 1000);
-            
-            // Update results display
-            document.getElementById('finalScoreDisplay').textContent = gameData.score;
-            document.getElementById('correctDisplay').textContent = correctAnswers;
-            document.getElementById('answeredDisplay').textContent = totalAnswered;
-            document.getElementById('accuracyDisplay').textContent = accuracy + '%';
-            document.getElementById('timeUsedDisplay').textContent = timeUsed + 's';
+        
+        if (e.code === 'ArrowRight') {
+            e.preventDefault();
+            goToNext();
         }
-
-        // Restart game
-        function restartGame() {
-            gameData.currentQuestion = 0;
-            gameData.score = 0;
-            gameData.lives = 3;
-            gameData.startTime = Date.now();
-            gameData.answers = [];
-            
-            document.getElementById('questionArea').style.display = 'block';
-            document.getElementById('navigationArea').style.display = 'flex';
-            document.getElementById('resultsArea').style.display = 'none';
-            
-            loadQuestion();
+        
+        if (e.code === 'ArrowLeft') {
+            e.preventDefault();
+            goToPrevious();
         }
-
-        // Initialize game
-        window.onload = function() {
-            loadQuestion();
-            
-            // Keyboard shortcuts
-            document.onkeydown = function(e) {
-                if (e.key >= '1' && e.key <= '4') {
-                    var answerIndex = parseInt(e.key) - 1;
-                    var answerElements = document.querySelectorAll('.answer');
-                    if (answerElements[answerIndex] && !answerElements[answerIndex].classList.contains('disabled')) {
-                        selectAnswer(answerIndex);
-                    }
-                }
-                
-                if (e.code === 'Space') {
-                    e.preventDefault();
-                    useHint();
-                }
-                
-                if (e.code === 'ArrowRight') {
-                    e.preventDefault();
-                    goToNext();
-                }
-                
-                if (e.code === 'ArrowLeft') {
-                    e.preventDefault();
-                    goToPrevious();
-                }
-            };
-        };
-    </script>
-</body>
-</html>
+    };
+};
+</script>
