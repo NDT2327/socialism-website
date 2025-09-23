@@ -337,171 +337,184 @@ var gameModes = {
     survival: { name: "Chế độ Sinh tồn", questionCount: -1, timePerQuestion: 45, scoreMultiplier: 2 }
 };
 
-// Initialize when page loads
-function initializeGame() {
-    console.log("Initializing game...");
+// Completely new approach using event delegation and direct manipulation
+var QuizGameSimple = {
+    initialized: false,
     
-    // Wait for elements to be available
-    setTimeout(function() {
-        setupEventListeners();
-        showGameMenu();
-    }, 500);
-}
-
-function setupEventListeners() {
-    console.log("Setting up event listeners...");
+    // Simple initialization that just sets up event delegation
+    init: function() {
+        console.log("🎮 QuizGameSimple.init() - Setting up event delegation");
+        
+        // Remove any existing global click handler
+        document.removeEventListener('click', this.globalClickHandler);
+        
+        // Add global click handler using event delegation
+        document.addEventListener('click', this.globalClickHandler.bind(this));
+        
+        this.initialized = true;
+        this.showGameMenu();
+        console.log("✅ Quiz game initialized with event delegation");
+    },
     
-    // Game mode cards - Remove click handlers, only buttons should be clickable
-    // Cards are now purely decorative containers
-    
-    // Mode buttons inside cards
-    var modeButtons = document.querySelectorAll('.mode-btn');
-    console.log("Found mode buttons:", modeButtons.length);
-    
-    for (var i = 0; i < modeButtons.length; i++) {
-        var btn = modeButtons[i];
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent any potential event bubbling
-            var card = this.closest('.game-mode-card');
-            var mode = card.getAttribute('data-mode');
-            console.log("Button clicked for mode:", mode);
+    // Global click handler that captures all clicks
+    globalClickHandler: function(e) {
+        var target = e.target;
+        
+        // Handle mode button clicks
+        if (target.classList.contains('mode-btn') || target.closest('.mode-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            if (mode === 'review') {
-                showStudyMode();
-            } else {
-                showDifficultySelection(mode);
+            var btn = target.closest('.mode-btn') || target;
+            var card = btn.closest('.game-mode-card');
+            
+            if (card) {
+                var mode = card.getAttribute('data-mode');
+                console.log("🎯 Mode button clicked via delegation:", mode);
+                
+                if (mode === 'review') {
+                    this.showStudyMode();
+                } else {
+                    this.showDifficultySelection(mode);
+                }
+            }
+            return;
+        }
+        
+        // Handle difficulty button clicks
+        if (target.classList.contains('difficulty-btn') || target.closest('.difficulty-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var btn = target.closest('.difficulty-btn') || target;
+            var card = btn.closest('.difficulty-card');
+            
+            if (card) {
+                var difficulty = card.getAttribute('data-difficulty');
+                console.log("🎯 Difficulty button clicked via delegation:", difficulty);
+                this.startGameWithDifficulty(gameState.selectedMode, difficulty);
+            }
+            return;
+        }
+        
+        // Handle back to mode selection
+        if (target.id === 'back-to-mode-selection' || target.closest('#back-to-mode-selection')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("🔙 Back to mode selection clicked");
+            this.showGameMenu();
+            return;
+        }
+        
+        // Handle other game control buttons
+        if (target.id === 'back-to-menu' || target.closest('#back-to-menu')) {
+            e.preventDefault();
+            this.showGameMenu();
+            return;
+        }
+        
+        if (target.id === 'back-to-menu-study' || target.closest('#back-to-menu-study')) {
+            e.preventDefault();
+            this.showGameMenu();
+            return;
+        }
+    },
+    
+    // Direct DOM manipulation methods
+    showGameMenu: function() {
+        console.log("📱 Showing game menu");
+        this.hideAllScreens();
+        var gameMenu = document.getElementById('game-menu');
+        if (gameMenu) {
+            gameMenu.style.display = 'block';
+        } else {
+            console.warn("⚠️ game-menu element not found");
+        }
+    },
+    
+    showDifficultySelection: function(mode) {
+        console.log("📱 Showing difficulty selection for mode:", mode);
+        gameState.selectedMode = mode;
+        
+        this.hideAllScreens();
+        var difficultyScreen = document.getElementById('difficulty-selection');
+        if (difficultyScreen) {
+            difficultyScreen.style.display = 'block';
+            
+            // Update description
+            var descriptions = {
+                'classic': 'Chế độ Cổ điển - Hãy chọn độ khó phù hợp với trình độ của bạn',
+                'speed': 'Chế độ Tốc độ - Chọn độ khó để bắt đầu thử thách tốc độ',
+                'survival': 'Chế độ Sinh tồn - Lựa chọn độ khó cho cuộc chiến sinh tồn'
+            };
+            
+            var descElement = document.getElementById('selected-mode-description');
+            if (descElement) {
+                descElement.textContent = descriptions[mode] || 'Hãy chọn mức độ khó phù hợp với trình độ của bạn';
+            }
+        } else {
+            console.warn("⚠️ difficulty-selection element not found");
+        }
+    },
+    
+    showStudyMode: function() {
+        console.log("📱 Showing study mode");
+        this.hideAllScreens();
+        var studyMode = document.getElementById('study-mode');
+        if (studyMode) {
+            studyMode.style.display = 'block';
+        } else {
+            console.warn("⚠️ study-mode element not found");
+        }
+    },
+    
+    hideAllScreens: function() {
+        var screens = [
+            'game-menu',
+            'difficulty-selection', 
+            'game-playing',
+            'game-results',
+            'study-mode'
+        ];
+        
+        screens.forEach(function(screenId) {
+            var screen = document.getElementById(screenId);
+            if (screen) {
+                screen.style.display = 'none';
             }
         });
-    }
+    },
     
-    // Game control buttons
-    setupGameControls();
-}
+    startGameWithDifficulty: function(mode, difficulty) {
+        console.log("🎮 Starting game with mode:", mode, "difficulty:", difficulty);
+        if (typeof startGame === 'function') {
+            startGame(mode, difficulty);
+        } else {
+            console.error("❌ startGame function not found");
+        }
+    }
+};
 
-function setupGameControls() {
-    // Power-up buttons
-    var fiftyBtn = document.getElementById('fifty-fifty');
-    if (fiftyBtn) {
-        fiftyBtn.addEventListener('click', function() { usePowerup('fifty-fifty'); });
-    }
-    
-    var expertBtn = document.getElementById('ask-expert');
-    if (expertBtn) {
-        expertBtn.addEventListener('click', function() { usePowerup('ask-expert'); });
-    }
-    
-    var doubleBtn = document.getElementById('double-score');
-    if (doubleBtn) {
-        doubleBtn.addEventListener('click', function() { usePowerup('double-score'); });
-    }
-    
-    // Other game buttons
-    var hintBtn = document.getElementById('hint-btn');
-    if (hintBtn) {
-        hintBtn.addEventListener('click', showHint);
-    }
-    
-    var skipBtn = document.getElementById('skip-btn');
-    if (skipBtn) {
-        skipBtn.addEventListener('click', skipQuestion);
-    }
-    
-    var playAgainBtn = document.getElementById('play-again');
-    if (playAgainBtn) {
-        playAgainBtn.addEventListener('click', function() { 
-            console.log("Play again clicked");
-            startGame(gameState.mode, gameState.difficulty); 
-        });
-    }
-    
-    var menuBtn = document.getElementById('back-to-menu');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', function() {
-            console.log("Back to menu clicked");
-            showGameMenu();
-        });
-    }
-    
-    var reviewBtn = document.getElementById('review-mistakes');
-    if (reviewBtn) {
-        reviewBtn.addEventListener('click', reviewMistakes);
-    }
-    
-    // Study mode back button
-    var studyMenuBtn = document.getElementById('back-to-menu-study');
-    if (studyMenuBtn) {
-        studyMenuBtn.addEventListener('click', function() {
-            showGameMenu();
-        });
-    }
-    
-    // Setup study mode listeners
-    setupStudyModeListeners();
+// Global function for main.js
+window.initQuizGame = function() {
+    console.log("🔄 External quiz game initialization request received");
+    QuizGameSimple.init();
+};
 
-    // Difficulty selection buttons
-    var difficultyButtons = document.querySelectorAll('.difficulty-btn');
-    for (var i = 0; i < difficultyButtons.length; i++) {
-        difficultyButtons[i].addEventListener('click', function(e) {
-            var card = this.closest('.difficulty-card');
-            var difficulty = card.getAttribute('data-difficulty');
-            startGameWithDifficulty(gameState.selectedMode, difficulty);
-        });
-    }
-
-    // Back to mode selection button
-    var backToModeBtn = document.getElementById('back-to-mode-selection');
-    if (backToModeBtn) {
-        backToModeBtn.addEventListener('click', showGameMenu);
-    }
-}
-
+// Legacy function wrappers for compatibility with existing code
 function showGameMenu() {
-    console.log("Showing game menu");
-    document.getElementById('game-menu').style.display = 'block';
-    document.getElementById('difficulty-selection').style.display = 'none';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'none';
+    QuizGameSimple.showGameMenu();
 }
 
 function showDifficultySelection(mode) {
-    console.log("Showing difficulty selection for mode:", mode);
-    gameState.selectedMode = mode;
-    
-    // Update the description based on the mode
-    var descriptions = {
-        'classic': 'Chế độ Cổ điển - Hãy chọn độ khó phù hợp với trình độ của bạn',
-        'speed': 'Chế độ Tốc độ - Chọn độ khó để bắt đầu thử thách tốc độ',
-        'survival': 'Chế độ Sinh tồn - Lựa chọn độ khó cho cuộc chiến sinh tồn'
-    };
-    
-    var descElement = document.getElementById('selected-mode-description');
-    if (descElement) {
-        descElement.textContent = descriptions[mode] || 'Hãy chọn mức độ khó phù hợp với trình độ của bạn';
-    }
-    
-    document.getElementById('game-menu').style.display = 'none';
-    document.getElementById('difficulty-selection').style.display = 'block';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'none';
+    QuizGameSimple.showDifficultySelection(mode);
 }
 
 function showStudyMode() {
-    console.log("Showing study mode");
-    document.getElementById('game-menu').style.display = 'none';
-    document.getElementById('difficulty-selection').style.display = 'none';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'block';
-    
-    // Make sure the topics view is visible and content view is hidden
-    document.getElementById('study-topics-view').style.display = 'block';
-    document.getElementById('study-content-view').style.display = 'none';
-    
-    // Setup study mode event listeners if not already set up
-    setupStudyModeListeners();
+    QuizGameSimple.showStudyMode();
 }
+
+// Old functions removed - functionality moved to QuizGame object
 
 function startGameWithDifficulty(mode, difficulty) {
     console.log("Starting game with mode:", mode, "difficulty:", difficulty);
@@ -1817,9 +1830,9 @@ function tryQuizNow() {
     }, 400);
 }
 
-// Initialize game when loaded
-console.log("Quiz game script loaded, initializing...");
-initializeGame();
+// Initialize game when script loads - using simple event delegation approach
+console.log("Quiz game script loaded, initializing with simple approach...");
+QuizGameSimple.init();
 
 // Global cleanup function that can be called from main navigation
 window.cleanupQuizGame = function() {

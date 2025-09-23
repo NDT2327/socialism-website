@@ -96,20 +96,36 @@ function getModuleName(module) {
 }
 
 function loadModuleScript(moduleName) {
+    console.log("Loading script for module:", moduleName);
+    
     // Remove existing module scripts
     var existingScripts = document.querySelectorAll('script[data-module]');
-    for (var i = 0; i < existingScripts.length; i++) {
-        existingScripts[i].remove();
-    }
+    existingScripts.forEach(function(script) {
+        console.log("Removing existing script:", script.src);
+        script.remove();
+    });
     
     // Load new module script
     var script = document.createElement('script');
     script.src = 'js/' + moduleName + '.js';
     script.setAttribute('data-module', moduleName);
-    script.onerror = function() {
-        console.log('No specific script found for ' + moduleName + ' module');
+    
+    script.onload = function() {
+        console.log('✅ Script successfully loaded for', moduleName, 'module');
+        
+        // For quiz module, no need for complex initialization
+        // The script will auto-initialize with event delegation
+        if (moduleName === 'quiz') {
+            console.log("ℹ️ Quiz module loaded with event delegation - no manual init needed");
+        }
     };
+    
+    script.onerror = function() {
+        console.log('ℹ️ No specific script found for', moduleName, 'module (this is ok for some modules)');
+    };
+    
     document.body.appendChild(script);
+    console.log("Script element added to body for:", moduleName);
 }
 
 // Global utility functions
