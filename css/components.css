@@ -99,14 +99,18 @@
     color: #212529;
 }
 
-/* Cards Grid */
+/* CRITICAL FIX: Cards Grid - Force 4 columns on desktop, responsive on mobile */
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-top: 2rem;
+    width: 100%;
+    
+    /* FORCE 4 equal columns on desktop */
+    grid-template-columns: repeat(4, 1fr);
 }
 
+/* Ensure all cards have equal height */
 .card {
     background: white;
     border-radius: 12px;
@@ -115,6 +119,12 @@
     transition: all 0.3s ease;
     border-left: 4px solid #28a745;
     border: 1px solid #e9ecef;
+    
+    /* CRITICAL: Ensure equal height */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 280px;
 }
 
 .card:hover {
@@ -130,15 +140,18 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
 }
 
 .card p {
     color: #6c757d;
     line-height: 1.6;
+    flex-grow: 1;
 }
 
 .card ul {
     color: #6c757d;
+    flex-grow: 1;
 }
 
 .card ul li {
@@ -147,6 +160,40 @@
 
 .card ul li strong {
     color: #495057;
+}
+
+/* RESPONSIVE: Adjust grid for different screen sizes */
+@media (max-width: 1200px) {
+    .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .card {
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .card {
+        min-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        gap: 1rem;
+    }
+    
+    .card {
+        padding: 1.2rem;
+        min-height: 180px;
+    }
 }
 
 /* Timeline */
@@ -410,29 +457,9 @@
         border-right-color: white !important;
         border-left-color: transparent !important;
     }
-
-    .cards-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .hero h2 {
-        font-size: 2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-    }
 }
 
 @media (max-width: 480px) {
-    .stats-grid {
-        grid-template-columns: 1fr;
-    }
-    
     .timeline-item {
         width: calc(100% - 20px);
         left: 20px !important;
