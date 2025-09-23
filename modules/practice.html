@@ -148,12 +148,29 @@
 .responsive-cards-grid .card p:last-child {
     margin-top: auto;
 }
+
+/* Enhance main practice title contrast & alignment */
+.practice-title {
+    color: #ffffff !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 18px rgba(0,0,0,.45), 0 1px 0 #123, 0 0 6px rgba(255,255,255,.25);
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 600px){
+    .practice-title { font-size: 1.6rem; line-height:1.25; }
+}
 </style>
 
 <div class="practice-background"></div>
 
 <div class="fade-in practice-module">
-    <h1 class="section-title">🇻🇳 Thực tiễn cơ cấu xã hội - giai cấp ở Việt Nam</h1>
+    <h1 class="section-title practice-title">🇻🇳 Thực tiễn cơ cấu xã hội - giai cấp ở Việt Nam</h1>
     
     <!-- Bối cảnh chung -->
     <div class="content-section">

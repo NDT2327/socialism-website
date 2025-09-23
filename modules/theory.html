@@ -32,12 +32,28 @@
     0%, 100% { transform: rotate(0deg) scale(1); }
     50% { transform: rotate(0.5deg) scale(1.01); }
 }
+/* Enhanced theory title styling for contrast & alignment */
+.theory-title {
+    color: #ffffff !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .65rem;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 18px rgba(0,0,0,.45), 0 1px 0 #123, 0 0 6px rgba(255,255,255,.25);
+    margin-bottom: 1.8rem;
+}
+@media (max-width: 600px){
+    .theory-title { font-size: 1.55rem; line-height:1.25; }
+}
 </style>
 
 <div class="theory-background"></div>
 
 <div class="fade-in">
-    <h1 class="section-title"><i class="fas fa-graduation-cap"></i> Lý thuyết cơ bản về cơ cấu xã hội - giai cấp</h1>
+    <h1 class="section-title theory-title"><i class="fas fa-graduation-cap"></i> Lý thuyết cơ bản về cơ cấu xã hội - giai cấp</h1>
     
     <!-- Khái niệm cơ bản -->
     <div class="content-section">

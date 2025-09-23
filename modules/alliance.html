@@ -33,6 +33,24 @@
     50% { transform: translateY(-12px) rotate(0.3deg); }
 }
 
+/* Alliance title enhancement */
+.alliance-title {
+    color: #ffffff !important;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    font-size: 44px;
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    text-shadow: 0 4px 18px rgba(0,0,0,.45), 0 1px 0 #123, 0 0 6px rgba(255,255,255,.25);
+    margin-bottom: 1.5rem;
+}
+@media (max-width: 600px){
+    .alliance-title { font-size: 1.6rem; line-height:1.25; }
+}
+
 /* RESPONSIVE GRID - NO SCROLL */
 .responsive-cards-grid {
     display: grid;
@@ -129,7 +147,7 @@
 <div class="alliance-background"></div>
 
 <div class="fade-in alliance-module">
-    <h1 class="section-title">🤝 Liên minh giai cấp trong xây dựng chủ nghĩa xã hội</h1>
+    <h1 class="section-title alliance-title">🤝 Liên minh giai cấp trong xây dựng chủ nghĩa xã hội</h1>
     
     <!-- Khái niệm và bản chất -->
     <div class="content-section">
@@ -251,12 +269,12 @@
     <div class="content-section">
         <h2 class="section-subtitle"><i class="fas fa-question-circle"></i> Tại sao phải thực hiện liên minh giai cấp?</h2>
         
-        <div class="card hero" style="margin: 2rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(142, 68, 173, 0.9)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover;">
-            <h3 style="color: white; margin-bottom: 1.5rem;">
+        <div class="card hero" style="margin: 2rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(155, 89, 182, 0.25), rgba(142, 68, 173, 0.25)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; box-shadow: inset 0 0 0 1000px rgba(255,255,255,0.85);">
+            <h3 style="color: var(--primary-red); margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">
                 <i class="fas fa-lightbulb"></i>
                 Yêu cầu khách quan của thời kỳ quá độ
             </h3>
-            <p style="font-size: 1.2rem; color: rgba(255,255,255,0.95);">
+            <p style="font-size: 1.2rem; color: #222; font-weight: 500; line-height:1.55; text-shadow: 0 1px 0 rgba(255,255,255,0.5);">
                 Trong thời kỳ quá độ lên CNXH, việc thực hiện liên minh giai cấp là yếu tố tất yếu nhằm đáp ứng nhu cầu và lợi ích của các chủ thể, đồng thời tạo động lực thực hiện thắng lợi mục tiêu CNXH.
             </p>
         </div>
