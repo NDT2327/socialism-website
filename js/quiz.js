@@ -3,6 +3,7 @@ console.log("Quiz Game module loaded");
 // Global variables
 var gameState = {
     mode: 'classic',
+    difficulty: 'mixed',
     currentQuestion: 0,
     score: 0,
     lives: 3,
@@ -15,7 +16,8 @@ var gameState = {
     startTime: null,
     timeBonus: 0,
     gameTimer: null,
-    finalResults: null
+    finalResults: null,
+    currentQuestionMapping: []
 };
 
 var questionBank = {
@@ -71,6 +73,58 @@ var questionBank = {
             topic: "Giai cấp nông dân",
             explanation: "Giai cấp nông dân đóng vai trò là bệ đỡ kinh tế, đảm bảo an ninh lương thực và xuất khẩu nông sản.",
             hint: "Giai cấp này liên quan đến việc 'nuôi sống' đất nước."
+        },
+        {
+            question: "Trong liên minh giai cấp cơ bản, ai là lực lượng lãnh đạo?",
+            options: [
+                "Giai cấp công nhân",
+                "Giai cấp nông dân",
+                "Tầng lớp trí thức",
+                "Tất cả đều bình đẳng"
+            ],
+            correct: 0,
+            topic: "Liên minh giai cấp",
+            explanation: "Giai cấp công nhân là lực lượng lãnh đạo trong liên minh giai cấp cơ bản.",
+            hint: "Lực lượng này đại diện cho phương thức sản xuất tiên tiến."
+        },
+        {
+            question: "Cơ cấu xã hội bao gồm những cơ cấu nào?",
+            options: [
+                "Cơ cấu giai cấp, dân tộc, nghề nghiệp, vùng miền",
+                "Chỉ có cơ cấu giai cấp",
+                "Cơ cấu kinh tế và chính trị",
+                "Cơ cấu văn hóa và xã hội"
+            ],
+            correct: 0,
+            topic: "Cơ cấu xã hội",
+            explanation: "Cơ cấu xã hội bao gồm cơ cấu giai cấp, cơ cấu dân tộc, cơ cấu nghề nghiệp và cơ cấu vùng miền.",
+            hint: "Xã hội được cấu trúc theo nhiều tiêu chí khác nhau."
+        },
+        {
+            question: "Tại sao nói cơ cấu giai cấp là cơ cấu cơ bản của xã hội?",
+            options: [
+                "Vì nó quy định bản chất của chế độ xã hội",
+                "Vì nó có lịch sử lâu đời nhất",
+                "Vì nó có số lượng người nhiều nhất",
+                "Vì nó được pháp luật công nhận"
+            ],
+            correct: 0,
+            topic: "Cơ cấu giai cấp",
+            explanation: "Cơ cấu giai cấp quy định bản chất của chế độ xã hội và chi phối các cơ cấu khác.",
+            hint: "Cơ cấu này liên quan đến 'bản chất' của xã hội."
+        },
+        {
+            question: "Quá trình công nghiệp hóa, hiện đại hóa ở Việt Nam có đặc điểm gì?",
+            options: [
+                "Kết hợp chặt chẽ với phát triển kinh tế thị trường định hướng XHCN",
+                "Chỉ tập trung phát triển công nghiệp nặng",
+                "Bỏ qua vai trò của nông nghiệp",
+                "Hoàn toàn dựa vào viện trợ nước ngoài"
+            ],
+            correct: 0,
+            topic: "Công nghiệp hóa",
+            explanation: "Công nghiệp hóa, hiện đại hóa Việt Nam gắn liền với phát triển kinh tế thị trường định hướng xã hội chủ nghĩa.",
+            hint: "Quá trình này có tính 'đặc thù' của Việt Nam."
         }
     ],
     medium: [
@@ -115,6 +169,58 @@ var questionBank = {
             topic: "Tầng lớp doanh nhân",
             explanation: "Tầng lớp doanh nhân mới xuất hiện và phát triển từ thời kỳ Đổi mới 1986 với sự ra đời của kinh tế thị trường.",
             hint: "Tầng lớp này gắn liền với 'kinh tế thị trường'."
+        },
+        {
+            question: "Đặc điểm nổi bật của giai cấp công nhân Việt Nam hiện nay là gì?",
+            options: [
+                "Không ngừng tăng về số lượng và nâng cao trình độ",
+                "Giảm dần về số lượng",
+                "Không thay đổi về chất lượng",
+                "Chỉ làm việc trong công nghiệp nặng"
+            ],
+            correct: 0,
+            topic: "Giai cấp công nhân",
+            explanation: "Giai cấp công nhân Việt Nam không ngừng tăng về số lượng và được nâng cao về trình độ văn hóa, chuyên môn.",
+            hint: "Sự phát triển này gắn với công nghiệp hóa, hiện đại hóa."
+        },
+        {
+            question: "Vai trò của tầng lớp trí thức trong sự nghiệp xây dựng đất nước?",
+            options: [
+                "Đóng góp trí tuệ, sáng tạo khoa học công nghệ",
+                "Chỉ nghiên cứu lý thuyết",
+                "Không tham gia lao động sản xuất",
+                "Chỉ làm việc trong lĩnh vực giáo dục"
+            ],
+            correct: 0,
+            topic: "Tầng lớp trí thức",
+            explanation: "Tầng lớp trí thức đóng góp trí tuệ, sáng tạo về khoa học công nghệ cho sự nghiệp phát triển đất nước.",
+            hint: "Tầng lớp này liên quan đến 'trí tuệ' và 'sáng tạo'."
+        },
+        {
+            question: "Tầng lớp nông dân Việt Nam có những biến đổi gì trong thời kỳ hiện nay?",
+            options: [
+                "Giảm tỷ trọng, tăng trình độ và hiệu quả sản xuất",
+                "Tăng tỷ trọng trong dân số",
+                "Không có biến đổi gì",
+                "Chỉ sản xuất nông nghiệp truyền thống"
+            ],
+            correct: 0,
+            topic: "Giai cấp nông dân",
+            explanation: "Tầng lớp nông dân giảm tỷ trọng nhưng tăng trình độ và hiệu quả sản xuất, đa dạng hóa kinh tế.",
+            hint: "Xu hướng này phản ánh quá trình công nghiệp hóa."
+        },
+        {
+            question: "Đặc điểm của cơ cấu kinh tế Việt Nam trong thời kỳ đổi mới?",
+            options: [
+                "Chuyển từ nền kinh tế kế hoạch hóa tập trung sang kinh tế thị trường định hướng XHCN",
+                "Duy trì hoàn toàn cơ chế kế hoạch hóa tập trung",
+                "Áp dụng hoàn toàn mô hình kinh tế thị trường tự do",
+                "Chỉ phát triển khu vực nhà nước"
+            ],
+            correct: 0,
+            topic: "Cơ cấu kinh tế",
+            explanation: "Việt Nam chuyển đổi từ kinh tế kế hoạch hóa tập trung sang kinh tế thị trường định hướng xã hội chủ nghĩa.",
+            hint: "Quá trình này được gọi là 'chuyển đổi mô hình kinh tế'."
         }
     ],
     hard: [
@@ -156,6 +262,71 @@ var questionBank = {
             topic: "Vị trí cơ cấu giai cấp",
             explanation: "Cơ cấu giai cấp chi phối các cơ cấu khác vì nó liên quan đến quyền lực chính trị và sở hữu tư liệu sản xuất.",
             hint: "Vấn đề này liên quan đến 'quyền lực' và 'kinh tế'."
+        },
+        {
+            question: "Theo quan điểm của chủ nghĩa xã hội khoa học, mâu thuẫn cơ bản của chủ nghĩa tư bản là gì?",
+            options: [
+                "Mâu thuẫn giữa tính chất xã hội của sản xuất và tình trạng chiếm hữu tư nhân tư liệu sản xuất",
+                "Mâu thuẫn giữa thành thị và nông thôn",
+                "Mâu thuẫn giữa các quốc gia phát triển và đang phát triển",
+                "Mâu thuẫn giữa khoa học và tôn giáo"
+            ],
+            correct: 0,
+            topic: "Mâu thuẫn cơ bản CNTB",
+            explanation: "Đây là mâu thuẫn cơ bản nhất của chủ nghĩa tư bản theo lý thuyết Marx, dẫn đến khủng hoảng kinh tế và đấu tranh giai cấp.",
+            hint: "Mâu thuẫn này liên quan đến 'sản xuất xã hội' và 'chiếm hữu tư nhân'."
+        },
+        {
+            question: "Tính tất yếu lịch sử của chủ nghĩa xã hội được thể hiện qua điều gì?",
+            options: [
+                "Sự phát triển của lực lượng sản xuất và mâu thuẫn của chế độ tư bản chủ nghĩa",
+                "Ý chí chủ quan của con người",
+                "Sự can thiệp của các thế lực bên ngoài",
+                "Truyền thống văn hóa dân tộc"
+            ],
+            correct: 0,
+            topic: "Tính tất yếu CNXH",
+            explanation: "Tính tất yếu của CNXH xuất phát từ quy luật phát triển khách quan của xã hội loài người.",
+            hint: "Điều này liên quan đến 'quy luật khách quan' của lịch sử."
+        },
+        {
+            question: "Đặc điểm của cuộc cách mạng xã hội chủ nghĩa ở Việt Nam là gì?",
+            options: [
+                "Kết hợp giải phóng dân tộc với giải phóng giai cấp và giải phóng xã hội",
+                "Chỉ tập trung vào giải phóng dân tộc",
+                "Chỉ quan tâm đến phát triển kinh tế",
+                "Bắt chước hoàn toàn mô hình của các nước khác"
+            ],
+            correct: 0,
+            topic: "Cách mạng XHCN Việt Nam",
+            explanation: "Cách mạng Việt Nam có tính đặc thù là kết hợp ba nhiệm vụ giải phóng cùng lúc.",
+            hint: "Ba nhiệm vụ 'giải phóng' được thực hiện đồng thời."
+        },
+        {
+            question: "Vai trò của Đảng Cộng sản trong quá trình xây dựng chủ nghĩa xã hội ở Việt Nam?",
+            options: [
+                "Lãnh đạo toàn diện về chính trị, tư tưởng và tổ chức",
+                "Chỉ lãnh đạo về kinh tế",
+                "Chỉ lãnh đạo về văn hóa xã hội",
+                "Không có vai trò lãnh đạo"
+            ],
+            correct: 0,
+            topic: "Vai trò của Đảng",
+            explanation: "Đảng Cộng sản Việt Nam là lực lượng lãnh đạo toàn diện của cách mạng và xây dựng đất nước.",
+            hint: "Sự lãnh đạo này mang tính 'toàn diện' và 'tổng thể'."
+        },
+        {
+            question: "Nguyên nhân sâu xa của sự ra đời chủ nghĩa xã hội khoa học là gì?",
+            options: [
+                "Sự phát triển của chủ nghĩa tư bản và mâu thuẫn giai cấp ngày càng gay gắt",
+                "Ý chí cá nhân của Marx và Engels",
+                "Ảnh hưởng của các tư tưởng xã hội chủ nghĩa không tưởng",
+                "Yêu cầu của các chính đảng thời đó"
+            ],
+            correct: 0,
+            topic: "Nguồn gốc CNXH khoa học",
+            explanation: "Chủ nghĩa xã hội khoa học ra đời từ những mâu thuẫn khách quan của chủ nghĩa tư bản và đấu tranh giai cấp công nhân.",
+            hint: "Nguồn gốc này có tính 'tất yếu lịch sử' và 'khách quan'."
         }
     ]
 };
@@ -180,23 +351,8 @@ function initializeGame() {
 function setupEventListeners() {
     console.log("Setting up event listeners...");
     
-    // Game mode cards
-    var modeCards = document.querySelectorAll('.game-mode-card');
-    console.log("Found mode cards:", modeCards.length);
-    
-    for (var i = 0; i < modeCards.length; i++) {
-        var card = modeCards[i];
-        card.addEventListener('click', function() {
-            var mode = this.getAttribute('data-mode');
-            console.log("Mode selected:", mode);
-            
-            if (mode === 'review') {
-                showStudyMode();
-            } else {
-                startGame(mode);
-            }
-        });
-    }
+    // Game mode cards - Remove click handlers, only buttons should be clickable
+    // Cards are now purely decorative containers
     
     // Mode buttons inside cards
     var modeButtons = document.querySelectorAll('.mode-btn');
@@ -205,7 +361,7 @@ function setupEventListeners() {
     for (var i = 0; i < modeButtons.length; i++) {
         var btn = modeButtons[i];
         btn.addEventListener('click', function(e) {
-            e.stopPropagation();
+            e.stopPropagation(); // Prevent any potential event bubbling
             var card = this.closest('.game-mode-card');
             var mode = card.getAttribute('data-mode');
             console.log("Button clicked for mode:", mode);
@@ -213,7 +369,7 @@ function setupEventListeners() {
             if (mode === 'review') {
                 showStudyMode();
             } else {
-                startGame(mode);
+                showDifficultySelection(mode);
             }
         });
     }
@@ -254,7 +410,7 @@ function setupGameControls() {
     if (playAgainBtn) {
         playAgainBtn.addEventListener('click', function() { 
             console.log("Play again clicked");
-            startGame(gameState.mode); 
+            startGame(gameState.mode, gameState.difficulty); 
         });
     }
     
@@ -278,11 +434,51 @@ function setupGameControls() {
             showGameMenu();
         });
     }
+
+    // Difficulty selection buttons
+    var difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    for (var i = 0; i < difficultyButtons.length; i++) {
+        difficultyButtons[i].addEventListener('click', function(e) {
+            var card = this.closest('.difficulty-card');
+            var difficulty = card.getAttribute('data-difficulty');
+            startGameWithDifficulty(gameState.selectedMode, difficulty);
+        });
+    }
+
+    // Back to mode selection button
+    var backToModeBtn = document.getElementById('back-to-mode-selection');
+    if (backToModeBtn) {
+        backToModeBtn.addEventListener('click', showGameMenu);
+    }
 }
 
 function showGameMenu() {
     console.log("Showing game menu");
     document.getElementById('game-menu').style.display = 'block';
+    document.getElementById('difficulty-selection').style.display = 'none';
+    document.getElementById('game-playing').style.display = 'none';
+    document.getElementById('game-results').style.display = 'none';
+    document.getElementById('study-mode').style.display = 'none';
+}
+
+function showDifficultySelection(mode) {
+    console.log("Showing difficulty selection for mode:", mode);
+    gameState.selectedMode = mode;
+    
+    // Update the description based on the mode
+    var descriptions = {
+        'classic': 'Chế độ Cổ điển - Hãy chọn độ khó phù hợp với trình độ của bạn',
+        'speed': 'Chế độ Tốc độ - Chọn độ khó để bắt đầu thử thách tốc độ',
+        'survival': 'Chế độ Sinh tồn - Lựa chọn độ khó cho cuộc chiến sinh tồn'
+    };
+    
+    var descElement = document.getElementById('selected-mode-description');
+    if (descElement) {
+        descElement.textContent = descriptions[mode] || 'Hãy chọn mức độ khó phù hợp với trình độ của bạn';
+    }
+    
+    document.getElementById('game-menu').style.display = 'none';
+    document.getElementById('difficulty-selection').style.display = 'block';
     document.getElementById('game-playing').style.display = 'none';
     document.getElementById('game-results').style.display = 'none';
     document.getElementById('study-mode').style.display = 'none';
@@ -291,53 +487,78 @@ function showGameMenu() {
 function showStudyMode() {
     console.log("Showing study mode");
     document.getElementById('game-menu').style.display = 'none';
+    document.getElementById('difficulty-selection').style.display = 'none';
     document.getElementById('game-playing').style.display = 'none';
     document.getElementById('game-results').style.display = 'none';
     document.getElementById('study-mode').style.display = 'block';
 }
 
-function startGame(mode) {
-    console.log("Starting game with mode:", mode);
+function startGameWithDifficulty(mode, difficulty) {
+    console.log("Starting game with mode:", mode, "difficulty:", difficulty);
+    startGame(mode, difficulty);
+}
+
+function startGame(mode, difficulty) {
+    difficulty = difficulty || 'mixed'; // Default to mixed if not specified
+    console.log("Starting game with mode:", mode, "difficulty:", difficulty);
     
     gameState = {
         mode: mode,
+        difficulty: difficulty,
         currentQuestion: 0,
         score: 0,
         lives: 3,
         combo: 0,
         maxCombo: 0,
         timeLeft: gameModes[mode].timePerQuestion,
-        questions: generateQuestions(mode),
+        questions: generateQuestions(mode, difficulty),
         answers: [],
         usedPowerups: [],
         startTime: Date.now(),
         timeBonus: 0,
         gameTimer: null,
-        finalResults: null
+        finalResults: null,
+        currentQuestionMapping: []
     };
     
-    console.log("Generated", gameState.questions.length, "questions");
+    console.log("Generated", gameState.questions.length, "questions for difficulty:", difficulty);
     
     showGamePlaying();
     loadQuestion();
-    startTimer();
     playSound('gameStart');
 }
 
-function generateQuestions(mode) {
+function generateQuestions(mode, difficulty) {
     var questions = [];
     var config = gameModes[mode];
     var questionCount = config.questionCount === -1 ? 20 : config.questionCount;
     
-    var easyCount = Math.floor(questionCount * 0.4);
-    var mediumCount = Math.floor(questionCount * 0.4);
-    var hardCount = questionCount - easyCount - mediumCount;
+    console.log("Generating questions for mode:", mode, "difficulty:", difficulty, "target count:", questionCount);
     
-    // Add questions from each difficulty
-    questions = questions.concat(getRandomQuestions(questionBank.easy, easyCount));
-    questions = questions.concat(getRandomQuestions(questionBank.medium, mediumCount));
-    questions = questions.concat(getRandomQuestions(questionBank.hard, hardCount));
+    if (difficulty === 'mixed') {
+        // Original behavior: 40% easy, 40% medium, 20% hard
+        var easyCount = Math.floor(questionCount * 0.4);
+        var mediumCount = Math.floor(questionCount * 0.4);
+        var hardCount = questionCount - easyCount - mediumCount;
+        
+        console.log("Mixed difficulty breakdown - Easy:", easyCount, "Medium:", mediumCount, "Hard:", hardCount);
+        console.log("Available questions - Easy:", questionBank.easy.length, "Medium:", questionBank.medium.length, "Hard:", questionBank.hard.length);
+        
+        questions = questions.concat(getRandomQuestions(questionBank.easy, easyCount));
+        questions = questions.concat(getRandomQuestions(questionBank.medium, mediumCount));
+        questions = questions.concat(getRandomQuestions(questionBank.hard, hardCount));
+    } else if (difficulty === 'easy') {
+        // All questions from easy pool
+        questions = getRandomQuestions(questionBank.easy, questionCount);
+    } else if (difficulty === 'medium') {
+        // All questions from medium pool
+        questions = getRandomQuestions(questionBank.medium, questionCount);
+    } else if (difficulty === 'hard') {
+        // All questions from hard pool
+        questions = getRandomQuestions(questionBank.hard, questionCount);
+    }
     
+    console.log("Final question count generated:", questions.length);
     return shuffleArray(questions);
 }
 
@@ -360,6 +581,7 @@ function shuffleArray(array) {
 function showGamePlaying() {
     console.log("Showing game playing screen");
     document.getElementById('game-menu').style.display = 'none';
+    document.getElementById('difficulty-selection').style.display = 'none';
     document.getElementById('game-playing').style.display = 'block';
     document.getElementById('game-results').style.display = 'none';
     document.getElementById('study-mode').style.display = 'none';
@@ -371,6 +593,12 @@ function loadQuestion() {
     if (gameState.currentQuestion >= gameState.questions.length) {
         endGame();
         return;
+    }
+    
+    // Clear any existing timer first
+    if (gameState.gameTimer) {
+        clearInterval(gameState.gameTimer);
+        gameState.gameTimer = null;
     }
     
     var question = gameState.questions[gameState.currentQuestion];
@@ -395,6 +623,9 @@ function loadQuestion() {
     generateAnswerOptions(question);
     updateGameStats();
     resetQuestionPowerups();
+    
+    // Start the timer for this question
+    startTimer();
 }
 
 function getDifficulty(question) {
@@ -411,18 +642,34 @@ function generateAnswerOptions(question) {
     var container = document.getElementById('answers-container');
     container.innerHTML = '';
     
+    // Create shuffled options with original indices
+    var shuffledOptions = [];
     for (var i = 0; i < question.options.length; i++) {
-        var option = question.options[i];
+        shuffledOptions.push({
+            text: question.options[i],
+            originalIndex: i,
+            isCorrect: i === question.correct
+        });
+    }
+    
+    // Shuffle the options
+    shuffledOptions = shuffleArray(shuffledOptions);
+    
+    // Store the mapping for answer checking
+    gameState.currentQuestionMapping = shuffledOptions;
+    
+    for (var i = 0; i < shuffledOptions.length; i++) {
+        var option = shuffledOptions[i];
         var optionElement = document.createElement('div');
         optionElement.className = 'answer-option';
         optionElement.innerHTML = 
             '<i class="fas fa-' + getOptionIcon(i) + '"></i>' +
-            '<span>' + option + '</span>';
+            ' <span>' + option.text + '</span>';
         
-        // Create closure to capture index
-        (function(index) {
+        // Create closure to capture shuffled index
+        (function(shuffledIndex) {
             optionElement.addEventListener('click', function() {
-                selectAnswer(index);
+                selectAnswer(shuffledIndex);
             });
         })(i);
         
@@ -431,16 +678,39 @@ function generateAnswerOptions(question) {
 }
 
 function getOptionIcon(index) {
-    var icons = ['circle', 'square', 'triangle', 'star'];
+    var icons = ['circle', 'square', 'play', 'star'];
     return icons[index] || 'circle';
 }
 
 function selectAnswer(selectedIndex) {
     console.log("Answer selected:", selectedIndex);
     
+    // Check if game is still valid (prevent issues after navigation)
+    if (!gameState || !gameState.questions || gameState.currentQuestion >= gameState.questions.length) {
+        console.log("Invalid game state, ignoring answer selection");
+        return;
+    }
+    
+    // Stop timer immediately to prevent double counting
+    if (gameState.gameTimer) {
+        clearInterval(gameState.gameTimer);
+        gameState.gameTimer = null;
+    }
+    
     var question = gameState.questions[gameState.currentQuestion];
-    var isCorrect = selectedIndex === question.correct;
+    var mapping = gameState.currentQuestionMapping;
+    var selectedOption = selectedIndex >= 0 ? mapping[selectedIndex] : null;
+    var isCorrect = selectedIndex >= 0 ? selectedOption.isCorrect : false;
     var options = document.querySelectorAll('.answer-option');
+    
+    // Find the correct answer in the shuffled options
+    var correctAnswerIndex = -1;
+    for (var i = 0; i < mapping.length; i++) {
+        if (mapping[i].isCorrect) {
+            correctAnswerIndex = i;
+            break;
+        }
+    }
     
     // Disable all options
     for (var i = 0; i < options.length; i++) {
@@ -455,7 +725,9 @@ function selectAnswer(selectedIndex) {
     
     // Show results after delay
     setTimeout(function() {
-        options[question.correct].classList.add('correct');
+        if (correctAnswerIndex >= 0) {
+            options[correctAnswerIndex].classList.add('correct');
+        }
         
         if (!isCorrect && selectedIndex >= 0) {
             options[selectedIndex].classList.add('incorrect');
@@ -483,10 +755,10 @@ function selectAnswer(selectedIndex) {
             showScorePopup(totalScore, comboBonus, timeBonus);
         }
         
-        // Store answer
+        // Store answer (use original answer index for tracking)
         gameState.answers.push({
             questionIndex: gameState.currentQuestion,
-            selectedAnswer: selectedIndex,
+            selectedAnswer: selectedOption ? selectedOption.originalIndex : -1,
             correctAnswer: question.correct,
             isCorrect: isCorrect,
             timeUsed: gameModes[gameState.mode].timePerQuestion - gameState.timeLeft,
@@ -540,25 +812,55 @@ function showScorePopup(totalScore, comboBonus, timeBonus) {
 }
 
 function startTimer() {
+    console.log("Starting timer, current timeLeft:", gameState.timeLeft);
+    
+    // Always clear any existing timer first
     if (gameState.gameTimer) {
+        console.log("Clearing existing timer");
         clearInterval(gameState.gameTimer);
+        gameState.gameTimer = null;
     }
     
+    // Ensure we have a valid time value
+    if (gameState.timeLeft <= 0) {
+        console.log("Invalid timeLeft value, not starting timer");
+        return;
+    }
+    
+    // Create new timer interval
     gameState.gameTimer = setInterval(function() {
         gameState.timeLeft--;
+        console.log("Timer tick, timeLeft:", gameState.timeLeft);
         updateGameStats();
         
+        // Check for time up
         if (gameState.timeLeft <= 0) {
+            console.log("Time's up!");
+            clearInterval(gameState.gameTimer);
+            gameState.gameTimer = null;
             selectAnswer(-1); // Time's up
         }
     }, 1000);
+    
+    console.log("Timer started with interval ID:", gameState.gameTimer);
 }
 
 function updateGameStats() {
+    // Ensure timeLeft doesn't go below 0 when displaying
+    var displayTime = Math.max(0, gameState.timeLeft);
+    
     document.getElementById('current-score').textContent = gameState.score.toLocaleString();
     document.getElementById('lives-count').textContent = gameState.lives;
     document.getElementById('combo-count').textContent = gameState.combo;
-    document.getElementById('time-left').textContent = gameState.timeLeft + 's';
+    document.getElementById('time-left').textContent = displayTime + 's';
+    
+    // Hide lives display for classic and speed modes, only show for survival
+    var livesStatItem = document.getElementById('lives-count').parentNode;
+    if (gameState.mode === 'survival') {
+        livesStatItem.style.display = 'flex';
+    } else {
+        livesStatItem.style.display = 'none';
+    }
     
     // Update colors based on values
     var livesElement = document.getElementById('lives-count');
@@ -633,22 +935,33 @@ function usePowerup(powerupType) {
     updateGameStats();
     resetQuestionPowerups();
     
-    showAlert('✅ Đã sử dụng trợ giúp! (-' + cost + ' điểm)', 'success');
+    // Don't show generic success message - let specific powerup functions handle their own messages
     playSound('powerup');
 }
 
 function useFiftyFifty() {
     var question = gameState.questions[gameState.currentQuestion];
     var options = document.querySelectorAll('.answer-option');
+    var mapping = gameState.currentQuestionMapping;
     var incorrectIndices = [];
     
-    for (var i = 0; i < question.options.length; i++) {
-        if (i !== question.correct) {
+    // Find incorrect answer indices in the shuffled order
+    for (var i = 0; i < mapping.length; i++) {
+        if (!mapping[i].isCorrect) {
             incorrectIndices.push(i);
         }
     }
     
+    // Only proceed if we have enough incorrect answers to hide
+    if (incorrectIndices.length < 2) {
+        console.log("Not enough incorrect answers for 50:50");
+        return;
+    }
+    
+    // Randomly select 2 incorrect answers to hide
     var toHide = shuffleArray(incorrectIndices).slice(0, 2);
+    
+    console.log("50:50 hiding indices:", toHide, "Correct answer at:", mapping.findIndex(m => m.isCorrect));
     
     for (var i = 0; i < toHide.length; i++) {
         var index = toHide[i];
@@ -656,17 +969,26 @@ function useFiftyFifty() {
         options[index].style.pointerEvents = 'none';
         options[index].innerHTML += ' <small>(Đã loại)</small>';
     }
+    
+    // Show success message for 50:50
+    var fiftyFiftyMessage = '🎯 TRỢ GIÚP 50:50 ĐÃ KÍCH HOẠT\n\n❌ Đã loại bỏ 2 đáp án sai\n\n💰 Chi phí: 200 điểm';
+    showAlert(fiftyFiftyMessage, 'success');
 }
 
 function useAskExpert() {
     var question = gameState.questions[gameState.currentQuestion];
     var hint = question.hint || "Hãy suy nghĩ kỹ về các khái niệm đã học.";
     
-    showAlert('💡 Gợi ý từ chuyên gia: ' + hint, 'info');
+    showAlert(hint, 'info');
+    
+    // Reduce score as penalty for using expert help
+    gameState.score = Math.max(0, gameState.score - 50);
+    updateGameStats();
 }
 
 function useDoubleScore() {
-    showAlert('⭐ Trợ giúp "Điểm x2" đã được kích hoạt cho câu này!', 'success');
+    var doubleScoreMessage = '⭐ ĐIỂM SỐ X2 ĐÃ KÍCH HOẠT\n\n🎯 Câu trả lời đúng sẽ được nhân đôi điểm!\n\n💰 Chi phí: 100 điểm';
+    showAlert(doubleScoreMessage, 'success');
 }
 
 function showHint() {
@@ -676,7 +998,8 @@ function showHint() {
     gameState.score = Math.max(0, gameState.score - 50);
     updateGameStats();
     
-    showAlert('💡 Gợi ý: ' + hint + ' (-50 điểm)', 'info');
+    var hintMessage = '� GỢI Ý NHANH\n\n' + hint + '\n\n⚠️ Bị trừ 50 điểm';
+    showAlert(hintMessage, 'warning');
     playSound('hint');
 }
 
@@ -696,8 +1019,11 @@ function skipQuestion() {
     updateGameStats();
     showAlert('⏭️ Đã bỏ qua câu hỏi! (-100 điểm)', 'warning');
     
-    gameState.currentQuestion++;
-    loadQuestion();
+    // Move to next question with a delay
+    setTimeout(function() {
+        gameState.currentQuestion++;
+        loadQuestion();
+    }, 1500);
     
     playSound('skip');
 }
@@ -836,31 +1162,75 @@ function reviewMistakes() {
     showAlert(message, 'info');
 }
 
+// Global variable to track active alerts
+var activeAlerts = [];
+
 function showAlert(message, type) {
-    var alert = document.createElement('div');
-    var bgColor = '#3498db';
+    // Remove old alerts of the same type to prevent stacking
+    var existingAlerts = document.querySelectorAll('.game-alert[data-type="' + type + '"]');
+    for (var i = 0; i < existingAlerts.length; i++) {
+        existingAlerts[i].remove();
+    }
     
+    var alert = document.createElement('div');
+    alert.className = 'game-alert';
+    alert.setAttribute('data-type', type);
+    
+    var bgColor = '#3498db';
     if (type === 'success') bgColor = '#2ecc71';
     else if (type === 'error') bgColor = '#e74c3c';
     else if (type === 'warning') bgColor = '#f39c12';
+    else if (type === 'info') bgColor = '#9b59b6';
+    
+    // Calculate vertical position based on existing alerts
+    var topOffset = 2 + (activeAlerts.length * 5); // Each alert is 5rem apart
     
     alert.style.cssText = 
-        'position: fixed; top: 2rem; right: 2rem; background: ' + bgColor + '; color: white; ' +
-        'padding: 1rem 1.5rem; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); ' +
-        'z-index: 10000; transform: translateX(100%); transition: transform 0.3s ease; ' +
-        'max-width: 350px; font-weight: 500; white-space: pre-line;';
+        'position: fixed; top: ' + topOffset + 'rem; right: 2rem; background: ' + bgColor + '; color: white; ' +
+        'padding: 1.2rem 1.8rem; border-radius: 16px; box-shadow: 0 12px 40px rgba(0,0,0,0.3); ' +
+        'z-index: 10000; transform: translateX(100%); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); ' +
+        'max-width: 400px; font-weight: 500; white-space: pre-line; font-size: 0.95rem; line-height: 1.5; ' +
+        'border-left: 4px solid rgba(255,255,255,0.3);';
     
     alert.innerHTML = message;
     document.body.appendChild(alert);
+    activeAlerts.push(alert);
     
+    // Animate in
     setTimeout(function() {
-        alert.style.transform = 'translateX(0)';
+        alert.style.transform = 'translateX(0) scale(1)';
     }, 100);
     
+    // Auto remove after delay
     setTimeout(function() {
-        alert.style.transform = 'translateX(100%)';
-        setTimeout(function() { alert.remove(); }, 300);
-    }, 4000);
+        if (alert.parentNode) {
+            alert.style.transform = 'translateX(100%) scale(0.8)';
+            alert.style.opacity = '0';
+            
+            setTimeout(function() {
+                if (alert.parentNode) {
+                    alert.remove();
+                    // Remove from active alerts array
+                    var index = activeAlerts.indexOf(alert);
+                    if (index > -1) {
+                        activeAlerts.splice(index, 1);
+                    }
+                    // Reposition remaining alerts
+                    repositionAlerts();
+                }
+            }, 400);
+        }
+    }, type === 'info' ? 6000 : 4000); // Info alerts (expert tips) stay longer
+}
+
+function repositionAlerts() {
+    for (var i = 0; i < activeAlerts.length; i++) {
+        var alert = activeAlerts[i];
+        if (alert.parentNode) {
+            var topOffset = 2 + (i * 5);
+            alert.style.top = topOffset + 'rem';
+        }
+    }
 }
 
 function playSound(type) {
@@ -930,3 +1300,34 @@ document.addEventListener('keydown', function(e) {
 // Initialize game when loaded
 console.log("Quiz game script loaded, initializing...");
 initializeGame();
+
+// Global cleanup function that can be called from main navigation
+window.cleanupQuizGame = function() {
+    console.log("External cleanup request received");
+    if (gameState && gameState.gameTimer) {
+        clearInterval(gameState.gameTimer);
+        gameState.gameTimer = null;
+        console.log("Quiz timer cleared externally");
+    }
+    
+    // Reset game state to initial values
+    gameState = {
+        mode: 'classic',
+        difficulty: 'mixed',
+        currentQuestion: 0,
+        score: 0,
+        lives: 3,
+        combo: 0,
+        maxCombo: 0,
+        timeLeft: 0,
+        questions: [],
+        answers: [],
+        usedPowerups: [],
+        startTime: null,
+        timeBonus: 0,
+        gameTimer: null,
+        finalResults: null,
+        currentQuestionMapping: []
+    };
+    console.log("Quiz game state reset");
+};
