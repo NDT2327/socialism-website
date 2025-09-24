@@ -98,19 +98,25 @@ function autoInitAllianceModal() {
   console.log("Alliance module initialized");
 
   const modalClose = modal.querySelector(".country-modal-close");
-  document.querySelectorAll(".flag").forEach((flag) => {
+  const flags = document.querySelectorAll(".flag");
+  console.log("Found flags:", flags.length);
+  
+  flags.forEach((flag) => {
+    console.log("Attaching click event to flag:", flag.getAttribute("data-country"));
     flag.onclick = function (e) {
       e.preventDefault();
       e.stopPropagation();
       const country = this.getAttribute("data-country");
       const data = countryData[country];
-      console.log("Flag clicked:", country);
+      console.log("Flag clicked:", country, "Data found:", !!data);
+      
       if (data) {
         document.getElementById("modalCountryTitle").innerHTML = data.title;
         document.getElementById("modalModel").innerHTML = data.model;
         document.getElementById("modalClasses").innerHTML = data.classes;
         document.getElementById("modalLeadership").innerHTML = data.leadership;
         document.getElementById("modalGoals").innerHTML = data.goals;
+        console.log("Modal content populated, showing modal");
       } else {
         document.getElementById("modalCountryTitle").innerHTML =
           "Không có dữ liệu cho quốc gia này.";
@@ -120,17 +126,29 @@ function autoInitAllianceModal() {
         document.getElementById("modalGoals").innerHTML = "";
       }
       modal.classList.add("show");
+      console.log("Modal should now be visible");
     };
   });
 
-  modalClose.onclick = function () {
-    modal.classList.remove("show");
-  };
+  if (modalClose) {
+    modalClose.onclick = function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log("Modal close button clicked");
+      modal.classList.remove("show");
+    };
+  }
+  
   modal.onclick = function (e) {
-    if (e.target === modal) modal.classList.remove("show");
+    if (e.target === modal) {
+      console.log("Modal background clicked, closing modal");
+      modal.classList.remove("show");
+    }
   };
+  
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && modal.classList.contains("show")) {
+      console.log("Escape key pressed, closing modal");
       modal.classList.remove("show");
     }
   });

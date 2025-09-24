@@ -84,7 +84,7 @@
     }
     
     /* Button hover effects */
-    .btn-topic:hover, .nav-btn:hover, .btn-success:hover {
+    .btn-topic:hover, .topic-navigation .nav-btn:hover, .btn-success:hover {
         transform: translateY(-3px) !important;
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
     }
@@ -1462,7 +1462,7 @@
     border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-.nav-btn {
+.topic-navigation .nav-btn {
     background: white;
     border: 1px solid rgba(0,0,0,0.1);
     border-radius: 8px;
@@ -1474,14 +1474,14 @@
     gap: 0.5rem;
 }
 
-.nav-btn:hover {
+.topic-navigation .nav-btn:hover {
     background: var(--primary-red);
     color: white;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(214, 48, 49, 0.2);
 }
 
-.nav-btn:disabled {
+.topic-navigation .nav-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none;
