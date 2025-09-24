@@ -1282,7 +1282,7 @@
         }
 
         .vietnam-flag {
-            background: linear-gradient(45deg, #d63031 50%, #fdcb6e 50%);
+            background-color: #da251d;
             width: 30px;
             height: 20px;
             border-radius: 3px;
@@ -1292,13 +1292,25 @@
         }
 
         .vietnam-flag::before {
-            content: '⭐';
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #fdcb6e;
-            font-size: 12px;
+            width: 8px;
+            height: 8px;
+            background-color: transparent;
+        }
+        
+        .vietnam-flag::after {
+            content: '★';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffff00;
+            font-size: 10px;
+            line-height: 1;
         }
     </style>
 </head>

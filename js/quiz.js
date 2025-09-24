@@ -337,161 +337,213 @@ var gameModes = {
     survival: { name: "Chế độ Sinh tồn", questionCount: -1, timePerQuestion: 45, scoreMultiplier: 2 }
 };
 
-// Initialize when page loads
-function initializeGame() {
-    console.log("Initializing game...");
+// Completely new approach using event delegation and direct manipulation
+var QuizGameSimple = {
+    initialized: false,
     
-    // Wait for elements to be available
-    setTimeout(function() {
-        setupEventListeners();
-        showGameMenu();
-    }, 500);
-}
-
-function setupEventListeners() {
-    console.log("Setting up event listeners...");
+    // Simple initialization that just sets up event delegation
+    init: function() {
+        console.log("🎮 QuizGameSimple.init() - Setting up event delegation");
+        
+        // Remove any existing global click handler
+        document.removeEventListener('click', this.globalClickHandler);
+        
+        // Add global click handler using event delegation
+        document.addEventListener('click', this.globalClickHandler.bind(this));
+        
+        this.initialized = true;
+        this.showGameMenu();
+        console.log("✅ Quiz game initialized with event delegation");
+    },
     
-    // Game mode cards - Remove click handlers, only buttons should be clickable
-    // Cards are now purely decorative containers
-    
-    // Mode buttons inside cards
-    var modeButtons = document.querySelectorAll('.mode-btn');
-    console.log("Found mode buttons:", modeButtons.length);
-    
-    for (var i = 0; i < modeButtons.length; i++) {
-        var btn = modeButtons[i];
-        btn.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent any potential event bubbling
-            var card = this.closest('.game-mode-card');
-            var mode = card.getAttribute('data-mode');
-            console.log("Button clicked for mode:", mode);
+    // Global click handler that captures all clicks
+    globalClickHandler: function(e) {
+        var target = e.target;
+        
+        // Handle mode button clicks
+        if (target.classList.contains('mode-btn') || target.closest('.mode-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
             
-            if (mode === 'review') {
-                showStudyMode();
+            var btn = target.closest('.mode-btn') || target;
+            var card = btn.closest('.game-mode-card');
+            
+            if (card) {
+                var mode = card.getAttribute('data-mode');
+                console.log("🎯 Mode button clicked via delegation:", mode);
+                
+                if (mode === 'review') {
+                    this.showStudyMode();
+                } else {
+                    this.showDifficultySelection(mode);
+                }
+            }
+            return;
+        }
+        
+        // Handle difficulty button clicks
+        if (target.classList.contains('difficulty-btn') || target.closest('.difficulty-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            var btn = target.closest('.difficulty-btn') || target;
+            var card = btn.closest('.difficulty-card');
+            
+            if (card) {
+                var difficulty = card.getAttribute('data-difficulty');
+                console.log("🎯 Difficulty button clicked via delegation:", difficulty);
+                this.startGameWithDifficulty(gameState.selectedMode, difficulty);
+            }
+            return;
+        }
+        
+        // Handle back to mode selection
+        if (target.id === 'back-to-mode-selection' || target.closest('#back-to-mode-selection')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("🔙 Back to mode selection clicked");
+            this.showGameMenu();
+            return;
+        }
+        
+        // Handle other game control buttons
+        if (target.id === 'back-to-menu' || target.closest('#back-to-menu')) {
+            e.preventDefault();
+            this.showGameMenu();
+            return;
+        }
+        
+        if (target.id === 'back-to-menu-study' || target.closest('#back-to-menu-study')) {
+            e.preventDefault();
+            this.showGameMenu();
+            return;
+        }
+        
+        // Handle topic selection buttons in study mode
+        if (target.classList.contains('topic-btn')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("📚 Topic button clicked, target:", target);
+            var topicCard = target.closest('.topic-card');
+            console.log("📚 Topic card found:", topicCard);
+            if (topicCard) {
+                var topic = topicCard.getAttribute('data-topic');
+                console.log("📖 Selected topic:", topic);
+                console.log("📖 Calling showTopicContent for topic:", topic);
+                showTopicContent(topic);
             } else {
-                showDifficultySelection(mode);
+                console.error("❌ No topic card found for button");
+            }
+            return;
+        }
+        
+        // Handle back to topics button
+        if (target.id === 'back-to-topics' || target.closest('#back-to-topics')) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log("🔙 Back to topics clicked");
+            showStudyTopicsList();
+            return;
+        }
+        
+
+    },
+    
+    // Direct DOM manipulation methods
+    showGameMenu: function() {
+        console.log("📱 Showing game menu");
+        this.hideAllScreens();
+        var gameMenu = document.getElementById('game-menu');
+        if (gameMenu) {
+            gameMenu.style.display = 'block';
+        } else {
+            console.warn("⚠️ game-menu element not found");
+        }
+    },
+    
+    showDifficultySelection: function(mode) {
+        console.log("📱 Showing difficulty selection for mode:", mode);
+        gameState.selectedMode = mode;
+        
+        this.hideAllScreens();
+        var difficultyScreen = document.getElementById('difficulty-selection');
+        if (difficultyScreen) {
+            difficultyScreen.style.display = 'block';
+            
+            // Update description
+            var descriptions = {
+                'classic': 'Chế độ Cổ điển - Hãy chọn độ khó phù hợp với trình độ của bạn',
+                'speed': 'Chế độ Tốc độ - Chọn độ khó để bắt đầu thử thách tốc độ',
+                'survival': 'Chế độ Sinh tồn - Lựa chọn độ khó cho cuộc chiến sinh tồn'
+            };
+            
+            var descElement = document.getElementById('selected-mode-description');
+            if (descElement) {
+                descElement.textContent = descriptions[mode] || 'Hãy chọn mức độ khó phù hợp với trình độ của bạn';
+            }
+        } else {
+            console.warn("⚠️ difficulty-selection element not found");
+        }
+    },
+    
+    showStudyMode: function() {
+        console.log("📱 Showing study mode");
+        this.hideAllScreens();
+        var studyMode = document.getElementById('study-mode');
+        if (studyMode) {
+            studyMode.style.display = 'block';
+        } else {
+            console.warn("⚠️ study-mode element not found");
+        }
+    },
+    
+    hideAllScreens: function() {
+        var screens = [
+            'game-menu',
+            'difficulty-selection', 
+            'game-playing',
+            'game-results',
+            'study-mode'
+        ];
+        
+        screens.forEach(function(screenId) {
+            var screen = document.getElementById(screenId);
+            if (screen) {
+                screen.style.display = 'none';
             }
         });
-    }
+    },
     
-    // Game control buttons
-    setupGameControls();
-}
+    startGameWithDifficulty: function(mode, difficulty) {
+        console.log("🎮 Starting game with mode:", mode, "difficulty:", difficulty);
+        if (typeof startGame === 'function') {
+            startGame(mode, difficulty);
+        } else {
+            console.error("❌ startGame function not found");
+        }
+    }
+};
 
-function setupGameControls() {
-    // Power-up buttons
-    var fiftyBtn = document.getElementById('fifty-fifty');
-    if (fiftyBtn) {
-        fiftyBtn.addEventListener('click', function() { usePowerup('fifty-fifty'); });
-    }
-    
-    var expertBtn = document.getElementById('ask-expert');
-    if (expertBtn) {
-        expertBtn.addEventListener('click', function() { usePowerup('ask-expert'); });
-    }
-    
-    var doubleBtn = document.getElementById('double-score');
-    if (doubleBtn) {
-        doubleBtn.addEventListener('click', function() { usePowerup('double-score'); });
-    }
-    
-    // Other game buttons
-    var hintBtn = document.getElementById('hint-btn');
-    if (hintBtn) {
-        hintBtn.addEventListener('click', showHint);
-    }
-    
-    var skipBtn = document.getElementById('skip-btn');
-    if (skipBtn) {
-        skipBtn.addEventListener('click', skipQuestion);
-    }
-    
-    var playAgainBtn = document.getElementById('play-again');
-    if (playAgainBtn) {
-        playAgainBtn.addEventListener('click', function() { 
-            console.log("Play again clicked");
-            startGame(gameState.mode, gameState.difficulty); 
-        });
-    }
-    
-    var menuBtn = document.getElementById('back-to-menu');
-    if (menuBtn) {
-        menuBtn.addEventListener('click', function() {
-            console.log("Back to menu clicked");
-            showGameMenu();
-        });
-    }
-    
-    var reviewBtn = document.getElementById('review-mistakes');
-    if (reviewBtn) {
-        reviewBtn.addEventListener('click', reviewMistakes);
-    }
-    
-    // Study mode back button
-    var studyMenuBtn = document.getElementById('back-to-menu-study');
-    if (studyMenuBtn) {
-        studyMenuBtn.addEventListener('click', function() {
-            showGameMenu();
-        });
-    }
+// Global function for main.js
+window.initQuizGame = function() {
+    console.log("🔄 External quiz game initialization request received");
+    QuizGameSimple.init();
+};
 
-    // Difficulty selection buttons
-    var difficultyButtons = document.querySelectorAll('.difficulty-btn');
-    for (var i = 0; i < difficultyButtons.length; i++) {
-        difficultyButtons[i].addEventListener('click', function(e) {
-            var card = this.closest('.difficulty-card');
-            var difficulty = card.getAttribute('data-difficulty');
-            startGameWithDifficulty(gameState.selectedMode, difficulty);
-        });
-    }
-
-    // Back to mode selection button
-    var backToModeBtn = document.getElementById('back-to-mode-selection');
-    if (backToModeBtn) {
-        backToModeBtn.addEventListener('click', showGameMenu);
-    }
-}
-
+// Legacy function wrappers for compatibility with existing code
 function showGameMenu() {
-    console.log("Showing game menu");
-    document.getElementById('game-menu').style.display = 'block';
-    document.getElementById('difficulty-selection').style.display = 'none';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'none';
+    QuizGameSimple.showGameMenu();
 }
 
 function showDifficultySelection(mode) {
-    console.log("Showing difficulty selection for mode:", mode);
-    gameState.selectedMode = mode;
-    
-    // Update the description based on the mode
-    var descriptions = {
-        'classic': 'Chế độ Cổ điển - Hãy chọn độ khó phù hợp với trình độ của bạn',
-        'speed': 'Chế độ Tốc độ - Chọn độ khó để bắt đầu thử thách tốc độ',
-        'survival': 'Chế độ Sinh tồn - Lựa chọn độ khó cho cuộc chiến sinh tồn'
-    };
-    
-    var descElement = document.getElementById('selected-mode-description');
-    if (descElement) {
-        descElement.textContent = descriptions[mode] || 'Hãy chọn mức độ khó phù hợp với trình độ của bạn';
-    }
-    
-    document.getElementById('game-menu').style.display = 'none';
-    document.getElementById('difficulty-selection').style.display = 'block';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'none';
+    QuizGameSimple.showDifficultySelection(mode);
 }
 
 function showStudyMode() {
-    console.log("Showing study mode");
-    document.getElementById('game-menu').style.display = 'none';
-    document.getElementById('difficulty-selection').style.display = 'none';
-    document.getElementById('game-playing').style.display = 'none';
-    document.getElementById('game-results').style.display = 'none';
-    document.getElementById('study-mode').style.display = 'block';
+    QuizGameSimple.showStudyMode();
 }
+
+// Old functions removed - functionality moved to QuizGame object
 
 function startGameWithDifficulty(mode, difficulty) {
     console.log("Starting game with mode:", mode, "difficulty:", difficulty);
@@ -735,7 +787,18 @@ function selectAnswer(selectedIndex) {
             
             if (gameState.mode === 'survival') {
                 gameState.lives--;
+                // Store the answer before ending the game when out of lives
                 if (gameState.lives <= 0) {
+                    // Store answer for the last failed question
+                    gameState.answers.push({
+                        questionIndex: gameState.currentQuestion,
+                        selectedAnswer: selectedOption ? selectedOption.originalIndex : -1,
+                        correctAnswer: question.correct,
+                        isCorrect: isCorrect,
+                        timeUsed: gameModes[gameState.mode].timePerQuestion - gameState.timeLeft,
+                        skipped: selectedIndex === -1
+                    });
+                    
                     endGame();
                     return;
                 }
@@ -1297,9 +1360,314 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Initialize game when loaded
-console.log("Quiz game script loaded, initializing...");
-initializeGame();
+// Study Mode Functions
+var studyContent = {
+    'structure': {
+        title: "Cơ cấu xã hội",
+        questions: [
+            {
+                question: "Trong cơ cấu xã hội, nhóm cơ cấu nào có vị trí quan trọng hàng đầu?",
+                options: [
+                    "Cơ cấu xã hội - giai cấp",
+                    "Cơ cấu dân tộc", 
+                    "Cơ cấu nghề nghiệp",
+                    "Cơ cấu vùng miền"
+                ],
+                correct: 0,
+                topic: "Cơ cấu xã hội",
+                explanation: "Cơ cấu xã hội - giai cấp có vị trí quan trọng hàng đầu vì liên quan đến sở hữu tư liệu sản xuất và quyền lực trong xã hội."
+            },
+            {
+                question: "Cơ cấu xã hội bao gồm những cơ cấu nào?",
+                options: [
+                    "Cơ cấu giai cấp, dân tộc, nghề nghiệp, vùng miền",
+                    "Chỉ có cơ cấu giai cấp",
+                    "Cơ cấu kinh tế và chính trị",
+                    "Cơ cấu văn hóa và xã hội"
+                ],
+                correct: 0,
+                topic: "Cơ cấu xã hội",
+                explanation: "Cơ cấu xã hội bao gồm cơ cấu giai cấp, cơ cấu dân tộc, cơ cấu nghề nghiệp và cơ cấu vùng miền."
+            },
+            {
+                question: "Cơ cấu xã hội là gì?",
+                options: [
+                    "Tổng thể các mối quan hệ bền vững giữa các nhóm xã hội",
+                    "Chỉ là các mối quan hệ kinh tế",
+                    "Các đảng phái chính trị",
+                    "Là tập hợp các cá nhân"
+                ],
+                correct: 0,
+                topic: "Cơ cấu xã hội",
+                explanation: "Cơ cấu xã hội là tổng thể các mối quan hệ bền vững giữa các nhóm xã hội, được hình thành do vị trí của các nhóm trong hệ thống quan hệ xã hội nhất định."
+            }
+        ]
+    },
+    'alliance': {
+        title: "Liên minh giai cấp",
+        questions: [
+            {
+                question: "Liên minh giai cấp cơ bản ở Việt Nam gồm những ai?",
+                options: [
+                    "Công nhân - Nông dân - Trí thức",
+                    "Tư sản - Nông dân - Công nhân",
+                    "Địa chủ - Nông dân - Tiểu tư sản", 
+                    "Doanh nhân - Trí thức - Công nhân"
+                ],
+                correct: 0,
+                topic: "Liên minh giai cấp",
+                explanation: "Liên minh Công nhân - Nông dân - Trí thức là liên minh cơ bản trong xã hội Việt Nam hiện đại."
+            },
+            {
+                question: "Trong liên minh giai cấp cơ bản, ai là lực lượng lãnh đạo?",
+                options: [
+                    "Giai cấp công nhân",
+                    "Giai cấp nông dân",
+                    "Tầng lớp trí thức",
+                    "Tất cả đều bình đẳng"
+                ],
+                correct: 0,
+                topic: "Liên minh giai cấp",
+                explanation: "Giai cấp công nhân là lực lượng lãnh đạo trong liên minh giai cấp cơ bản vì đại diện cho phương thức sản xuất tiên tiến."
+            }
+        ]
+    },
+    'vietnam': {
+        title: "Thực tiễn Việt Nam",
+        questions: [
+            {
+                question: "Đặc điểm nào sau đây thuộc về giai cấp công nhân Việt Nam hiện đại?",
+                options: [
+                    "Lãnh đạo cách mạng, đại diện cho phương thức sản xuất tiên tiến",
+                    "Sở hữu tư liệu sản xuất lớn",
+                    "Chỉ làm việc trong nông nghiệp",
+                    "Không tham gia hoạt động chính trị"
+                ],
+                correct: 0,
+                topic: "Giai cấp công nhân Việt Nam",
+                explanation: "Giai cấp công nhân Việt Nam là lực lượng lãnh đạo cách mạng và đại diện cho phương thức sản xuất tiên tiến nhất trong xã hội hiện đại."
+            },
+            {
+                question: "Vai trò của giai cấp nông dân trong xã hội Việt Nam là gì?",
+                options: [
+                    "Bệ đỡ kinh tế, đảm bảo an ninh lương thực",
+                    "Lãnh đạo toàn bộ xã hội",
+                    "Chỉ sản xuất để tự cung tự cấp",
+                    "Không có vai trò quan trọng"
+                ],
+                correct: 0,
+                topic: "Giai cấp nông dân Việt Nam",
+                explanation: "Giai cấp nông dân đóng vai trò là bệ đỡ kinh tế, đảm bảo an ninh lương thực và xuất khẩu nông sản quan trọng."
+            },
+            {
+                question: "Sự biến đổi cơ cấu xã hội của Việt Nam sau Đổi mới thể hiện như thế nào?",
+                options: [
+                    "Đa dạng hóa các thành phần kinh tế và giai cấp xã hội",
+                    "Xóa bỏ hoàn toàn giai cấp công nhân",
+                    "Giảm vai trò của nông dân",
+                    "Hạn chế phát triển tư nhân"
+                ],
+                correct: 0,
+                topic: "Đổi mới Việt Nam",
+                explanation: "Sau Đổi mới, cơ cấu xã hội Việt Nam có sự biến đổi sâu sắc theo hướng đa dạng hóa các thành phần kinh tế và giai cấp xã hội."
+            },
+            {
+                question: "Xu hướng chủ yếu trong biến đổi cơ cấu xã hội ở Việt Nam hiện nay là gì?",
+                options: [
+                    "Tăng tỷ trọng lao động trong công nghiệp và dịch vụ, giảm tỷ trọng lao động nông nghiệp",
+                    "Tăng tỷ trọng lao động nông nghiệp, giảm công nghiệp",
+                    "Không có sự thay đổi đáng kể",
+                    "Giảm tất cả các thành phần xã hội"
+                ],
+                correct: 0,
+                topic: "Biến đổi xã hội Việt Nam",
+                explanation: "Xu hướng chủ yếu là tăng tỷ trọng lao động trong công nghiệp và dịch vụ, đồng thời giảm tỷ trọng lao động nông nghiệp, phản ánh quá trình công nghiệp hóa, hiện đại hóa đất nước."
+            }
+        ]
+    }
+};
+
+let currentStudyTopic = null;
+let currentStudyQuestionIndex = 0;
+
+// Study mode listeners are now handled by event delegation in QuizGameSimple.globalClickHandler
+
+function showStudyTopicsList() {
+    console.log("🔙 Showing study topics list");
+    
+    // Simple direct approach
+    var topicsView = document.getElementById('study-topics-view');
+    var contentView = document.getElementById('study-content-view');
+    
+    if (!topicsView || !contentView) {
+        console.error("❌ Study view elements not found");
+        return;
+    }
+    
+    // Direct switch without complex animations
+    contentView.style.display = 'none';
+    topicsView.style.display = 'block';
+    
+    // Reset the current topic
+    currentStudyTopic = null;
+    currentStudyQuestionIndex = 0;
+    
+    console.log("✅ Topics list displayed successfully");
+}
+
+// Helper function to convert hex to RGB
+function hexToRgb(hex) {
+    // Remove the '#' if present
+    hex = hex.replace('#', '');
+    
+    // Parse the hex values
+    var r = parseInt(hex.substring(0, 2), 16);
+    var g = parseInt(hex.substring(2, 4), 16);
+    var b = parseInt(hex.substring(4, 6), 16);
+    
+    return r + ',' + g + ',' + b;
+}
+
+function showTopicContent(topic) {
+    console.log("📖 NEW SIMPLE APPROACH - Showing content for topic:", topic);
+    
+    // Get the elements
+    var topicsView = document.getElementById('study-topics-view');
+    var contentView = document.getElementById('study-content-view');
+    var contentContainer = document.getElementById('study-content-container');
+    
+    if (!topicsView || !contentView || !contentContainer) {
+        console.error("❌ Required elements not found");
+        return;
+    }
+    
+    // Switch views immediately
+    topicsView.style.display = 'none';
+    contentView.style.display = 'block';
+    
+    // Set topic information
+    var topicTitle = document.getElementById('topic-title');
+    var topicSubtitle = document.getElementById('topic-subtitle');
+    var topicDescription = document.getElementById('topic-description');
+    
+    // Get topic data
+    var topicData = studyContent[topic];
+    if (!topicData) {
+        contentContainer.innerHTML = '<div style="text-align: center; padding: 2rem; color: red;">Không tìm thấy nội dung cho chủ đề này!</div>';
+        return;
+    }
+    
+    // Update headers
+    if (topicTitle) topicTitle.textContent = topicData.title;
+    
+    if (topic === 'structure') {
+        if (topicSubtitle) topicSubtitle.textContent = 'Nền tảng cơ cấu xã hội';
+        if (topicDescription) topicDescription.textContent = 'Tìm hiểu về khái niệm, đặc điểm và vai trò của các loại cơ cấu trong xã hội.';
+    } else if (topic === 'alliance') {
+        if (topicSubtitle) topicSubtitle.textContent = 'Liên minh giai cấp';
+        if (topicDescription) topicDescription.textContent = 'Khám phá vai trò và ý nghĩa lịch sử của liên minh giai cấp trong phát triển xã hội.';
+    } else if (topic === 'vietnam') {
+        if (topicSubtitle) topicSubtitle.textContent = 'Thực tiễn Việt Nam';
+        if (topicDescription) topicDescription.textContent = 'Phân tích sự biến đổi cơ cấu xã hội qua các giai đoạn lịch sử Việt Nam.';
+    }
+    
+    // Create simple content directly
+    createSimpleTopicContent(topic, topicData, contentContainer);
+    
+    console.log("✅ NEW APPROACH - Topic content loaded successfully!");
+}
+
+function createSimpleTopicContent(topic, topicData, container) {
+    console.log("🎯 Creating simple content for:", topic);
+    
+    // Create a basic introduction
+    var introText = '';
+    if (topic === 'structure') {
+        introText = 'Cơ cấu xã hội là nền tảng để hiểu biết về các mối quan hệ xã hội.';
+    } else if (topic === 'alliance') {
+        introText = 'Liên minh giai cấp là khái niệm quan trọng trong phân tích xã hội.';
+    } else if (topic === 'vietnam') {
+        introText = 'Việt Nam đã trải qua nhiều biến đổi về cơ cấu xã hội qua lịch sử.';
+    }
+    
+    // Build content step by step
+    var content = '';
+    
+    // Add introduction
+    content += '<div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #d63031;">';
+    content += '<h4 style="color: #d63031; margin-bottom: 1rem;"><i class="fas fa-info-circle"></i> Giới thiệu</h4>';
+    content += '<p style="margin: 0; color: #666; line-height: 1.6;">' + introText + '</p>';
+    content += '</div>';
+    
+    // Add questions one by one
+    for (var i = 0; i < topicData.questions.length; i++) {
+        var question = topicData.questions[i];
+        content += createSimpleQuestionCard(question, i + 1);
+    }
+    
+    // Set content directly - no animations, no delays
+    container.innerHTML = content;
+    console.log("✅ Simple content created successfully");
+}
+
+function createSimpleQuestionCard(question, questionNumber) {
+    var card = '';
+    
+    // Question card
+    card += '<div style="background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: 1px solid #e9ecef;">';
+    
+    // Question header with number and topic
+    card += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">';
+    card += '<div style="background: #d63031; color: white; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold;">' + questionNumber + '</div>';
+    card += '<div style="background: #e3f2fd; color: #1976d2; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600;">' + question.topic + '</div>';
+    card += '</div>';
+    
+    // Question text
+    card += '<h4 style="color: #333; margin-bottom: 1.5rem; font-size: 1.2rem; line-height: 1.5;">' + question.question + '</h4>';
+    
+    // Answer options
+    card += '<div style="display: grid; gap: 1rem; margin-bottom: 1.5rem;">';
+    var letters = ['A', 'B', 'C', 'D'];
+    for (var i = 0; i < question.options.length; i++) {
+        var isCorrect = (i === question.correct);
+        var bgColor = isCorrect ? '#d4edda' : '#f8f9fa';
+        var borderColor = isCorrect ? '#28a745' : '#dee2e6';
+        var textColor = isCorrect ? '#155724' : '#495057';
+        
+        card += '<div style="background: ' + bgColor + '; border: 2px solid ' + borderColor + '; border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 1rem;">';
+        card += '<div style="background: ' + (isCorrect ? '#28a745' : '#6c757d') + '; color: white; border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.9rem;">' + letters[i] + '</div>';
+        card += '<div style="color: ' + textColor + '; font-weight: ' + (isCorrect ? '600' : 'normal') + ';">' + question.options[i];
+        if (isCorrect) {
+            card += ' <i class="fas fa-check-circle" style="color: #28a745; margin-left: 0.5rem;"></i>';
+        }
+        card += '</div>';
+        card += '</div>';
+    }
+    card += '</div>';
+    
+    // Explanation
+    card += '<div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 1.5rem;">';
+    card += '<h5 style="color: #856404; margin-bottom: 0.8rem;"><i class="fas fa-lightbulb"></i> Giải thích</h5>';
+    card += '<p style="color: #856404; margin: 0; line-height: 1.6;">' + question.explanation + '</p>';
+    card += '</div>';
+    
+    card += '</div>';
+    return card;
+}
+
+// Old generateQuestionHTML function removed - replaced with createSimpleQuestionCard
+
+
+
+
+
+
+
+
+
+// Initialize game when script loads - using simple event delegation approach
+console.log("Quiz game script loaded, initializing with simple approach...");
+QuizGameSimple.init();
 
 // Global cleanup function that can be called from main navigation
 window.cleanupQuizGame = function() {
