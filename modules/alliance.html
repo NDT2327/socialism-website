@@ -1,501 +1,709 @@
 <!-- Module-specific background -->
 <style>
-.alliance-background {
+  .alliance-background {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
-    background: 
-        linear-gradient(135deg, rgba(52, 73, 94, 0.85), rgba(44, 62, 80, 0.8)),
-        url('https://special.nhandan.vn/tu-tuong-ho-chi-minh-ve-xay-dung-giai-cap-nong-dan/assets/t5Oyces8NX/bacho2-1-1024x846.png');
+    background: linear-gradient(
+        135deg,
+        rgba(52, 73, 94, 0.85),
+        rgba(44, 62, 80, 0.8)
+      ),
+      url("https://special.nhandan.vn/tu-tuong-ho-chi-minh-ve-xay-dung-giai-cap-nong-dan/assets/t5Oyces8NX/bacho2-1-1024x846.png");
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
-}
+  }
 
-.alliance-background::before {
-    content: '';
+  .alliance-background::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
-        radial-gradient(circle at 25% 75%, rgba(155, 89, 182, 0.12) 0%, transparent 50%),
-        radial-gradient(circle at 75% 25%, rgba(52, 152, 219, 0.08) 0%, transparent 50%);
+    background: radial-gradient(
+        circle at 25% 75%,
+        rgba(155, 89, 182, 0.12) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 75% 25%,
+        rgba(52, 152, 219, 0.08) 0%,
+        transparent 50%
+      );
     animation: allianceFloat 35s ease-in-out infinite;
-}
+  }
 
-@keyframes allianceFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(0.3deg); }
-}
+  @keyframes allianceFloat {
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-12px) rotate(0.3deg);
+    }
+  }
 
-/* Alliance title enhancement */
-.alliance-title {
+  /* Alliance title enhancement */
+  .alliance-title {
     color: #ffffff !important;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: 0.6rem;
     font-size: 44px;
     font-weight: 900;
     letter-spacing: -0.5px;
-    text-shadow: 0 4px 18px rgba(0,0,0,.45), 0 1px 0 #123, 0 0 6px rgba(255,255,255,.25);
+    text-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 1px 0 #123,
+      0 0 6px rgba(255, 255, 255, 0.25);
     margin-bottom: 1.5rem;
-}
-@media (max-width: 600px){
-    .alliance-title { font-size: 1.6rem; line-height:1.25; }
-}
+  }
 
-/* RESPONSIVE GRID - NO SCROLL */
-.responsive-cards-grid {
+  .content-section {
+    max-width: 1200px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  .section-subtitle {
+    color: #343a40;
+    margin-bottom: 20px;
+  }
+  .flags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .flag {
+    cursor: pointer;
+    width: 48px;
+    height: 32px;
+    transition: transform 0.3s;
+  }
+  .flag:hover {
+    transform: scale(1.2);
+  }
+
+  .country-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+  }
+  .country-modal.show {
+    display: flex !important;
+  }
+  .country-modal-content {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f8ff 100%);
+    border-radius: 16px;
+    max-width: 480px;
+    width: 90%;
+    padding: 2.5rem 2rem 2rem;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: fadeInModal 0.3s ease;
+    text-align: left;
+  }
+
+  .country-modal-content h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #9b59b6, #3498db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .country-modal-content p {
+    margin: 0.5rem 0;
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .country-modal-close {
+    position: absolute !important;
+    top: 10px !important;
+    right: 18px !important;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #555;
+    transition: color 0.3s ease;
+  }
+  .country-modal-close:hover {
+    color: #e74c3c;
+  }
+
+  @keyframes fadeInModal {
+    from {
+      opacity: 0;
+      transform: translateY(-10px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .alliance-title {
+      font-size: 1.6rem;
+      line-height: 1.25;
+    }
+  }
+
+  /* RESPONSIVE GRID - NO SCROLL */
+  .responsive-cards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     padding: 1rem 0;
     width: 100%;
-}
+  }
 
-.responsive-cards-grid .card {
+  .responsive-cards-grid .card {
     width: 100%;
     display: flex;
     flex-direction: column;
     height: 100%;
-}
+  }
 
-/* Responsive breakpoints for better control */
-@media (min-width: 1200px) {
+  /* Responsive breakpoints for better control */
+  @media (min-width: 1200px) {
     .responsive-cards-grid {
-        grid-template-columns: repeat(4, 1fr); /* Force 4 columns on desktop */
+      grid-template-columns: repeat(4, 1fr); /* Force 4 columns on desktop */
     }
-}
+  }
 
-@media (max-width: 1199px) and (min-width: 768px) {
+  @media (max-width: 1199px) and (min-width: 768px) {
     .responsive-cards-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
-        gap: 1.5rem;
+      grid-template-columns: repeat(2, 1fr); /* 2 columns on tablet */
+      gap: 1.5rem;
     }
-}
+  }
 
-@media (max-width: 767px) {
+  @media (max-width: 767px) {
     .responsive-cards-grid {
-        grid-template-columns: 1fr; /* 1 column on mobile */
-        gap: 1rem;
+      grid-template-columns: 1fr; /* 1 column on mobile */
+      gap: 1rem;
     }
-}
+  }
 
-/* Override card colors in alliance module for better contrast */
-.alliance-module .card {
+  /* Override card colors in alliance module for better contrast */
+  .alliance-module .card {
     background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(15px);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15) !important;
     border: 1px solid rgba(255, 255, 255, 0.2);
-}
+  }
 
-.alliance-module .hero {
-    background: 
-        linear-gradient(135deg, rgba(155, 89, 182, 0.9), rgba(142, 68, 173, 0.9)),
-        url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+  .alliance-module .hero {
+    background: linear-gradient(
+        135deg,
+        rgba(155, 89, 182, 0.9),
+        rgba(142, 68, 173, 0.9)
+      ),
+      url("https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
     background-size: cover;
     background-position: center;
     border: 2px solid rgba(255, 255, 255, 0.2);
-}
+  }
 
-/* Content section improvements */
-.alliance-module .content-section {
+  /* Content section improvements */
+  .alliance-module .content-section {
     background: rgba(255, 255, 255, 0.98) !important;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12) !important;
-}
+  }
 
-.alliance-module .content-section::before {
+  .alliance-module .content-section::before {
     background: linear-gradient(90deg, #9b59b6, #3498db, #9b59b6);
-}
+  }
 
-/* Card hover effects */
-.responsive-cards-grid .card:hover {
+  /* Card hover effects */
+  .responsive-cards-grid .card:hover {
     transform: translateY(-5px) scale(1.02);
     box-shadow: 0 12px 50px rgba(0, 0, 0, 0.2) !important;
     transition: all 0.3s ease;
-}
+  }
 
-/* Ensure equal height cards */
-.responsive-cards-grid {
+  /* Ensure equal height cards */
+  .responsive-cards-grid {
     align-items: stretch;
-}
+  }
 
-.responsive-cards-grid .card p:last-child {
+  .responsive-cards-grid .card p:last-child {
     margin-top: auto;
-}
+  }
 
-/* Special styling for different card types */
-.alliance-module .responsive-cards-grid .card ul {
+  /* Special styling for different card types */
+  .alliance-module .responsive-cards-grid .card ul {
     flex-grow: 1;
-}
+  }
 
-.alliance-module .responsive-cards-grid .card .highlight {
+  .alliance-module .responsive-cards-grid .card .highlight {
     margin-top: auto;
     margin-bottom: 0.5rem;
-}
+  }
 </style>
 
 <div class="alliance-background"></div>
 
 <div class="fade-in alliance-module">
-    <h1 class="section-title alliance-title">🤝 Liên minh giai cấp trong xây dựng chủ nghĩa xã hội</h1>
-    
-    <!-- Khái niệm và bản chất -->
-    <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-lightbulb"></i> Khái niệm và bản chất liên minh giai cấp</h2>
-        
-        <div class="card">
-            <div class="quote">
-                "Liên minh giai cấp là sự đoàn kết chặt chẽ giữa các giai cấp và tầng lớp xã hội, đặc biệt là liên minh công nhân - nông dân - trí thức, dưới sự lãnh đạo của Đảng Cộng sản."
-            </div>
-        </div>
-        
-        <div class="responsive-cards-grid">
-            <div class="card">
-                <h3><i class="fas fa-users" style="color: #e74c3c;"></i> Thành phần cơ bản</h3>
-                <ul>
-                    <li><strong>Giai cấp công nhân:</strong> Lực lượng lãnh đạo</li>
-                    <li><strong>Giai cấp nông dân:</strong> Đồng minh cơ bản</li>
-                    <li><strong>Tầng lớp trí thức:</strong> Lực lượng sáng tạo</li>
-                    <li><strong>Tầng lớp doanh nhân:</strong> Động lực kinh tế</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-target" style="color: #27ae60;"></i> Mục tiêu chung</h3>
-                <ul>
-                    <li>Xây dựng khối đại đoàn kết toàn dân tộc</li>
-                    <li>Thực hiện thắng lợi mục tiêu CNXH</li>
-                    <li>Vượt qua mâu thuẫn giai cấp</li>
-                    <li>Phát huy sức mạnh tổng hợp của dân tộc</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-cog" style="color: #3498db;"></i> Bản chất</h3>
-                <ul>
-                    <li>Không chỉ là công cụ chính trị</li>
-                    <li>Là nền tảng xã hội vững chắc</li>
-                    <li>Huy động sức mạnh toàn dân tộc</li>
-                    <li>Dưới sự lãnh đạo của Đảng</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-star" style="color: #f39c12;"></i> Ý nghĩa</h3>
-                <ul>
-                    <li>Đảm bảo tính nhân dân của chế độ</li>
-                    <li>Tạo động lực phát triển bền vững</li>
-                    <li>Củng cố ổn định chính trị - xã hội</li>
-                    <li>Thể hiện bản chất CNXH Việt Nam</li>
-                </ul>
-            </div>
-        </div>
+  <h1 class="section-title alliance-title">
+    🤝 Liên minh giai cấp trong xây dựng chủ nghĩa xã hội
+  </h1>
+
+  <!-- Khái niệm và bản chất -->
+  <div class="content-section">
+    <h2 class="section-subtitle">
+      <i class="fas fa-lightbulb"></i> Khái niệm và bản chất liên minh giai cấp
+    </h2>
+
+    <div class="card">
+      <div class="quote">
+        "Liên minh giai cấp là sự đoàn kết chặt chẽ giữa các giai cấp và tầng
+        lớp xã hội, đặc biệt là liên minh công nhân - nông dân - trí thức, dưới
+        sự lãnh đạo của Đảng Cộng sản."
+      </div>
     </div>
 
-    <!-- Vai trò của liên minh giai cấp -->
-    <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-handshake"></i> Vai trò của liên minh giai cấp</h2>
-        
-        <div class="responsive-cards-grid">
-            <div class="card">
-                <h3><i class="fas fa-shield-alt" style="color: #e74c3c;"></i> Xây dựng cơ sở kinh tế CNXH</h3>
-                <p>Liên minh giữa các giai cấp lao động tạo nền tảng vật chất - kỹ thuật cần thiết cho CNXH.</p>
-                <div class="highlight">
-                    <strong>Cụ thể:</strong> Hợp tác giữa công nghiệp, nông nghiệp, dịch vụ, KH&CN
-                </div>
-                <ul>
-                    <li>Công nhân xây dựng cơ sở hạ tầng</li>
-                    <li>Nông dân cung cấp lương thực, nguyên liệu</li>
-                    <li>Trí thức phát triển công nghệ</li>
-                    <li>Doanh nhân thúc đẩy sản xuất</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-balance-scale" style="color: #27ae60;"></i> Củng cố chế độ chính trị CNXH</h3>
-                <p>Tạo lực lượng chính trị - xã hội to lớn, đảm bảo ổn định và củng cố chế độ CNXH.</p>
-                <div class="highlight">
-                    <strong>Cụ thể:</strong> Tăng cường đồng thuận xã hội, vượt qua mâu thuẫn
-                </div>
-                <ul>
-                    <li>Duy trì vai trò lãnh đạo của giai cấp công nhân</li>
-                    <li>Củng cố liên minh với nông dân</li>
-                    <li>Phát huy trí tuệ của tầng lớp trí thức</li>
-                    <li>Điều hòa lợi ích các tầng lớp</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-rocket" style="color: #3498db;"></i> Thúc đẩy công nghiệp hóa, hiện đại hóa</h3>
-                <p>Hỗ trợ chuyển dịch từ nền sản xuất nhỏ nông nghiệp sang sản xuất hàng hóa lớn.</p>
-                <div class="highlight">
-                    <strong>Kết quả:</strong> Phát triển công nghiệp, dịch vụ và KH&CN
-                </div>
-                <ul>
-                    <li>Chuyển dịch cơ cấu kinh tế tích cực</li>
-                    <li>Nâng cao năng suất lao động</li>
-                    <li>Phát triển công nghệ cao</li>
-                    <li>Hội nhập kinh tế quốc tế</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-heart" style="color: #f39c12;"></i> Giải quyết mâu thuẫn, tạo đồng thuận</h3>
-                <p>Phát hiện và giải quyết mâu thuẫn lợi ích, tạo đồng thuận và động lực phát triển.</p>
-                <div class="highlight">
-                    <strong>Phương thức:</strong> Đối thoại, thương lượng, chính sách hài hòa
-                </div>
-                <ul>
-                    <li>Cân bằng lợi ích các giai cấp</li>
-                    <li>Giảm thiểu đối kháng xã hội</li>
-                    <li>Tăng cường đoàn kết dân tộc</li>
-                    <li>Phát huy dân chủ CNXH</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <!-- Tại sao phải thực hiện liên minh giai cấp -->
-    <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-question-circle"></i> Tại sao phải thực hiện liên minh giai cấp?</h2>
-        
-        <div class="card hero" style="margin: 2rem 0; padding: 3rem; background: linear-gradient(135deg, rgba(155, 89, 182, 0.25), rgba(142, 68, 173, 0.25)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; box-shadow: inset 0 0 0 1000px rgba(255,255,255,0.85);">
-            <h3 style="color: var(--primary-red); margin-bottom: 1.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.15);">
-                <i class="fas fa-lightbulb"></i>
-                Yêu cầu khách quan của thời kỳ quá độ
-            </h3>
-            <p style="font-size: 1.2rem; color: #222; font-weight: 500; line-height:1.55; text-shadow: 0 1px 0 rgba(255,255,255,0.5);">
-                Trong thời kỳ quá độ lên CNXH, việc thực hiện liên minh giai cấp là yếu tố tất yếu nhằm đáp ứng nhu cầu và lợi ích của các chủ thể, đồng thời tạo động lực thực hiện thắng lợi mục tiêu CNXH.
-            </p>
-        </div>
-        
-        <div class="responsive-cards-grid">
-            <div class="card">
-                <h3><i class="fas fa-book-open"></i> Yêu cầu từ lý thuyết Marx-Lenin</h3>
-                <p><strong>Cơ sở lý thuyết:</strong></p>
-                <ul>
-                    <li>Theo Marx-Lenin, xã hội vẫn tồn tại các giai cấp khác nhau</li>
-                    <li>Liên minh là công cụ tập hợp lực lượng</li>
-                    <li>Lenin nhấn mạnh liên minh công-nông</li>
-                    <li>Cách mạng Tháng Mười Nga (1917) là minh chứng</li>
-                </ul>
-                <div class="highlight">
-                    Việt Nam: Nước nông nghiệp lạc hậu cần huy động toàn bộ lực lượng
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-chart-line"></i> Huy động sức mạnh tổng hợp</h3>
-                <p><strong>Yêu cầu phát triển:</strong></p>
-                <ul>
-                    <li>Chuyển dịch từ sản xuất nhỏ sang sản xuất lớn</li>
-                    <li>Công nghiệp hóa, hiện đại hóa</li>
-                    <li>Phối hợp hiệu quả các lĩnh vực</li>
-                    <li>Tạo cơ sở vật chất cho CNXH</li>
-                </ul>
-                <div class="highlight">
-                    <strong>Thành tựu VN:</strong> GDP tăng 6-7%/năm nhờ liên minh công-nông-trí thức
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-flag"></i> Củng cố chế độ và đoàn kết dân tộc</h3>
-                <p><strong>Ý nghĩa chính trị:</strong></p>
-                <ul>
-                    <li>Mâu thuẫn giai cấp vẫn tồn tại</li>
-                    <li>Cần điều hòa mâu thuẫn, tạo đồng thuận</li>
-                    <li>Củng cố chế độ CNXH</li>
-                    <li>Xây dựng Nhà nước pháp quyền</li>
-                </ul>
-                <div class="highlight">
-                    <strong>VN:</strong> Mặt trận Tổ quốc là hình thức liên minh cụ thể
-                </div>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-users-cog"></i> Đáp ứng lợi ích các giai cấp</h3>
-                <p><strong>Hài hòa lợi ích:</strong></p>
-                <ul>
-                    <li>Xuất phát từ nhu cầu chung</li>
-                    <li>Lợi ích từng nhóm được bảo vệ</li>
-                    <li>Hướng tới mục tiêu CNXH</li>
-                    <li>Tạo động lực phát triển</li>
-                </ul>
-                <div class="highlight">
-                    <strong>Chính sách VN:</strong> Luật Lao động, Nông thôn mới, Giáo dục 4.0
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Dẫn chứng thực tiễn -->
-    <!-- <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-history"></i> Dẫn chứng thực tiễn liên minh giai cấp</h2>
-        
-        <div class="responsive-cards-grid">
-            <div class="card">
-                <h4><i class="fas fa-star"></i> Cách mạng Tháng Tám 1945</h4>
-                <p><strong>Liên minh:</strong> Công nhân và nông dân hợp sức dưới sự lãnh đạo của Đảng</p>
-                <p><strong>Kết quả:</strong> Đánh bại thực dân Pháp, giành độc lập dân tộc</p>
-                <div class="highlight">
-                    Minh chứng sức mạnh khối đại đoàn kết toàn dân tộc
-                </div>
-            </div>
-
-            <div class="card">
-                <h4><i class="fas fa-sync"></i> Đổi Mới từ 1986</h4>
-                <p><strong>Liên minh:</strong> Công nhân-nông dân-trí thức thúc đẩy công nghiệp hóa</p>
-                <p><strong>Kết quả:</strong> GDP tăng từ 8 tỷ USD lên 476.3 tỷ USD (tăng 59.5 lần)</p>
-                <div class="highlight">
-                    Chuyển dịch cơ cấu lao động: 70% → 27.5% nông nghiệp
-                </div>
-            </div>
-
-            <div class="card">
-                <h4><i class="fas fa-virus"></i> Chống dịch COVID-19</h4>
-                <p><strong>Liên minh:</strong> Mọi tầng lớp cùng hỗ trợ, y bác sĩ chữa bệnh, dân tuân thủ</p>
-                <p><strong>Kết quả:</strong> Kiểm soát dịch thành công, GDP tăng 7.1% năm 2024</p>
-                <div class="highlight">
-                    Thể hiện tinh thần "tương thân tương ái" dân tộc
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Mô hình liên minh ở Việt Nam và thế giới -->
-    <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-globe"></i> Mô hình liên minh giai cấp trong thế giới</h2>
-        
-        <div class="responsive-cards-grid">
-            <div class="card" style="border-left-color: #e74c3c;">
-                <h3><i class="fas fa-flag" style="color: #e74c3c;"></i> Việt Nam (XHCN)</h3>
-                <p><strong>Mô hình:</strong> Liên minh công - nông - trí thức</p>
-                <p><strong>Lãnh đạo:</strong> Đảng CSVN, công nhân nòng cốt</p>
-                <p><strong>Mục tiêu:</strong> Xây dựng CNXH, công nghiệp hóa</p>
-                <div class="highlight">
-                    <strong>Thực tiễn 2025:</strong> GDP tăng 6-7%/năm, nghèo giảm <3%
-                </div>
-            </div>
-            
-            <div class="card" style="border-left-color: #f39c12;">
-                <h3><i class="fas fa-dragon" style="color: #f39c12;"></i> Trung Quốc (XHCN)</h3>
-                <p><strong>Mô hình:</strong> Mặt trận thống nhất</p>
-                <p><strong>Lãnh đạo:</strong> Đảng Cộng sản Trung Quốc</p>
-                <p><strong>Mục tiêu:</strong> CNXH đặc sắc, thống nhất dân tộc</p>
-                <div class="highlight">
-                    <strong>Thực tiễn:</strong> Kinh tế số phát triển mạnh
-                </div>
-            </div>
-            
-            <div class="card" style="border-left-color: #95a5a6;">
-                <h3><i class="fas fa-star" style="color: #95a5a6;"></i> Liên Xô cũ (XHCN)</h3>
-                <p><strong>Mô hình:</strong> Liên minh công - nông</p>
-                <p><strong>Lãnh đạo:</strong> Đảng Cộng sản lãnh đạo</p>
-                <p><strong>Mục tiêu:</strong> Xây dựng CNXH, xóa bóc lột</p>
-                <div class="highlight">
-                    <strong>Lịch sử:</strong> Công nghiệp hóa nhanh (1917-1991)
-                </div>
-            </div>
-            
-            <div class="card" style="border-left-color: #3498db;">
-                <h3><i class="fas fa-dollar-sign" style="color: #3498db;"></i> Mỹ (Tư bản)</h3>
-                <p><strong>Mô hình:</strong> Không chính thức, xung đột giai cấp</p>
-                <p><strong>Lãnh đạo:</strong> Tư bản thống trị qua kinh tế-chính trị</p>
-                <p><strong>Mục tiêu:</strong> Tối đa lợi nhuận, tự do kinh doanh</p>
-                <div class="highlight">
-                    <strong>Thực tiễn:</strong> Top 1% sở hữu 30% tài sản
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Phương hướng tăng cường liên minh -->
-    <!-- <div class="content-section">
-        <h2 class="section-subtitle"><i class="fas fa-road"></i> Phương hướng tăng cường liên minh giai cấp</h2>
-        
-        <div class="responsive-cards-grid">
-            <div class="card">
-                <h3><i class="fas fa-seedling"></i> Tạo môi trường phát triển</h3>
-                <p>Đẩy mạnh công nghiệp hóa, hiện đại hóa, chuyển dịch cơ cấu kinh tế theo hướng tích cực và tiến bộ.</p>
-                <ul>
-                    <li>Phát triển công nghiệp công nghệ cao</li>
-                    <li>Nâng cao năng suất lao động</li>
-                    <li>Chuyển đổi số toàn diện</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-balance-scale"></i> Đảm bảo công bằng xã hội</h3>
-                <p>Cân bằng tăng trưởng kinh tế với tiến bộ xã hội, quan tâm thích đáng đến quyền lợi các giai tầng.</p>
-                <ul>
-                    <li>Giảm bất bình đẳng thu nhập</li>
-                    <li>Nâng cao chất lượng cuộc sống</li>
-                    <li>Phát triển an sinh xã hội</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-cogs"></i> Hoàn thiện thể chế</h3>
-                <p>Phát triển kinh tế thị trường định hướng XHCN, thúc đẩy khoa học công nghệ, đổi mới sáng tạo.</p>
-                <ul>
-                    <li>Cải cách thể chế kinh tế</li>
-                    <li>Nâng cao hiệu quả quản lý</li>
-                    <li>Tăng cường pháp quyền</li>
-                </ul>
-            </div>
-            
-            <div class="card">
-                <h3><i class="fas fa-sync"></i> Đổi mới hoạt động</h3>
-                <p>Nâng cao hiệu quả hoạt động của Đảng, Nhà nước, Mặt trận Tổ quốc trong việc tăng cường liên minh.</p>
-                <ul>
-                    <li>Đổi mới phương thức lãnh đạo</li>
-                    <li>Tăng cường giám sát nhân dân</li>
-                    <li>Phát huy dân chủ CNXH</li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
-
-   <!-- Kết luận -->
-<div class="content-section">
-    <h2 class="section-subtitle"><i class="fas fa-flag-checkered"></i> Ý nghĩa và triển vọng</h2>
-    
-    <div class="card" style="text-align: center; padding: 2rem; background: linear-gradient(135deg, rgba(155, 89, 182, 0.1), rgba(52, 152, 219, 0.1)); border-radius: 16px;">
-        <h3 style="color: var(--primary-red); margin-bottom: 1.5rem;">
-            <i class="fas fa-star"></i>
-            Liên minh giai cấp - Chìa khóa thành công
+    <div class="responsive-cards-grid">
+      <div class="card">
+        <h3>
+          <i class="fas fa-users" style="color: #e74c3c"></i> Thành phần cơ bản
         </h3>
-        <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-color);">
-            Liên minh giai cấp là nền tảng vững chắc để Việt Nam tiếp tục xây dựng thành công chủ nghĩa xã hội, hướng tới mục tiêu dân giàu, nước mạnh, dân chủ, công bằng, văn minh.
-        </p>
-        
-        <div class="quote" style="color: var(--text-color);">
-            "Đoàn kết, đoàn kết, đại đoàn kết - Thành công, thành công, đại thành công"
-            <br><em style="color: var(--primary-red); font-weight: bold;">- Chủ tịch Hồ Chí Minh</em>
-        </div>
-        
-        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem;">
-            <a href="#" class="btn btn-success" onclick="showSection('practice')" style="padding: 1rem 1.5rem;">
-                <i class="fas fa-flag"></i> Xem lại Thực tiễn VN
-            </a>
-            <a href="#" class="btn btn-warning" onclick="showSection('theory')" style="padding: 1rem 1.5rem;">
-                <i class="fas fa-book"></i> Ôn lại Lý thuyết
-            </a>
-            <a href="#" class="btn" onclick="showSection('quiz')" style="padding: 1rem 1.5rem;">
-                <i class="fas fa-brain"></i> Kiểm tra toàn bộ kiến thức
-            </a>
-        </div>
-    </div>
-</div>
+        <ul>
+          <li><strong>Giai cấp công nhân:</strong> Lực lượng lãnh đạo</li>
+          <li><strong>Giai cấp nông dân:</strong> Đồng minh cơ bản</li>
+          <li><strong>Tầng lớp trí thức:</strong> Lực lượng sáng tạo</li>
+          <li><strong>Tầng lớp doanh nhân:</strong> Động lực kinh tế</li>
+        </ul>
+      </div>
 
+      <div class="card">
+        <h3>
+          <i class="fas fa-target" style="color: #27ae60"></i> Mục tiêu chung
+        </h3>
+        <ul>
+          <li>Xây dựng khối đại đoàn kết toàn dân tộc</li>
+          <li>Thực hiện thắng lợi mục tiêu CNXH</li>
+          <li>Vượt qua mâu thuẫn giai cấp</li>
+          <li>Phát huy sức mạnh tổng hợp của dân tộc</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-cog" style="color: #3498db"></i> Bản chất</h3>
+        <ul>
+          <li>Không chỉ là công cụ chính trị</li>
+          <li>Là nền tảng xã hội vững chắc</li>
+          <li>Huy động sức mạnh toàn dân tộc</li>
+          <li>Dưới sự lãnh đạo của Đảng</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-star" style="color: #f39c12"></i> Ý nghĩa</h3>
+        <ul>
+          <li>Đảm bảo tính nhân dân của chế độ</li>
+          <li>Tạo động lực phát triển bền vững</li>
+          <li>Củng cố ổn định chính trị - xã hội</li>
+          <li>Thể hiện bản chất CNXH Việt Nam</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vai trò của liên minh giai cấp -->
+  <div class="content-section">
+    <h2 class="section-subtitle">
+      <i class="fas fa-handshake"></i> Vai trò của liên minh giai cấp
+    </h2>
+
+    <div class="responsive-cards-grid">
+      <div class="card">
+        <h3>
+          <i class="fas fa-shield-alt" style="color: #e74c3c"></i> Xây dựng cơ
+          sở kinh tế CNXH
+        </h3>
+        <p>
+          Liên minh giữa các giai cấp lao động tạo nền tảng vật chất - kỹ thuật
+          cần thiết cho CNXH.
+        </p>
+        <div class="highlight">
+          <strong>Cụ thể:</strong> Hợp tác giữa công nghiệp, nông nghiệp, dịch
+          vụ, KH&CN
+        </div>
+        <ul>
+          <li>Công nhân xây dựng cơ sở hạ tầng</li>
+          <li>Nông dân cung cấp lương thực, nguyên liệu</li>
+          <li>Trí thức phát triển công nghệ</li>
+          <li>Doanh nhân thúc đẩy sản xuất</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>
+          <i class="fas fa-balance-scale" style="color: #27ae60"></i> Củng cố
+          chế độ chính trị CNXH
+        </h3>
+        <p>
+          Tạo lực lượng chính trị - xã hội to lớn, đảm bảo ổn định và củng cố
+          chế độ CNXH.
+        </p>
+        <div class="highlight">
+          <strong>Cụ thể:</strong> Tăng cường đồng thuận xã hội, vượt qua mâu
+          thuẫn
+        </div>
+        <ul>
+          <li>Duy trì vai trò lãnh đạo của giai cấp công nhân</li>
+          <li>Củng cố liên minh với nông dân</li>
+          <li>Phát huy trí tuệ của tầng lớp trí thức</li>
+          <li>Điều hòa lợi ích các tầng lớp</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>
+          <i class="fas fa-rocket" style="color: #3498db"></i> Thúc đẩy công
+          nghiệp hóa, hiện đại hóa
+        </h3>
+        <p>
+          Hỗ trợ chuyển dịch từ nền sản xuất nhỏ nông nghiệp sang sản xuất hàng
+          hóa lớn.
+        </p>
+        <div class="highlight">
+          <strong>Kết quả:</strong> Phát triển công nghiệp, dịch vụ và KH&CN
+        </div>
+        <ul>
+          <li>Chuyển dịch cơ cấu kinh tế tích cực</li>
+          <li>Nâng cao năng suất lao động</li>
+          <li>Phát triển công nghệ cao</li>
+          <li>Hội nhập kinh tế quốc tế</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>
+          <i class="fas fa-heart" style="color: #f39c12"></i> Giải quyết mâu
+          thuẫn, tạo đồng thuận
+        </h3>
+        <p>
+          Phát hiện và giải quyết mâu thuẫn lợi ích, tạo đồng thuận và động lực
+          phát triển.
+        </p>
+        <div class="highlight">
+          <strong>Phương thức:</strong> Đối thoại, thương lượng, chính sách hài
+          hòa
+        </div>
+        <ul>
+          <li>Cân bằng lợi ích các giai cấp</li>
+          <li>Giảm thiểu đối kháng xã hội</li>
+          <li>Tăng cường đoàn kết dân tộc</li>
+          <li>Phát huy dân chủ CNXH</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tại sao phải thực hiện liên minh giai cấp -->
+  <div class="content-section">
+    <h2 class="section-subtitle">
+      <i class="fas fa-question-circle"></i> Tại sao phải thực hiện liên minh
+      giai cấp?
+    </h2>
+
+    <div
+      class="card hero"
+      style="
+        margin: 2rem 0;
+        padding: 3rem;
+        background: linear-gradient(
+            135deg,
+            rgba(155, 89, 182, 0.25),
+            rgba(142, 68, 173, 0.25)
+          ),
+          url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+        background-size: cover;
+        box-shadow: inset 0 0 0 1000px rgba(255, 255, 255, 0.85);
+      "
+    >
+      <h3
+        style="
+          color: var(--primary-red);
+          margin-bottom: 1.5rem;
+          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+        "
+      >
+        <i class="fas fa-lightbulb"></i>
+        Yêu cầu khách quan của thời kỳ quá độ
+      </h3>
+      <p
+        style="
+          font-size: 1.2rem;
+          color: #222;
+          font-weight: 500;
+          line-height: 1.55;
+          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        "
+      >
+        Trong thời kỳ quá độ lên CNXH, việc thực hiện liên minh giai cấp là yếu
+        tố tất yếu nhằm đáp ứng nhu cầu và lợi ích của các chủ thể, đồng thời
+        tạo động lực thực hiện thắng lợi mục tiêu CNXH.
+      </p>
+    </div>
+
+    <div class="responsive-cards-grid">
+      <div class="card">
+        <h3>
+          <i class="fas fa-book-open"></i> Yêu cầu từ lý thuyết Marx-Lenin
+        </h3>
+        <p><strong>Cơ sở lý thuyết:</strong></p>
+        <ul>
+          <li>Theo Marx-Lenin, xã hội vẫn tồn tại các giai cấp khác nhau</li>
+          <li>Liên minh là công cụ tập hợp lực lượng</li>
+          <li>Lenin nhấn mạnh liên minh công-nông</li>
+          <li>Cách mạng Tháng Mười Nga (1917) là minh chứng</li>
+        </ul>
+        <div class="highlight">
+          Việt Nam: Nước nông nghiệp lạc hậu cần huy động toàn bộ lực lượng
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-chart-line"></i> Huy động sức mạnh tổng hợp</h3>
+        <p><strong>Yêu cầu phát triển:</strong></p>
+        <ul>
+          <li>Chuyển dịch từ sản xuất nhỏ sang sản xuất lớn</li>
+          <li>Công nghiệp hóa, hiện đại hóa</li>
+          <li>Phối hợp hiệu quả các lĩnh vực</li>
+          <li>Tạo cơ sở vật chất cho CNXH</li>
+        </ul>
+        <div class="highlight">
+          <strong>Thành tựu VN:</strong> GDP tăng 6-7%/năm nhờ liên minh
+          công-nông-trí thức
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-flag"></i> Củng cố chế độ và đoàn kết dân tộc</h3>
+        <p><strong>Ý nghĩa chính trị:</strong></p>
+        <ul>
+          <li>Mâu thuẫn giai cấp vẫn tồn tại</li>
+          <li>Cần điều hòa mâu thuẫn, tạo đồng thuận</li>
+          <li>Củng cố chế độ CNXH</li>
+          <li>Xây dựng Nhà nước pháp quyền</li>
+        </ul>
+        <div class="highlight">
+          <strong>VN:</strong> Mặt trận Tổ quốc là hình thức liên minh cụ thể
+        </div>
+      </div>
+
+      <div class="card">
+        <h3><i class="fas fa-users-cog"></i> Đáp ứng lợi ích các giai cấp</h3>
+        <p><strong>Hài hòa lợi ích:</strong></p>
+        <ul>
+          <li>Xuất phát từ nhu cầu chung</li>
+          <li>Lợi ích từng nhóm được bảo vệ</li>
+          <li>Hướng tới mục tiêu CNXH</li>
+          <li>Tạo động lực phát triển</li>
+        </ul>
+        <div class="highlight">
+          <strong>Chính sách VN:</strong> Luật Lao động, Nông thôn mới, Giáo dục
+          4.0
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mô hình liên minh ở Việt Nam và thế giới -->
+  <div class="content-section">
+    <h2 class="section-subtitle">
+      <i class="fas fa-globe"></i> Mô hình liên minh giai cấp trong thế giới
+    </h2>
+
+    <div
+      class="flags-list"
+      style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px"
+    >
+      <img
+        src="https://flagpedia.net/data/flags/w1160/vn.webp"
+        alt="Việt Nam"
+        class="flag"
+        data-country="vietnam"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/cn.webp"
+        alt="Trung Quốc"
+        class="flag"
+        data-country="china"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/cu.webp"
+        alt="Cuba"
+        class="flag"
+        data-country="cuba"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/kp.webp"
+        alt="Triều Tiên"
+        class="flag"
+        data-country="northkorea"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/la.webp"
+        alt="Lào"
+        class="flag"
+        data-country="laos"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/us.webp"
+        alt="Mỹ"
+        class="flag"
+        data-country="usa"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/gb.webp"
+        alt="Anh"
+        class="flag"
+        data-country="uk"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/fr.webp"
+        alt="Pháp"
+        class="flag"
+        data-country="france"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+      <img
+        src="https://flagpedia.net/data/flags/w1160/jp.webp"
+        alt="Nhật Bản"
+        class="flag"
+        data-country="japan"
+        style="cursor: pointer; width: 48px; height: 32px"
+      />
+    </div>
+
+    <div id="countryModal" class="country-modal">
+      <div class="country-modal-content">
+        <span
+          class="country-modal-close"
+          style="
+            position: absolute;
+            top: 10px;
+            right: 18px;
+            cursor: pointer;
+            font-size: 2rem;
+          "
+          >&times;</span
+        >
+        <h3 id="modalCountryTitle"></h3>
+        <div id="modalContent">
+          <p id="modalModel"></p>
+          <p id="modalClasses"></p>
+          <p id="modalLeadership"></p>
+          <p id="modalGoals"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kết luận -->
+  <div class="content-section">
+    <h2 class="section-subtitle">
+      <i class="fas fa-flag-checkered"></i> Ý nghĩa và triển vọng
+    </h2>
+
+    <div
+      class="card"
+      style="
+        text-align: center;
+        padding: 2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(155, 89, 182, 0.1),
+          rgba(52, 152, 219, 0.1)
+        );
+        border-radius: 16px;
+      "
+    >
+      <h3 style="color: var(--primary-red); margin-bottom: 1.5rem">
+        <i class="fas fa-star"></i>
+        Liên minh giai cấp - Chìa khóa thành công
+      </h3>
+      <p
+        style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-color)"
+      >
+        Liên minh giai cấp là nền tảng vững chắc để Việt Nam tiếp tục xây dựng
+        thành công chủ nghĩa xã hội, hướng tới mục tiêu dân giàu, nước mạnh, dân
+        chủ, công bằng, văn minh.
+      </p>
+
+      <div class="quote" style="color: var(--text-color)">
+        "Đoàn kết, đoàn kết, đại đoàn kết - Thành công, thành công, đại thành
+        công"
+        <br /><em style="color: var(--primary-red); font-weight: bold"
+          >- Chủ tịch Hồ Chí Minh</em
+        >
+      </div>
+
+      <div
+        style="
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          margin-top: 2rem;
+        "
+      >
+        <a
+          href="#"
+          class="btn btn-success"
+          onclick="showSection('practice')"
+          style="padding: 1rem 1.5rem"
+        >
+          <i class="fas fa-flag"></i> Xem lại Thực tiễn VN
+        </a>
+        <a
+          href="#"
+          class="btn btn-warning"
+          onclick="showSection('theory')"
+          style="padding: 1rem 1.5rem"
+        >
+          <i class="fas fa-book"></i> Ôn lại Lý thuyết
+        </a>
+        <a
+          href="#"
+          class="btn"
+          onclick="showSection('quiz')"
+          style="padding: 1rem 1.5rem"
+        >
+          <i class="fas fa-brain"></i> Kiểm tra toàn bộ kiến thức
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

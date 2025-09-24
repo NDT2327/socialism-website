@@ -20,4 +20,28 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.borderRadius = '';
         });
     });
+
+    // Mở popup khi click vào card
+    document.querySelectorAll('.open-popup').forEach(card => {
+        card.addEventListener('click', () => {
+            const popupId = card.getAttribute('data-popup');
+            document.getElementById(popupId).style.display = 'block';
+        });
+    });
+
+    // Đóng popup khi click vào dấu X
+    document.querySelectorAll('.popup .close').forEach(closeBtn => {
+        closeBtn.addEventListener('click', () => {
+            closeBtn.closest('.popup').style.display = 'none';
+        });
+    });
+
+    // Đóng popup khi click bên ngoài popup-content
+    window.addEventListener('click', (event) => {
+        document.querySelectorAll('.popup').forEach(popup => {
+            if (event.target === popup) {
+                popup.style.display = 'none';
+            }
+        });
+    });
 });
