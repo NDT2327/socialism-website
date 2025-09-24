@@ -1,0 +1,593 @@
+<style>
+    /* Modal styles */
+    .modal {
+        display: none;
+        /* Ẩn modal mặc định */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background: rgba(0, 0, 0, 0.4);
+        transition: opacity 0.2s;
+    }
+
+    .modal .modal-content {
+        background: #fff;
+        margin: 5% auto;
+        padding: 2rem;
+        border-radius: 12px;
+        max-width: 600px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+        position: relative;
+    }
+
+    .modal .close {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        font-size: 2rem;
+        color: #667eea;
+        cursor: pointer;
+        font-weight: bold;
+        transition: color 0.2s;
+    }
+
+    .modal .close:hover {
+        color: #764ba2;
+    }
+
+    /* AI Usage Styles */
+    .ai-tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .ai-tool-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ai-tool-card:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .ai-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+        height: 200px;
+        vertical-align: middle;
+    }
+
+    .ai-tool-card h3 {
+        color: #667eea;
+        margin: 0.5rem 0;
+        font-size: 1.2rem;
+    }
+
+    .ai-tool-card p {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0.5rem 0;
+    }
+
+    .ai-badge {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        display: inline-block;
+        margin-top: 0.5rem;
+    }
+
+    .ai-usage-areas {
+        display: grid;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .usage-card {
+        background: white;
+        border-radius: 15px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        border-left: 5px solid #667eea;
+        transition: transform 0.3s ease;
+    }
+
+    .usage-card:hover {
+        transform: translateX(5px);
+    }
+
+    .usage-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .usage-card h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+    }
+
+    .ai-contribution {
+        background: #f8f9ff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .ai-contribution strong {
+        color: #667eea;
+    }
+
+    .prompt-examples {
+        margin: 2rem 0;
+    }
+
+    .prompt-category {
+        margin-bottom: 2rem;
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    .prompt-category h3 {
+        color: #667eea;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #eee;
+    }
+
+    .prompt-item {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8f9ff;
+        border-left: 4px solid #667eea;
+        border-radius: 8px;
+    }
+
+    .prompt-text {
+        font-style: italic;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .principles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .principle-item {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+    }
+
+    .principle-item:hover {
+        transform: translateY(-3px);
+    }
+
+    .principle-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: block;
+    }
+
+    .principle-item h4 {
+        color: #667eea;
+        margin-bottom: 0.5rem;
+    }
+
+    .principle-item p {
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    /* Enhanced Modal for AI tools */
+    .ai-modal .modal-content {
+        max-width: 800px;
+    }
+
+    .ai-tool-header {
+        text-align: center;
+        padding: 1.5rem 0;
+        border-bottom: 2px solid #eee;
+        margin-bottom: 2rem;
+    }
+
+    .ai-tool-large-icon {
+        font-size: 4rem;
+        margin-bottom: 1rem;
+    }
+
+    .usage-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .usage-detail-item {
+        background: #f8f9ff;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+
+    .usage-detail-item h4 {
+        color: #667eea;
+        margin: 0 0 0.5rem 0;
+        font-size: 1rem;
+    }
+
+    .example-prompts {
+        background: linear-gradient(135deg, #4ade80, #22c55e);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+    }
+
+    .example-prompts h4 {
+        margin-bottom: 1rem;
+    }
+
+    .example-prompts ul {
+        margin: 0;
+        padding-left: 1.5rem;
+    }
+
+    .example-prompts li {
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+</style>
+
+<div id="ai-usage" class="page-section">
+    <div class="content-section">
+        <h2>🤖 Minh bạch việc sử dụng AI trong phát triển Website</h2>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem;">
+            Trong quá trình phát triển website này, nhóm đã sử dụng AI một cách minh bạch và có trách nhiệm để hỗ trợ
+            nghiên cứu, phát triển và trình bày nội dung học thuật.
+        </p>
+
+        <div class="ai-tools-grid">
+            <div class="ai-tool-card" onclick="openModal('modal-notebookllm')">
+                <img class="ai-icon" src="assets\NotebookLM_logo.svg.png" style="height: 16px;;">
+                <h3>NotebookLLM</h3>
+                <p>Google</p>
+                <span class="ai-badge">Tóm tắt tài liệu</span>
+            </div>
+
+            <div class="ai-tool-card" onclick="openModal('modal-grok')">
+                <img class="ai-icon" src="assets\icons8-grok-48.png" alt="Grok xAI" style="height:48px;">
+                <h3>Grok</h3>
+                <p>xAI</p>
+                <span class="ai-badge">Tìm kiếm & Phân tích</span>
+            </div>
+
+            <div class="ai-tool-card" onclick="openModal('modal-chatgpt')">
+                <img class="ai-icon" src="assets\icons8-chatgpt-50.png" alt="ChatGPT OpenAI" style="height:48px;">
+                <h3>ChatGPT</h3>
+                <p>OpenAI</p>
+                <span class="ai-badge">Code & Nội dung</span>
+            </div>
+
+            <div class="ai-tool-card" onclick="openModal('modal-claude')">
+                <img class="ai-icon" src="assets\icons8-claude-48.png" alt="Claude" style="height:48px;">
+                <h3>Claude</h3>
+                <p>Anthropic</p>
+                <span class="ai-badge">Giao diện Web</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>🎯 Các lĩnh vực sử dụng AI</h2>
+
+        <div class="ai-usage-areas">
+            <div class="usage-card">
+                <div class="usage-icon">🏗️</div>
+                <h3>Gợi ý Cấu trúc Website</h3>
+                <p>AI giúp đề xuất khung tổng thể với 5 trang chính và các yếu tố tương tác như timeline, biểu đồ
+                    Chart.js, và modal popup. Nhóm chỉnh sửa để phù hợp với nội dung học thuật và đảm bảo tính
+                    responsive.</p>
+                <div class="ai-contribution">
+                    <strong>Đóng góp:</strong> Cấu trúc HTML, CSS Grid layout, JavaScript tương tác
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-icon">💻</div>
+                <h3>Hỗ trợ Viết Code</h3>
+                <p>AI cung cấp code mẫu cho HTML/CSS/JS, đặc biệt là phần tương tác như biểu đồ thay đổi cơ cấu giai cấp
+                    và bảng so sánh quốc tế. Nhóm sử dụng để học hỏi và tối ưu hóa.</p>
+                <div class="ai-contribution">
+                    <strong>Đóng góp:</strong> Chart.js implementation, Modal systems, Responsive design
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-icon">📖</div>
+                <h3>Tổng hợp Nội dung</h3>
+                <p>AI hỗ trợ tổng hợp kiến thức từ lý thuyết Marx-Lenin, văn kiện Đảng CSVN và thực tiễn Việt Nam. Nhóm
+                    bổ sung dẫn chứng từ nguồn chính thống để đảm bảo tính chính xác.</p>
+                <div class="ai-contribution">
+                    <strong>Đóng góp:</strong> Cấu trúc logic, phân tích vai trò liên minh giai cấp
+                </div>
+            </div>
+
+            <div class="usage-card">
+                <div class="usage-icon">🔗</div>
+                <h3>Hỗ trợ Tìm kiếm Nguồn</h3>
+                <p>AI gợi ý nguồn đáng tin cậy và cách tìm kiếm hiệu quả. Nhóm sử dụng để thu thập dữ liệu thống kê, sau
+                    đó kiểm chứng thủ công để đảm bảo độ chính xác.</p>
+                <div class="ai-contribution">
+                    <strong>Đóng góp:</strong> Gợi ý search operators, nguồn chính thống (GSO, Đảng)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>📝 Các Prompt chính đã sử dụng</h2>
+
+        <div class="prompt-examples">
+            <div class="prompt-category">
+                <h3>🔍 Với Grok (xAI)</h3>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Hướng dẫn chi tiết cách thực hiện website tương tác phân tích liên minh giai cấp ở Việt Nam:
+                        cấu trúc HTML, code JS cho timeline thay đổi giai cấp từ 1990-2025, và minh bạch AI."
+                    </div>
+                </div>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Phân tích vai trò liên minh giai cấp trong xây dựng CNXH dựa trên đoạn trích từ giáo trình. Làm
+                        rõ lý do phải thực hiện liên minh trong thời kỳ quá độ."
+                    </div>
+                </div>
+            </div>
+
+            <div class="prompt-category">
+                <h3>💬 Với ChatGPT (OpenAI)</h3>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Gợi ý code HTML/CSS/JS cho bảng so sánh tương tác về liên minh giai cấp Việt Nam vs. thế giới,
+                        với dữ liệu từ văn kiện Đảng."
+                    </div>
+                </div>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Dàn ý thuyết trình chi tiết về cơ cấu xã hội - giai cấp ở Việt Nam, dựa trên phân tích thực
+                        tiễn 2025 từ GSO."
+                    </div>
+                </div>
+            </div>
+
+            <div class="prompt-category">
+                <h3>🎨 Với Claude (Anthropic)</h3>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Gợi ý thiết kế giao diện website responsive: Trang chủ, tương tác timeline Chart.js, và footer
+                        minh bạch AI."
+                    </div>
+                </div>
+                <div class="prompt-item">
+                    <div class="prompt-text">
+                        "Dựa vào nội dung trên hãy trình bày giúp tôi cấu trúc trang web phù hợp về cơ cấu xã hội và
+                        giai cấp trong chủ nghĩa xã hội."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-section">
+        <h2>⚖️ Nguyên tắc sử dụng AI có trách nhiệm</h2>
+
+        <div class="principles-grid">
+            <div class="principle-item">
+                <div class="principle-icon">✅</div>
+                <h4>Minh bạch</h4>
+                <p>Công khai rõ ràng việc sử dụng AI trong từng bước phát triển</p>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-icon">🔍</div>
+                <h4>Kiểm chứng</h4>
+                <p>Tất cả thông tin từ AI đều được kiểm tra và xác minh từ nguồn chính thống</p>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-icon">📚</div>
+                <h4>Học thuật</h4>
+                <p>Sử dụng AI như công cụ hỗ trợ, không thay thế tư duy phản biện và nghiên cứu độc lập</p>
+            </div>
+
+            <div class="principle-item">
+                <div class="principle-icon">🎯</div>
+                <h4>Chính xác</h4>
+                <p>Ưu tiên độ chính xác và trích dẫn đúng nguồn hơn là tốc độ hoàn thành</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</main>
+
+<!-- MODALS -->
+<div id="modal-demographic" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Cơ cấu Xã hội - Dân cư</h2>
+        <p>Cơ cấu xã hội - dân cư phân chia xã hội theo các tiêu chí nhân khẩu học như độ tuổi, giới tính, quy mô dân
+            số, phân bố địa lý. Đây là cơ sở để xác định nguồn lao động, chính sách xã hội và phát triển kinh tế.</p>
+    </div>
+</div>
+
+<!-- AI TOOL MODALS -->
+<div id="modal-notebookllm" class="modal ai-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="ai-tool-header">
+                <img class="ai-tool-large-icon" src="assets\NotebookLM_logo.svg.png" style="height: 16px;;">
+            <h2>NotebookLLM - Google</h2>
+            <p><strong>Chức năng:</strong> Tóm tắt tài liệu và sắp xếp nội dung</p>
+        </div>
+
+        <div class="usage-details">
+            <div class="usage-detail-item">
+                <h4>Nhiệm vụ chính</h4>
+                <p>Tóm tắt văn kiện Đại hội XIII về liên minh giai cấp</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Đầu vào</h4>
+                <p>PDF văn kiện Đảng, báo cáo GSO, tài liệu Marx-Lenin</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Đầu ra</h4>
+                <p>Tóm tắt có cấu trúc, dẫn chứng cụ thể</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Kiểm chứng</h4>
+                <p>Cross-check với nguồn gốc, trích dẫn chính xác</p>
+            </div>
+        </div>
+
+        <div class="example-prompts">
+            <h4>🎯 Ví dụ prompt đã sử dụng:</h4>
+            <ul>
+                <li>"Tóm tắt văn kiện Đại hội XIII Đảng CSVN về liên minh giai cấp, tập trung vào thực tiễn Việt Nam
+                    2025"</li>
+                <li>"Phân tích sự thay đổi cơ cấu giai cấp từ báo cáo GSO 2023-2025"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-grok" class="modal ai-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="ai-tool-header">
+                <img class="ai-tool-large-icon" src="assets\icons8-grok-48.png" alt="Grok xAI" style="height:48px;">
+            <h2>Grok - xAI</h2>
+            <p><strong>Chức năng:</strong> Tìm kiếm thông tin và phân tích chuyên sâu</p>
+        </div>
+
+        <div class="usage-details">
+            <div class="usage-detail-item">
+                <h4>Nhiệm vụ chính</h4>
+                <p>Phân tích vai trò liên minh giai cấp theo Marx-Lenin</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Ưu điểm</h4>
+                <p>Real-time search, phân tích logic mạnh</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Đầu ra</h4>
+                <p>Bảng so sánh mô hình liên minh các nước</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Ứng dụng</h4>
+                <p>Lập luận học thuật, dẫn chứng lịch sử</p>
+            </div>
+        </div>
+
+        <div class="example-prompts">
+            <h4>🎯 Ví dụ prompt đã sử dụng:</h4>
+            <ul>
+                <li>"Lập bảng so sánh mô hình liên minh giai cấp ở Việt Nam với Trung Quốc, Liên Xô cũ, Mỹ và Anh"</li>
+                <li>"Phân tích lý do phải thực hiện liên minh giai cấp trong thời kỳ quá độ lên CNXH"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-chatgpt" class="modal ai-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="ai-tool-header">
+                <img class="ai-tool-large-icon" src="assets\icons8-chatgpt-50.png" alt="ChatGPT OpenAI" style="height:48px;">
+            <h2>ChatGPT - OpenAI</h2>
+            <p><strong>Chức năng:</strong> Hỗ trợ code và phát triển nội dung chi tiết</p>
+        </div>
+
+        <div class="usage-details">
+            <div class="usage-detail-item">
+                <h4>Nhiệm vụ chính</h4>
+                <p>Tạo code HTML/CSS/JS cho website tương tác</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Tối ưu</h4>
+                <p>Code clean, comments rõ ràng</p>
+            </div>
+        </div>
+
+        <div class="example-prompts">
+            <h4>🎯 Ví dụ prompt đã sử dụng:</h4>
+            <ul>
+                <li>"Gợi ý code HTML/CSS/JS cho bảng so sánh tương tác về liên minh giai cấp"</li>
+                <li>"Dàn ý thuyết trình chi tiết về cơ cấu xã hội - giai cấp ở Việt Nam với slide PowerPoint"</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div id="modal-claude" class="modal ai-modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="ai-tool-header">
+                <img class="ai-tool-large-icon" src="assets\icons8-claude-48.png" alt="Claude" style="height:48px;">
+            <h2>Claude - Anthropic</h2>
+            <p><strong>Chức năng:</strong> Thiết kế giao diện và cấu trúc website</p>
+        </div>
+
+        <div class="usage-details">
+            <div class="usage-detail-item">
+                <h4>Nhiệm vụ chính</h4>
+                <p>Thiết kế UI/UX responsive, cấu trúc trang web</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Đặc điểm</h4>
+                <p>Tư duy design thinking, user experience</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Đầu ra</h4>
+                <p>Website hoàn chỉnh với 6 trang tương tác</p>
+            </div>
+            <div class="usage-detail-item">
+                <h4>Công nghệ</h4>
+                <p>Modern CSS, JavaScript ES6, Chart.js integration</p>
+            </div>
+        </div>
+
+        <div class="example-prompts">
+            <h4>🎯 Ví dụ prompt đã sử dụng:</h4>
+            <ul>
+                <li>"Dựa vào nội dung trên hãy trình bày giúp tôi cấu trúc trang web phù hợp"</li>
+                <li>"Tạo trang so sánh với thiết kế lá cờ quốc gia tương tác"</li>
+            </ul>
+        </div>
+    </div>
+</div>
